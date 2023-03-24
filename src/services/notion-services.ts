@@ -46,7 +46,7 @@ export default class NotionService {
         property: "Slug",
         formula: {
           string: {
-            equals: "slug",
+            equals: slug,
           },
         },
         // add option for tags in the future
