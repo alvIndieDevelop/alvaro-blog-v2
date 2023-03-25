@@ -43,10 +43,10 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="max-w-3xl mx-auto">
+        <div className="lg:max-w-3xl max-w-xs mx-auto">
           <h2 className="text-3xl font-bold mt-8">Acerca de mi</h2>
           <div className="text-xl text-white my-8">
-            <div className="flex gap-2 justify-center items-center">
+            <div className="flex flex-col lg:flex-row gap-2 justify-center items-center">
               <Image
                 src="/media/Photo01.jpg"
                 alt="Foto de perfil"

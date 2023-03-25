@@ -1,48 +1,82 @@
-import skills from "@/utils/skills";
+import React from "react";
+import Image from "next/image";
 import SkillsView from "@/components/SkillsView";
+import skills, { totalSkillPoints, totalSkills } from "@/utils/skills";
+import {
+  getCurrentAge,
+  getCurrentExperience,
+  getPercentOfCurrentYear,
+} from "@/utils";
+import { BsFillHeartPulseFill } from "react-icons/bs";
+import { GiWaterDrop } from "react-icons/gi";
 
 export default function Resumen() {
-  const name = "Alvaro Martin Caballero";
-  const className = "programador";
-  const level = 30;
-  const maxHp = 100;
-  const currentHp = 100;
-  const maxMp = 100;
-  const currentMp = 100;
-  const currentExp = 30;
-  const nextLevelExp = 100;
+  const currAge = getCurrentAge();
+  const currAgeExp = getCurrentExperience();
+  const currExp = getPercentOfCurrentYear();
+
+  const stats = [
+    {
+      type: "hp",
+      value: 100,
+      icon: <BsFillHeartPulseFill fontSize={26} />,
+      color: "text-red-500",
+    },
+    {
+      type: "mana",
+      value: 100,
+      icon: <GiWaterDrop fontSize={26} />,
+      color: "text-blue-500",
+    },
+    {
+      type: "exp",
+      value: currExp,
+      icon: "EXP",
+      color: "text-yellow-500",
+    },
+  ];
+
   return (
-    <main className="my-16">
-      <div className="max-w-3xl mx-auto">
-        <div className="card shadow-lg mb-4 p-4 bg-slate-50">
-          <div className="card-header">
-            <h2 className="card-title">{name}</h2>
-            <p className="text-gray-500">
-              Level {level} {className}
-            </p>
-          </div>
+    <main className="lg:max-w-3xl max-w-xs mx-auto my-16">
+      <div className=" my-6">
+        <div className="card lg:card-side bg-neutral shadow-xl">
+          <figure className="bg-neutral-900">
+            <Image
+              src={"/media/Photo01.jpg"}
+              alt={"Photo Alvaro Martin Caballero"}
+              width={200}
+              height={200}
+            />
+          </figure>
           <div className="card-body">
-            <div className="mb-4">
-              <progress
-                className="progress progress-error w-100"
-                value={currentHp}
-                max="100"
-              ></progress>
-              <progress
-                className="progress progress-info w-100"
-                value={currentMp}
-                max="100"
-              ></progress>
-              <progress
-                className="progress progress-warning w-100"
-                value={currentExp}
-                max="100"
-              ></progress>
+            <div className="grid lg:grid-cols-2 grid-cols-1">
+              <p>Alvaro Martin Caballero</p>
+              <p>Nivel: {currAge}</p>
+              <p>Clase: Programador</p>
+              <p>nivel de clase: {currAgeExp}</p>
+              <p>puntos: {totalSkillPoints}</p>
+              <p>habilidades: {totalSkills}</p>
+              <p>Gremio: LHC</p>
+            </div>
+            <div className="flex justify-between mt-2">
+              {stats.map((stat) => (
+                <div
+                  key={stat.type}
+                  className={`radial-progress ${stat.color}`}
+                  style={
+                    {
+                      "--value": stat.value,
+                    } as React.CSSProperties
+                  }
+                >
+                  {stat.icon}
+                </div>
+              ))}
             </div>
           </div>
         </div>
       </div>
-      <div className="max-w-3xl mx-auto">
+      <div className="mx-auto">
         <SkillsView skills={skills} />
       </div>
     </main>

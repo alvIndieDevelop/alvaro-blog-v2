@@ -13,26 +13,31 @@ export default class NotionService {
 
   async getPublishedBlogPosts(): Promise<BlogPost[]> {
     const database = process.env.NOTION_BLOG_DATABASE_ID ?? "";
-    // list of blog posts
-    const response = await this.client.databases.query({
-      database_id: database,
-      filter: {
-        property: "Published",
-        checkbox: {
-          equals: true,
-        },
-      },
-      sorts: [
-        {
-          property: "Updated",
-          direction: "descending",
-        },
-      ],
-    });
 
-    return response.results.map((res) => {
-      return NotionService.pageToPostTransformer(res);
-    });
+    try {
+      // list of blog posts
+      const response = await this.client.databases.query({
+        database_id: database,
+        filter: {
+          property: "Published",
+          checkbox: {
+            equals: true,
+          },
+        },
+        sorts: [
+          {
+            property: "Updated",
+            direction: "descending",
+          },
+        ],
+      });
+
+      return response.results.map((res) => {
+        return NotionService.pageToPostTransformer(res);
+      });
+    } catch (error: any) {
+      throw new Error(error.message);
+    }
   }
 
   async getSingleBlogPost(slug: string): Promise<PostPage> {
@@ -40,40 +45,44 @@ export default class NotionService {
 
     const database = process.env.NOTION_BLOG_DATABASE_ID ?? "";
     // list of blog posts
-    const response = await this.client.databases.query({
-      database_id: database,
-      filter: {
-        property: "Slug",
-        formula: {
-          string: {
-            equals: slug,
+    try {
+      const response = await this.client.databases.query({
+        database_id: database,
+        filter: {
+          property: "Slug",
+          formula: {
+            string: {
+              equals: slug,
+            },
           },
+          // add option for tags in the future
         },
-        // add option for tags in the future
-      },
-      sorts: [
-        {
-          property: "Updated",
-          direction: "descending",
-        },
-      ],
-    });
+        sorts: [
+          {
+            property: "Updated",
+            direction: "descending",
+          },
+        ],
+      });
 
-    if (!response.results[0]) {
-      throw "No results available";
+      if (!response.results[0]) {
+        throw new Error("No results available");
+      }
+
+      // grab page from notion
+      const page = response.results[0];
+
+      const mdBlocks = await this.n2m.pageToMarkdown(page.id);
+      markdown = this.n2m.toMarkdownString(mdBlocks);
+      post = NotionService.pageToPostTransformer(page);
+
+      return {
+        post,
+        markdown,
+      };
+    } catch (error: any) {
+      throw new Error(error.message);
     }
-
-    // grab page from notion
-    const page = response.results[0];
-
-    const mdBlocks = await this.n2m.pageToMarkdown(page.id);
-    markdown = this.n2m.toMarkdownString(mdBlocks);
-    post = NotionService.pageToPostTransformer(page);
-
-    return {
-      post,
-      markdown,
-    };
   }
 
   private static pageToPostTransformer(page: any): BlogPost {

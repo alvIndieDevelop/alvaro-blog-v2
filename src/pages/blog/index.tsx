@@ -23,14 +23,26 @@ export default function blog({
           content={"Lista de mis articulos"}
         />
       </Head>
-      <h1>Articulos</h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        {posts.map((post: BlogPost) => (
-          <div key={post.id} className="">
-            <BlogCard key={post.id} post={post} />
+
+      <main className="py-24 sm:py-32">
+        <header className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="mx-auto max-w-2xl lg:mx-0">
+            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+              Mis articulos!
+            </h2>
+            <p className="mt-2 text-lg leading-8">
+              Learn how to grow your business with our expert advice.
+            </p>
           </div>
-        ))}
-      </div>
+        </header>
+        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 border-t border-gray-200 pt-10 px-8 sm:mt-16 sm:pt-16 lg:mx-auto lg:max-w-full lg:grid-cols-3">
+          {posts.map((post: BlogPost) => (
+            <div key={post.id}>
+              <BlogCard key={post.id} post={post} />
+            </div>
+          ))}
+        </div>
+      </main>
     </>
   );
 }
