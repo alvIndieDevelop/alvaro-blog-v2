@@ -55,20 +55,19 @@ const backendDevelopment: Skill[] = [
 ];
 
 const databases: Skill[] = [
-  { name: "mongoDB", point: 6, icon: "" },
+  { name: "mongoDB", point: 6, icon: "/logoIcons/mongodb.png" },
   {
     name: "MySQL",
     point: 5,
-    icon: "",
+    icon: "/logoIcons/mysql.png",
   },
 ];
 
 const devOps: Skill[] = [
   { name: "Linux", point: 6, icon: "/logoIcons/linux.png" },
   { name: "Git", point: 6, icon: "/logoIcons/git.png" },
-  { name: "AWS", point: 4, icon: "" },
-  { name: "Netlify", point: 6, icon: "" },
-  { name: "Firebase", point: 4, icon: "" },
+  { name: "AWS", point: 4, icon: "/logoIcons/aws.png" },
+  { name: "Docker", point: 5, icon: "/logoIcons/docker.png" },
 ];
 const gameDevelopment: Skill[] = [
   { name: "Unity3D", point: 7, icon: "/logoIcons/unity3d.png" },
