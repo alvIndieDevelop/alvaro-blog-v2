@@ -31,16 +31,24 @@ export default function blog({
               Mis articulos!
             </h2>
             <p className="mt-2 text-lg leading-8">
-              Learn how to grow your business with our expert advice.
+              Aqui comparto mis ideas, articulos y mas!
             </p>
           </div>
         </header>
-        <div className="mx-auto mt-10 grid max-w-2xl grid-cols-1 gap-y-16 gap-x-8 border-t border-gray-200 pt-10 px-8 sm:mt-16 sm:pt-16 lg:mx-auto lg:max-w-full lg:grid-cols-3">
-          {posts.map((post: BlogPost) => (
-            <div key={post.id}>
-              <BlogCard key={post.id} post={post} />
+        <div className="mx-auto mt-10 max-w-2xl border-t border-gray-200 pt-10 px-8 sm:mt-16 sm:pt-16 lg:mx-auto lg:max-w-full">
+          {posts.length > 0 ? (
+            <div className="grid grid-cols-1 gap-y-16 gap-x-8 lg:grid-cols-3">
+              {posts.map((post: BlogPost) => (
+                <div key={post.id}>
+                  <BlogCard key={post.id} post={post} />
+                </div>
+              ))}
             </div>
-          ))}
+          ) : (
+            <div className="flex justify-center">
+              <h2 className="text-lg">No hay articulos disponibles.</h2>
+            </div>
+          )}
         </div>
       </main>
     </>
@@ -49,7 +57,12 @@ export default function blog({
 
 export const getStaticProps: GetStaticProps = async (context) => {
   const notionServices = new NotionService();
-  const posts = await notionServices.getPublishedBlogPosts();
+  let posts: BlogPost[];
+  try {
+    posts = await notionServices.getPublishedBlogPosts();
+  } catch (error) {
+    posts = [];
+  }
 
   return {
     props: {

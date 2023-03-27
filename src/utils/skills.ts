@@ -16,6 +16,11 @@ const pasiveSkills: Skill[] = [
     point: 10,
     icon: "/logoIcons/quicklearning.png",
   },
+  {
+    name: "Comunicación",
+    point: 6,
+    icon: "/logoIcons/quicklearning.png",
+  },
 ];
 
 const basicSkills: Skill[] = [
@@ -24,7 +29,7 @@ const basicSkills: Skill[] = [
   { name: "Python", point: 5, icon: "/logoIcons/python.png" },
   { name: "C#", point: 4, icon: "/logoIcons/csharp.png" },
   { name: "Javascript", point: 8, icon: "/logoIcons/javascript.png" },
-  { name: "Typescript", point: 5, icon: "/logoIcons/typescript.png" },
+  { name: "Typescript", point: 6, icon: "/logoIcons/typescript.png" },
   { name: "Bash", point: 4, icon: "/logoIcons/bash.png" },
 ];
 
@@ -44,14 +49,26 @@ const frontendDevelopment: Skill[] = [
   { name: "NextJS", point: 6, icon: "/logoIcons/nextjs.png" },
 ];
 const backendDevelopment: Skill[] = [
+  { name: "NodeJS", point: 6, icon: "/logoIcons/nodejs.png" },
   { name: "Flask", point: 5, icon: "/logoIcons/flask.png" },
   { name: "ExpressJS", point: 7, icon: "/logoIcons/expressjs.png" },
 ];
+
+const databases: Skill[] = [
+  { name: "mongoDB", point: 6, icon: "" },
+  {
+    name: "MySQL",
+    point: 5,
+    icon: "",
+  },
+];
+
 const devOps: Skill[] = [
   { name: "Linux", point: 6, icon: "/logoIcons/linux.png" },
-  { name: "Git", point: 5, icon: "/logoIcons/git.png" },
-  { name: "AWS", point: 5, icon: "/logoIcons/git.png" },
-  { name: "Netlify", point: 5, icon: "/logoIcons/git.png" },
+  { name: "Git", point: 6, icon: "/logoIcons/git.png" },
+  { name: "AWS", point: 4, icon: "" },
+  { name: "Netlify", point: 6, icon: "" },
+  { name: "Firebase", point: 4, icon: "" },
 ];
 const gameDevelopment: Skill[] = [
   { name: "Unity3D", point: 7, icon: "/logoIcons/unity3d.png" },
@@ -72,6 +89,7 @@ const averageFrontendSkill: string = average(frontendDevelopment);
 const averageBackendSkill: string = average(backendDevelopment);
 const averageDevOps: string = average(devOps);
 const averageGameDevelopmentSkill: string = average(gameDevelopment);
+const averageDatabaseSkill: string = average(databases);
 
 export const pasiveSkillPoints: number = pasiveSkills.reduce(sum, 0);
 export const basicSkillPoints: number = basicSkills.reduce(sum, 0);
@@ -81,6 +99,7 @@ export const frontendSkillPoints: number = frontendDevelopment.reduce(sum, 0);
 export const backendSkillPoints: number = backendDevelopment.reduce(sum, 0);
 export const devOpsSkillPoints: number = devOps.reduce(sum, 0);
 export const gameDevSkillPoints: number = gameDevelopment.reduce(sum, 0);
+export const databaseSkillPoints: number = databases.reduce(sum, 0);
 
 const skills: SkillSet[] = [
   { set: "Passive", skills: pasiveSkills, average: averagePasiveSkill },
@@ -94,6 +113,11 @@ const skills: SkillSet[] = [
     set: "Backend Development",
     skills: backendDevelopment,
     average: averageBackendSkill,
+  },
+  {
+    set: "Base de datos",
+    skills: databases,
+    average: averageDatabaseSkill,
   },
   {
     set: "Mobile Development",

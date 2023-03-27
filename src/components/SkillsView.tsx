@@ -1,32 +1,43 @@
 import { SkillSet } from "@/utils/skills";
-import { StarIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 import classNames from "@/utils/classNames";
 
 const SkillsView = ({ skills }: { skills: SkillSet[] }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-      {skills.map(({ set, skills, average }) => (
-        <div key={set} className="bg-neutral rounded-lg shadow-md p-6">
-          <h2 className="text-2xl font-bold mb-4">{set}</h2>
+      {skills.map(({ set, skills }) => (
+        <div key={set} className="bg-neutral rounded-lg shadow-md p-6 ">
+          <h2 className="text-2xl font-bold mb-4 border-b border-white">
+            {set}
+          </h2>
           <div className="grid grid-cols-2 gap-2">
             {skills.map((skill) => (
               <div
                 key={skill.name}
                 className={classNames(
-                  "border border-gray-300 rounded-lg p-4 text-center",
-                  skill.point >= +average ? "bg-green-100" : "bg-gray-100"
+                  "border-2 rounded-lg p-4 text-center hover:animate-pulse hover:border-yellow-500 ",
+                  skill.point > 5 ? "bg-teal-900" : "bg-slate-600"
                 )}
               >
                 <div className="flex items-center justify-center">
                   <Image
-                    src={skill.icon}
+                    src={
+                      skill.icon === ""
+                        ? "/logoIcons/quicklearning.png"
+                        : skill.icon
+                    }
                     alt="skill icon"
                     width={40}
                     height={40}
+                    className=""
                   />
                 </div>
-                <div className="text-sm font-bold text-gray-800 mb-2">
+                <div
+                  className={classNames(
+                    "text-sm font-bold  mb-2",
+                    skill.point > 5 ? "text-slate-300" : "text-gray-900"
+                  )}
+                >
                   {skill.name}
                 </div>
                 {/* <div className="flex items-center justify-center gap-1">
@@ -36,7 +47,12 @@ const SkillsView = ({ skills }: { skills: SkillSet[] }) => {
                     </div>
                   ))}
                 </div> */}
-                <div className="text-sm font-medium text-gray-500 mt-2">
+                <div
+                  className={classNames(
+                    "text-sm font-medium mt-2",
+                    skill.point > 5 ? "text-slate-300" : "text-gray-400"
+                  )}
+                >
                   {skill.point} / 10
                 </div>
               </div>

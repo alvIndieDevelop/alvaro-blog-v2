@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import Link from "next/link";
-import { Navbar, ButtonIcon } from "../alvaroUI";
+import { Navbar } from "../alvaroUI";
 import Footer from "./Footer";
 
 interface MainLayoutProp {
@@ -28,7 +28,7 @@ export default function MainLayout({ children }: MainLayoutProp) {
           </ul>
         </div>
       </Navbar>
-      {children}
+      <main>{children}</main>
       <Footer />
     </>
   );
