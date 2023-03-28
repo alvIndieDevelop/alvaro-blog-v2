@@ -1,3 +1,4 @@
+import { readableDate } from "./../utils/index";
 import { Client } from "@notionhq/client";
 import { BlogPost, PostPage } from "@/@types/schema";
 import { NotionToMarkdown } from "notion-to-md";
@@ -110,7 +111,7 @@ export default class NotionService {
       title: page.properties.Name.title[0].plain_text,
       tags: page.properties.Tags.multi_select,
       description: page.properties.Description.rich_text[0].plain_text,
-      date: page.properties.Updated.last_edited_time,
+      date: readableDate(page.properties.Updated.last_edited_time),
       slug: page.properties.Slug.formula.string,
     };
   }

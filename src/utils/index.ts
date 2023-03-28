@@ -1,7 +1,9 @@
-import { startOfYear, differenceInDays, getDaysInYear } from "date-fns";
+import { startOfYear, differenceInDays, getDaysInYear, format } from "date-fns";
 
-export const readableDate = (dateString: string): string =>
-  new Date(dateString).toLocaleDateString();
+export const readableDate = (dateString: string): string => {
+  const toDate = new Date(dateString);
+  return format(toDate, "dd-MMMM-yyyy");
+};
 
 export const getCurrentAge = (): number => {
   const currentDate = new Date();
