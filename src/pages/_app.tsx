@@ -1,13 +1,24 @@
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
-import MainLayout from "@/components/layouts/MainLayout";
-import { analytics } from "@/utils/firebase";
 import { useEffect } from "react";
+import { useRouter } from "next/router";
+import MainLayout from "@/components/layouts/MainLayout";
+
+const handleRouteChange = (url: string) => {
+  (window as any).gtag("config", "G-K83BFTJEYN", {
+    page_path: url,
+  });
+};
 
 export default function App({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
   useEffect(() => {
-    analytics;
-  }, []);
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <MainLayout>
