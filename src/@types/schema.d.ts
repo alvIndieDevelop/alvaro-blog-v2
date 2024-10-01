@@ -1,3 +1,5 @@
+import { MdStringObject } from "notion-to-md/build/types";
+
 export type Tag = {
   color: string;
   id: string;
@@ -16,5 +18,5 @@ export type BlogPost = {
 
 export type PostPage = {
   post: BlogPost;
-  markdown: string;
+  markdown: string | MdStringObject;
 };

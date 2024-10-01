@@ -1,11 +1,11 @@
+import React from "react";
 import Image from "next/image";
-
 import {
   getCurrentAge,
   getCurrentExperience,
   getPercentOfCurrentYear,
-} from "@/utils";
-import { totalSkillPoints, totalSkills } from "@/utils/skills";
+} from "../utils";
+import { totalSkillPoints, totalSkills } from "../utils/skills";
 import { BsFillHeartPulseFill } from "react-icons/bs";
 import { GiWaterDrop } from "react-icons/gi";
 

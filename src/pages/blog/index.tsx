@@ -1,7 +1,8 @@
+import React from "react";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { BlogPost } from "@/@types/schema";
-import NotionService from "@/services/notion-services";
-import BlogCard from "@/components/BlogCard";
+import { BlogPost } from "../../@types/schema";
+import NotionService from "../..//services/notion-services";
+import BlogCard from "../../components/BlogCard";
 import Head from "next/head";
 
 export default function blog({

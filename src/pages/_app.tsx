@@ -1,8 +1,9 @@
+import React from "react";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import MainLayout from "@/components/layouts/MainLayout";
+import MainLayout from "../components/layouts/MainLayout";
 
 const handleRouteChange = (url: string) => {
   (window as any).gtag("config", "G-K83BFTJEYN", {

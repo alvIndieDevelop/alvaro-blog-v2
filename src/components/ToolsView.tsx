@@ -1,6 +1,7 @@
-import { ToolSet } from "@/utils/tools";
+import React from "react";
 import Image from "next/image";
-import classNames from "@/utils/classNames";
+import { ToolSet } from "../utils/tools";
+import classNames from "../utils/classNames";
 
 const ToolsView = ({ tools }: { tools: ToolSet[] }) => {
   return (

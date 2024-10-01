@@ -1,4 +1,5 @@
-import { BlogPost } from "@/@types/schema";
+import React from "react";
+import { BlogPost } from "../@types/schema";
 import Image from "next/image";
 import Link from "next/link";
 
