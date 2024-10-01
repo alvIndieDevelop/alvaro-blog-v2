@@ -1,4 +1,4 @@
-import { ReactNode, useRef, useState } from "react";
+import React, { ReactNode, useRef, useState } from "react";
 import Link from "next/link";
 import { Navbar } from "../alvaroUI";
 import Footer from "./Footer";
@@ -7,7 +7,7 @@ interface MainLayoutProp {
   children: ReactNode;
 }
 
-export default function MainLayout({ children }: MainLayoutProp) {
+const MainLayout: React.FC<MainLayoutProp> = ({ children }) => {
   const handleOnClick = () => {
     const elem = document.activeElement as HTMLElement | null;
     if (elem) {
@@ -81,4 +81,6 @@ export default function MainLayout({ children }: MainLayoutProp) {
       <Footer />
     </>
   );
-}
+};
+
+export default MainLayout;

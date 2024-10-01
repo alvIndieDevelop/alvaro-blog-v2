@@ -1,6 +1,7 @@
-import { SkillSet } from "@/utils/skills";
+import React from "react";
 import Image from "next/image";
-import classNames from "@/utils/classNames";
+import { SkillSet } from "../utils/skills";
+import classNames from "../utils/classNames";
 
 const SkillsView = ({ skills }: { skills: SkillSet[] }) => {
   return (

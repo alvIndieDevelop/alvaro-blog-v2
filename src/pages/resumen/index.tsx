@@ -1,10 +1,10 @@
 import React from "react";
 import Head from "next/head";
-import SkillsView from "@/components/SkillsView";
-import ToolsView from "@/components/ToolsView";
-import skills from "@/utils/skills";
-import tools from "@/utils/tools";
-import Profile from "@/components/Profile";
+import SkillsView from "../../components/SkillsView";
+import ToolsView from "../../components/ToolsView";
+import skills from "../../utils/skills";
+import tools from "../../utils/tools";
+import Profile from "../../components/Profile";
 
 export default function Resumen() {
   return (
