@@ -1,8 +1,6 @@
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { BlogPost } from "@/@types/schema";
 import NotionService from "@/services/notion-services";
 import Head from "next/head";
-import reactMarkdown from "react-markdown";
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 export default function Article({
