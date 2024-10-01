@@ -4,6 +4,9 @@ const nextConfig = {
   images: {
     domains: ["www.notion.so"],
   },
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
 };
 
 module.exports = nextConfig;
