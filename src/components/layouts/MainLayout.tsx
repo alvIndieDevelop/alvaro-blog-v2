@@ -9,7 +9,7 @@ interface MainLayoutProp {
 
 export default function MainLayout({ children }: MainLayoutProp) {
   const handleOnClick = () => {
-    const elem = document.activeElement;
+    const elem = document.activeElement as HTMLElement | null;
     if (elem) {
       elem?.blur();
     }
