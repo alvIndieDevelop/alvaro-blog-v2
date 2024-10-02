@@ -36,7 +36,7 @@ export default function Article({
                 className="w-full h-48 object-cover"
               />
               <h1>{post.title}</h1>
-              <ReactMarkdown>{markdown}</ReactMarkdown>
+              <ReactMarkdown>{markdown.parent}</ReactMarkdown>
             </article>
           </div>
         </main>
