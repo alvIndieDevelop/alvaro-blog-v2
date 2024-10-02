@@ -3,11 +3,13 @@ import { GetStaticProps, InferGetStaticPropsType } from "next";
 import NotionService from "../../services/notion-services";
 import Head from "next/head";
 import ReactMarkdown from "react-markdown";
+import ShareButtons from "../../components/ShareButtons";
 
 export default function Article({
   markdown,
   post,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  const shareUrl = `https://alvaro-blog.netlify.app/blog/${post.slug}`;
   return (
     <>
       <Head>
@@ -37,6 +39,9 @@ export default function Article({
               />
               <h1>{post.title}</h1>
               <ReactMarkdown>{markdown.parent}</ReactMarkdown>
+
+              <h2>Compartir</h2>
+              <ShareButtons url={shareUrl} title={post.title} />
             </article>
           </div>
         </main>
