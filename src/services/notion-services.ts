@@ -3,17 +3,19 @@ import { Client } from "@notionhq/client";
 import { BlogPost, PostPage } from "../@types/schema";
 import { NotionToMarkdown } from "notion-to-md";
 
+import config from "../utils/config";
+
 export default class NotionService {
   client: Client;
   n2m: NotionToMarkdown;
 
   constructor() {
-    this.client = new Client({ auth: process.env.NOTION_ACCESS_TOKEN });
+    this.client = new Client({ auth: config.NOTION.ACCESS_TOKEN });
     this.n2m = new NotionToMarkdown({ notionClient: this.client });
   }
 
   async getPublishedBlogPosts(): Promise<BlogPost[]> {
-    const database = process.env.NOTION_BLOG_DATABASE_ID ?? "";
+    const database = config.NOTION.BLOG_DATABASE_ID ?? "";
 
     try {
       // list of blog posts
