@@ -29,7 +29,7 @@ export default function Article({
       </Head>
 
       <div className="py-8">
-        <main className="max-w-3xl mx-auto">
+        <main className="max-w-3xl mx-auto bg-slate-50">
           <div className="flex items-center justify-center">
             <article className="prose">
               <img
