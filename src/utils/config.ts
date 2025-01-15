@@ -1,8 +1,9 @@
 const options = {
   APP: {
     SEO: {
-      DEFAULT_TITLE: "Alvaro Blog!",
-      DEFAULT_DESCRIPTION: "Blog personal de Alvaro Martin Caballero.",
+      DEFAULT_TITLE: "Alvaro Martin Caballero - Developer, Writer, Creator",
+      DEFAULT_DESCRIPTION:
+        "Personal portfolio, blog, and digital products by Your Name. Discover my projects, read my thoughts, and explore my digital creations.",
       DEFAULT_URL: "https://alvaro-blog.netlify.app/",
     },
   },

@@ -1,50 +1,81 @@
 import Link from "next/link";
-import { ButtonIcon } from "../alvaroUI";
-import { FaFacebookF, FaYoutube } from "react-icons/fa";
+import { Button } from "../ui/button";
+import { Github, Twitter, Linkedin } from "lucide-react";
 
 export default function Footer() {
-  const openLink = (url: string) => {
-    window.open(url, "_blank");
-  };
-
   return (
-    <footer className="footer footer-center p-10 bg-base-200 text-base-content rounded">
-      <div className="grid grid-flow-col gap-4">
-        <Link href={"/"} className="link link-hover">
-          Inicio
-        </Link>
-        <Link href={"/resumen"} className="link link-hover">
-          Resumen
-        </Link>
-        <Link href={"/blog"} className="link link-hover">
-          blog
-        </Link>
-      </div>
-      <div>
-        <div className="grid grid-flow-col gap-4">
-          <ButtonIcon
-            onClick={() =>
-              openLink("https://www.instagram.com/alvindiedevelop/")
-            }
-          >
-            <FaFacebookF fontSize={26} />
-          </ButtonIcon>
-          <ButtonIcon
-            onClick={() =>
-              openLink(
-                "https://www.youtube.com/channel/UCeAvcmYAq3d4aiQyKwAvSXw"
-              )
-            }
-          >
-            <FaYoutube fontSize={26} />
-          </ButtonIcon>
+    <footer className="border-t bg-background">
+      <div className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Alvaro Blog!</h3>
+            <p className="text-sm text-muted-foreground">
+              Developer, writer, and creator building digital products and
+              sharing knowledge.
+            </p>
+          </div>
+          <div>
+            <h4 className="mb-4 text-sm font-semibold">Links</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <Link href="#projects" className="hover:text-foreground">
+                  Projects
+                </Link>
+              </li>
+              <li>
+                <Link href="#blog" className="hover:text-foreground">
+                  Blog
+                </Link>
+              </li>
+              <li>
+                <Link href="#products" className="hover:text-foreground">
+                  Products
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-4 text-sm font-semibold">Legal</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <Link href="/privacy" className="hover:text-foreground">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/terms" className="hover:text-foreground">
+                  Terms of Service
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="mb-4 text-sm font-semibold">Social</h4>
+            <div className="flex space-x-2">
+              <Button variant="ghost" size="icon">
+                <Link href="https://github.com/yourusername" target="_blank">
+                  <Github className="h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Link href="https://twitter.com/yourusername" target="_blank">
+                  <Twitter className="h-5 w-5" />
+                </Link>
+              </Button>
+              <Button variant="ghost" size="icon">
+                <Link
+                  href="https://linkedin.com/in/yourusername"
+                  target="_blank"
+                >
+                  <Linkedin className="h-5 w-5" />
+                </Link>
+              </Button>
+            </div>
+          </div>
         </div>
-      </div>
-      <div>
-        <p>
-          Copyright © {new Date().getFullYear()} - All right reserved by{" "}
-          <b>Alvaro Martin Caballero</b>
-        </p>
+        <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
+          <p>© {new Date().getFullYear()} YourName. All rights reserved.</p>
+        </div>
       </div>
     </footer>
   );
