@@ -1,19 +1,25 @@
 import React, { useState } from "react";
+import { NextSeo } from "next-seo";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
-import { BlogPost } from "../../@types/schema";
-import NotionService from "../..//services/notion-services";
-import BlogCard from "../../components/BlogCard";
 import Head from "next/head";
+import { BlogPost } from "../../@types/schema";
+import NotionService from "../../services/notion-services";
+import BlogCard from "../../components/BlogCard";
+import { motion } from "framer-motion";
+import Pagination from "../../components/Pagination";
+import TagFilter from "../../components/TagFilter";
+import { Search } from "lucide-react";
 
-export default function blog({
+const POSTS_PER_PAGE = 6;
+
+export default function BlogPage({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  // state
-  const [selectedCategory, setSelectedCategory] = useState<string>("All");
-
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   // obtener las categorias unicas de los posts.
   const uniqueCategories = [
-    "All",
     ...Array.from(
       new Set(
         posts.flatMap((post: BlogPost) => post.tags.map((tag) => tag.name))
@@ -21,15 +27,52 @@ export default function blog({
     ),
   ];
 
-  const filteredPosts =
-    selectedCategory === "All"
-      ? posts
-      : posts.filter((post: BlogPost) =>
-          post.tags.some((tag) => tag.name === selectedCategory)
-        );
+  const handleTagSelect = (tag: string) => {
+    setSelectedTags((prev) =>
+      prev.includes(tag)
+        ? prev.filter((selectedTag) => selectedTag !== tag)
+        : [...prev, tag]
+    );
+    setCurrentPage(1); // Reset to first page when selecting a tag
+  };
 
+  const filteredPosts = posts.filter((post: BlogPost) => {
+    const matchesSearch = post.title
+      .toLowerCase()
+      .includes(searchQuery.toLowerCase());
+
+    const matchesTags =
+      selectedTags.length === 0 ||
+      selectedTags.some((tag) =>
+        post.tags.some((postTag) => postTag.name === tag)
+      );
+
+    return matchesSearch && matchesTags;
+  });
+
+  const totalPages = Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+  const paginatedPosts = filteredPosts.slice(
+    startIndex,
+    startIndex + POSTS_PER_PAGE
+  );
+
+  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1); // Reset to first page when searching
+  };
   return (
     <>
+      <NextSeo
+        title="Blog | Alvaro Martin Caballero"
+        description="Read my latest articles about web development, programming tips, and tech insights."
+        openGraph={{
+          title: "Blog | Alvaro Martin Caballero",
+          description: "Web development articles and tech insights.",
+          url: "https://alvaro-blog.netlify.app/blog",
+          siteName: "Alvaro Blog",
+        }}
+      />
       <Head>
         <title>Blog!</title>
         <meta
@@ -44,59 +87,83 @@ export default function blog({
           content={"Lista de mis articulos"}
         />
       </Head>
+      <main className="flex-1">
+        <section id="blog" className="py-20">
+          <div className="container px-4 mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <h2 className="text-3xl font-bold mb-4">Latest Posts</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Thoughts, tutorials, and insights about web development.
+              </p>
+            </motion.div>
 
-      <main className="py-24 sm:py-32">
-        <header className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="mx-auto max-w-2xl lg:mx-0">
-            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-              Mis articulos!
-            </h2>
-            <p className="mt-2 text-lg leading-8">
-              Aqui comparto mis ideas, articulos y mas!
-            </p>
-          </div>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-8">
+              {/* Tag Filter */}
+              <TagFilter
+                tags={uniqueCategories as string[]}
+                selectedTags={selectedTags}
+                onTagSelect={handleTagSelect}
+              />
+              {/* Search Bar */}
+              <div className="relative w-full md:w-96">
+                <input
+                  type="text"
+                  placeholder="Search articles..."
+                  value={searchQuery}
+                  onChange={handleSearch}
+                  className="w-full px-4 py-2 pl-10 border border-gray-300 dark:border-gray-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-black dark:text-white"
+                />
+                <Search
+                  className="absolute left-3 top-2.5 text-gray-400"
+                  size={20}
+                />
+              </div>
+            </div>
 
-          {/* Filtro de Categorías */}
-          <div className="mt-6 flex space-x-4">
-            {uniqueCategories.map((category) => (
-              <button
-                key={category as string}
-                onClick={() => setSelectedCategory(category as string)}
-                className={`px-4 py-2 rounded-full ${
-                  selectedCategory === (category as string)
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-200 text-gray-800"
-                }`}
-              >
-                {category as string}
-              </button>
-            ))}
-          </div>
-        </header>
-
-        {/* Mostrar posts filtrados */}
-
-        <div className="mx-auto mt-10 max-w-2xl border-t border-gray-200 pt-10 px-8 sm:mt-16 sm:pt-16 lg:mx-auto lg:max-w-full">
-          {filteredPosts.length > 0 ? (
-            <div className="grid grid-cols-1 gap-y-16 gap-x-8 lg:grid-cols-3">
-              {filteredPosts.map((post: BlogPost) => (
-                <div key={post.id}>
-                  <BlogCard key={post.id} post={post} />
-                </div>
+            {/* Blog Posts Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {paginatedPosts.map((post: BlogPost) => (
+                <motion.div
+                  key={post.id}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                >
+                  <BlogCard post={post} />
+                </motion.div>
               ))}
             </div>
-          ) : (
-            <div className="flex justify-center">
-              <h2 className="text-lg">No hay artículos disponibles.</h2>
-            </div>
-          )}
-        </div>
+
+            {/* Show pagination only if there are multiple pages */}
+            {totalPages > 1 && (
+              <Pagination
+                currentPage={currentPage}
+                totalPages={totalPages}
+                onPageChange={setCurrentPage}
+              />
+            )}
+
+            {/* No results message */}
+            {filteredPosts.length === 0 && (
+              <div className="text-center py-12">
+                <p className="text-gray-600 dark:text-gray-400">
+                  No articles found matching your search.
+                </p>
+              </div>
+            )}
+          </div>
+        </section>
       </main>
     </>
   );
 }
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getStaticProps: GetStaticProps = async () => {
   const notionServices = new NotionService();
   let posts: BlogPost[];
   try {
@@ -104,6 +171,8 @@ export const getStaticProps: GetStaticProps = async (context) => {
   } catch (error) {
     posts = [];
   }
+
+  console.log(posts);
 
   return {
     props: {

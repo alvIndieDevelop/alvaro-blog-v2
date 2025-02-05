@@ -14,6 +14,7 @@ export type BlogPost = {
   tags: Tag[];
   description: string;
   date: string;
+  featured: boolean;
 };
 
 export type PostPage = {

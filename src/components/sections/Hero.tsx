@@ -33,7 +33,7 @@ export default function Hero() {
             writing, and digital products.
           </p>
           <div className="flex justify-center space-x-4">
-            <Button size="lg">View Projects</Button>
+            {/* <Button size="lg">View Projects</Button> */}
             <Button size="lg" variant="outline">
               Read Blog
             </Button>
