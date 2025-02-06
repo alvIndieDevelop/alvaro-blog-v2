@@ -11,7 +11,7 @@ export default function Header() {
 
   const navigation = [
     { name: "About", href: "/about" },
-    // { name: "Projects", href: "/projects" },
+    { name: "Projects", href: "/projects" },
     { name: "Blog", href: "/blog" },
     // { name: "Products", href: "/products" },
     // { name: "Contact", href: "/contact" },
@@ -44,7 +44,7 @@ export default function Header() {
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           </Button>
           <Button variant="outline" size="icon">
-            <Link href="https://github.com/yourusername" target="_blank">
+            <Link href="https://github.com/alvIndieDevelop" target="_blank">
               <Github className="h-5 w-5" />
             </Link>
           </Button>

@@ -35,7 +35,7 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="mb-4 text-sm font-semibold">Legal</h4>
+            {/* <h4 className="mb-4 text-sm font-semibold">Legal</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
                 <Link href="/privacy" className="hover:text-foreground">
@@ -47,24 +47,24 @@ export default function Footer() {
                   Terms of Service
                 </Link>
               </li>
-            </ul>
+            </ul> */}
           </div>
           <div>
             <h4 className="mb-4 text-sm font-semibold">Social</h4>
             <div className="flex space-x-2">
               <Button variant="ghost" size="icon">
-                <Link href="https://github.com/yourusername" target="_blank">
+                <Link href="https://github.com/alvIndieDevelop" target="_blank">
                   <Github className="h-5 w-5" />
                 </Link>
               </Button>
               <Button variant="ghost" size="icon">
-                <Link href="https://twitter.com/yourusername" target="_blank">
+                <Link href="https://x.com/AlvaroMartinC11" target="_blank">
                   <Twitter className="h-5 w-5" />
                 </Link>
               </Button>
               <Button variant="ghost" size="icon">
                 <Link
-                  href="https://linkedin.com/in/yourusername"
+                  href="https://www.linkedin.com/in/alvindie/"
                   target="_blank"
                 >
                   <Linkedin className="h-5 w-5" />

@@ -3,6 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { Inter } from "next/font/google";
 import Hero from "../components/sections/Hero";
+import Projects from "../components/sections/projects";
 import Contact from "../components/sections/contact";
 import Support from "../components/sections/support";
 
@@ -19,7 +20,9 @@ export default function Home() {
       </Head>
       <main className="flex-1">
         <Hero />
+        <Projects />
         <Contact />
+        {/* <Support /> */}
       </main>
     </>
   );

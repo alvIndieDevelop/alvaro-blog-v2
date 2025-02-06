@@ -4,11 +4,39 @@ import { ProjectCard } from "./project-card";
 
 const projects = [
   {
-    title: "Project One",
-    description: "A full-stack web application built with Next.js and TypeScript",
-    technologies: ["Next.js", "TypeScript", "Tailwind CSS"],
-    githubUrl: "https://github.com/yourusername/project-one",
-    liveUrl: "https://project-one.com"
+    title: "Flask Template",
+    description: "A simple flask template for building web applications",
+    technologies: ["Python", "flask"],
+    githubUrl: "https://github.com/alvIndieDevelop/flask_template",
+  },
+  {
+    title: "Project generator nodeJS",
+    description:
+      "A simple project generator in cmd for building web applications",
+    technologies: ["NodeJS", "Javascript", "Typescript", "NPM"],
+    githubUrl: "https://github.com/alvIndieDevelop/project-generator-nodejs",
+  },
+  {
+    title: "ExpressJS Typescript Boilerplate",
+    description:
+      "A simple boilerplate for building web applications with express and typescript",
+    technologies: ["NodeJS", "Javascript", "Typescript", "ExpressJS"],
+    githubUrl:
+      "https://github.com/alvIndieDevelop/expressjs-typescript-boilplate",
+  },
+  {
+    title: "Sailo Clon API",
+    description: "API for a clone of sailo, rent boats",
+    technologies: ["Python", "flask"],
+    githubUrl:
+      "https://bitbucket.org/alvarosh40/sailoclone_api_sandbox/src/master/",
+  },
+  {
+    title: "Sailo Clon Frontend",
+    description: "Frontend of sailo, rent boats, with nextJS and materialUI",
+    technologies: ["NodeJS", "Javascript", "NextJS", "MaterialUI"],
+    githubUrl:
+      "https://bitbucket.org/alvarosh40/yachtbunny_client_sandbox/src/master/",
   },
   // Add more projects as needed
 ];
