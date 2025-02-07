@@ -1,7 +1,7 @@
 import React, { ReactNode, useRef, useState } from "react";
 import Link from "next/link";
 import { Navbar } from "../alvaroUI";
-import Footer from "./Footer";
+import Footer from "./MainFooter";
 
 interface MainLayoutProp {
   children: ReactNode;

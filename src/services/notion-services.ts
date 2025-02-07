@@ -35,6 +35,8 @@ export default class NotionService {
         ],
       });
 
+      console.log(response.results);
+
       return response.results.map((res) => {
         return NotionService.pageToPostTransformer(res);
       });
