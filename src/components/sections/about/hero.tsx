@@ -1,6 +1,5 @@
 "use client";
 import { motion } from "framer-motion";
-import { Sword } from "lucide-react";
 import Profile from "../../Profile";
 
 export default function AboutHero() {
