@@ -3,25 +3,19 @@ import { motion } from "framer-motion";
 import { Card } from "../../../components/ui/card";
 import { Progress } from "../../../components/ui/progress";
 import { Heart, Brain, Zap, Shield } from "lucide-react";
+import { getPercentOfCurrentYear } from "../../../utils";
 
 export default function CharacterStats() {
   const stats = {
     health: 85,
     mana: 95,
-    exp: 28,
-    level: 5,
+    exp: getPercentOfCurrentYear(),
   };
 
   const baseStats = [
     { icon: Heart, label: "Health", value: stats.health, color: "bg-red-500" },
     { icon: Brain, label: "Mana", value: stats.mana, color: "bg-blue-500" },
     { icon: Zap, label: "EXP", value: stats.exp, color: "bg-yellow-500" },
-    {
-      icon: Shield,
-      label: "Level",
-      value: stats.level * 20,
-      color: "bg-green-500",
-    },
   ];
 
   return (
@@ -29,6 +23,7 @@ export default function CharacterStats() {
       <h2 className="text-2xl font-bold mb-6 text-primary bg-primary/5 p-2 rounded-lg inline-block">
         Base Stats
       </h2>
+
       <div className="space-y-6">
         {baseStats.map((stat, index) => (
           <motion.div
