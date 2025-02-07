@@ -5,11 +5,21 @@ import { Progress } from "../../../components/ui/progress";
 import { Heart, Brain, Zap, Shield } from "lucide-react";
 import { getPercentOfCurrentYear } from "../../../utils";
 
-export default function CharacterStats() {
+interface StatsProps {
+  health?: number;
+  mana?: number;
+  exp?: number;
+}
+
+export default function CharacterStats({
+  statsProps,
+}: {
+  statsProps: StatsProps;
+}) {
   const stats = {
-    health: 85,
-    mana: 95,
-    exp: getPercentOfCurrentYear(),
+    health: statsProps?.health || 100,
+    mana: statsProps?.mana || 100,
+    exp: statsProps?.exp || getPercentOfCurrentYear(),
   };
 
   const baseStats = [
