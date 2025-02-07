@@ -1,6 +1,6 @@
 "use client";
-import { motion } from 'framer-motion';
-import SkillTree from './index';
+import { motion } from "framer-motion";
+import SkillTree from "./index";
 
 export function SkillTreeSection() {
   return (
@@ -14,7 +14,8 @@ export function SkillTreeSection() {
         >
           <h2 className="text-3xl font-bold mb-4">Skill Tree</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Explore my technical skills and expertise visualized as an RPG skill tree
+            Explore my technical skills and expertise visualized as an RPG skill
+            tree
           </p>
         </motion.div>
         <div className="max-w-5xl mx-auto">
