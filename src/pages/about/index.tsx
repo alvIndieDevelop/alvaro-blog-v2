@@ -13,7 +13,7 @@ export default function AboutPage() {
       <div className="flex-1">
         <AboutHero />
         <div className="container mx-auto px-4 py-12 space-y-12">
-          <CharacterStats />
+          
           <SkillTreeSection />
         </div>
       </div>
