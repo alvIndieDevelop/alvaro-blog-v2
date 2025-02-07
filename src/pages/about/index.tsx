@@ -1,6 +1,6 @@
 import { NextSeo } from "next-seo";
+import Image from "next/image";
 import AboutHero from "../../components/sections/about/hero";
-import CharacterStats from "../../components/sections/about/character-stats";
 import { SkillTreeSection } from "../../components/sections/about/skill-tree/section";
 
 export default function AboutPage() {
@@ -13,7 +13,6 @@ export default function AboutPage() {
       <div className="flex-1">
         <AboutHero />
         <div className="container mx-auto px-4 py-12 space-y-12">
-          <CharacterStats />
           <SkillTreeSection />
         </div>
       </div>
