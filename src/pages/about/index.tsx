@@ -1,6 +1,6 @@
 import { NextSeo } from "next-seo";
 import AboutHero from "../../components/sections/about/hero";
-import CharacterStats from "../../components/sections/about/character-stats";
+//import CharacterStats from "../../components/sections/about/character-stats";
 import { SkillTreeSection } from "../../components/sections/about/skill-tree/section";
 
 export default function AboutPage() {
