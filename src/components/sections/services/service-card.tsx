@@ -90,9 +90,9 @@ export function ServiceCard({
       </CardContent>
 
       <CardFooter>
-        <Button className="w-full" asChild>
+        {/* <Button className="w-full" asChild>
           <Link href="/services/book">Get Started</Link>
-        </Button>
+        </Button> */}
       </CardFooter>
     </Card>
   );

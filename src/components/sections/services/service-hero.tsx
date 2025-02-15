@@ -13,7 +13,7 @@ export function ServiceHero() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <div className="flex items-center justify-center gap-2 mb-6">
+          {/* <div className="flex items-center justify-center gap-2 mb-6">
             <div className="flex -space-x-1">
               {[...Array(5)].map((_, i) => (
                 <Star
@@ -26,11 +26,14 @@ export function ServiceHero() {
             <span className="text-sm text-muted-foreground">
               5.0 Average Rating
             </span>
-          </div>
+          </div> */}
 
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-            Expert Web Development &
-            <span className="block text-primary">Technical Services</span>
+            Expert{" "}
+            <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Web Development{" "}
+            </span>
+            &<span className="block text-primary">Technical Services</span>
           </h1>
 
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
@@ -48,7 +51,7 @@ export function ServiceHero() {
             </Button>
           </div>
 
-          <div className="mt-12 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
+          {/* <div className="mt-12 flex flex-wrap justify-center gap-8 text-sm text-muted-foreground">
             <div>
               <div className="font-bold text-2xl text-foreground">100+</div>
               Projects Completed
@@ -61,7 +64,7 @@ export function ServiceHero() {
               <div className="font-bold text-2xl text-foreground">5+</div>
               Years Experience
             </div>
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </section>
