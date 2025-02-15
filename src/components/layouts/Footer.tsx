@@ -2,6 +2,15 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import { Github, Twitter, Linkedin } from "lucide-react";
 
+const navigation = [
+  { name: "About", href: "/about" },
+  { name: "Projects", href: "/projects" },
+  { name: "Services", href: "/services" },
+  { name: "Blog", href: "/blog" },
+  // { name: "Products", href: "/products" },
+  // { name: "Contact", href: "/contact" },
+];
+
 export default function Footer() {
   return (
     <footer className="border-t bg-background">
@@ -17,38 +26,16 @@ export default function Footer() {
           <div>
             <h4 className="mb-4 text-sm font-semibold">Links</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="#projects" className="hover:text-foreground">
-                  Projects
-                </Link>
-              </li>
-              <li>
-                <Link href="#blog" className="hover:text-foreground">
-                  Blog
-                </Link>
-              </li>
-              <li>
-                <Link href="#products" className="hover:text-foreground">
-                  Products
-                </Link>
-              </li>
+              {navigation.map((item) => (
+                <li key={item.name}>
+                  <Link href={item.href} className="hover:text-foreground">
+                    {item.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
-          <div>
-            {/* <h4 className="mb-4 text-sm font-semibold">Legal</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <Link href="/privacy" className="hover:text-foreground">
-                  Privacy Policy
-                </Link>
-              </li>
-              <li>
-                <Link href="/terms" className="hover:text-foreground">
-                  Terms of Service
-                </Link>
-              </li>
-            </ul> */}
-          </div>
+          <div></div>
           <div>
             <h4 className="mb-4 text-sm font-semibold">Social</h4>
             <div className="flex space-x-2">

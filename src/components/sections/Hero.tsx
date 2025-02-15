@@ -1,6 +1,7 @@
 import { Button } from "../../components/ui/button";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Hero() {
   return (
@@ -33,9 +34,11 @@ export default function Hero() {
             writing, and digital products.
           </p>
           <div className="flex justify-center space-x-4">
-            {/* <Button size="lg">View Projects</Button> */}
+            <Button size="lg">
+              <Link href="/projects">View Projects</Link>
+            </Button>
             <Button size="lg" variant="outline">
-              Read Blog
+              <Link href="/blog">Read Blog</Link>
             </Button>
           </div>
         </motion.div>
