@@ -46,7 +46,7 @@ export const totalTools: number = tools.reduce(
   (total: number, curValue: ToolSet) => {
     return total + curValue.tools.length;
   },
-  0
+  0,
 );
 
 export const totalToolPoints: number = tools.reduce(
@@ -54,9 +54,9 @@ export const totalToolPoints: number = tools.reduce(
     total +
     curValue.tools.reduce(
       (subTotal: number, value: Tool) => subTotal + value.point,
-      0
+      0,
     ),
-  0
+  0,
 );
 
 export default tools;

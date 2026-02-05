@@ -17,7 +17,7 @@ const SkillsView = ({ skills }: { skills: SkillSet[] }) => {
                 key={skill.name}
                 className={classNames(
                   "border-2 rounded-lg p-4 text-center hover:animate-pulse hover:border-yellow-500 ",
-                  skill.point > 5 ? "bg-teal-900" : "bg-slate-600"
+                  skill.point > 5 ? "bg-teal-900" : "bg-slate-600",
                 )}
               >
                 <div className="flex items-center justify-center">
@@ -36,7 +36,7 @@ const SkillsView = ({ skills }: { skills: SkillSet[] }) => {
                 <div
                   className={classNames(
                     "text-sm font-bold  mb-2",
-                    skill.point > 5 ? "text-slate-300" : "text-gray-900"
+                    skill.point > 5 ? "text-slate-300" : "text-gray-900",
                   )}
                 >
                   {skill.name}
@@ -51,7 +51,7 @@ const SkillsView = ({ skills }: { skills: SkillSet[] }) => {
                 <div
                   className={classNames(
                     "text-sm font-medium mt-2",
-                    skill.point > 5 ? "text-slate-300" : "text-gray-400"
+                    skill.point > 5 ? "text-slate-300" : "text-gray-400",
                   )}
                 >
                   {skill.point} / 10

@@ -31,7 +31,7 @@ export default function SkillTree() {
                     isSelected={selectedSkill === skill.id}
                     onSelect={() =>
                       setSelectedSkill(
-                        selectedSkill === skill.id ? null : skill.id
+                        selectedSkill === skill.id ? null : skill.id,
                       )
                     }
                   />

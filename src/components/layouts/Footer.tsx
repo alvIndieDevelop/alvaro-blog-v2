@@ -7,8 +7,6 @@ const navigation = [
   { name: "Projects", href: "/projects" },
   { name: "Services", href: "/services" },
   { name: "Blog", href: "/blog" },
-  // { name: "Products", href: "/products" },
-  // { name: "Contact", href: "/contact" },
 ];
 
 export default function Footer() {
@@ -35,21 +33,21 @@ export default function Footer() {
               ))}
             </ul>
           </div>
-          <div></div>
+          <div />
           <div>
             <h4 className="mb-4 text-sm font-semibold">Social</h4>
             <div className="flex space-x-2">
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" asChild>
                 <Link href="https://github.com/alvIndieDevelop" target="_blank">
                   <Github className="h-5 w-5" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" asChild>
                 <Link href="https://x.com/AlvaroMartinC11" target="_blank">
                   <Twitter className="h-5 w-5" />
                 </Link>
               </Button>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" asChild>
                 <Link
                   href="https://www.linkedin.com/in/alvindie/"
                   target="_blank"

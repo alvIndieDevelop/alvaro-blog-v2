@@ -1,22 +1,21 @@
 "use client";
+
 import { useState } from "react";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { Button } from "../ui/button";
 import { Menu, X, Sun, Moon, Github } from "lucide-react";
 
+const navigation = [
+  { name: "About", href: "/about" },
+  { name: "Projects", href: "/projects" },
+  { name: "Services", href: "/services" },
+  { name: "Blog", href: "/blog" },
+];
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
-
-  const navigation = [
-    { name: "About", href: "/about" },
-    { name: "Projects", href: "/projects" },
-    { name: "Services", href: "/services" },
-    { name: "Blog", href: "/blog" },
-    // { name: "Products", href: "/products" },
-    // { name: "Contact", href: "/contact" },
-  ];
 
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -44,7 +43,7 @@ export default function Header() {
             <Sun className="h-5 w-5 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-5 w-5 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
           </Button>
-          <Button variant="outline" size="icon">
+          <Button variant="outline" size="icon" asChild>
             <Link href="https://github.com/alvIndieDevelop" target="_blank">
               <Github className="h-5 w-5" />
             </Link>

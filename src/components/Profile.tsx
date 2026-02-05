@@ -72,12 +72,11 @@ export default function Profile() {
           <div className="">
             <div className="flex justify-between my-6 max-w-2xl mx-auto">
               {statsArray.map((stat) => (
-                <div className="flex flex-col items-center">
+                <div key={stat.type} className="flex flex-col items-center">
                   <span className="font-medium text-primary/90">
                     {stat.type}
                   </span>
                   <div
-                    key={stat.type}
                     className={`radial-progress ${stat.color}`}
                     style={
                       {
