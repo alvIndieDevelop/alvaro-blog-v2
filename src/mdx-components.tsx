@@ -46,13 +46,13 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         alt={alt || ""}
         width={800}
         height={400}
-        className="rounded-lg my-4"
+        className="rounded-md my-4"
       />
     ),
 
     // Code blocks with syntax highlighting
     pre: ({ children }) => (
-      <pre className="bg-muted p-4 rounded-lg overflow-x-auto my-4 text-sm">
+      <pre className="bg-muted p-4 rounded-md overflow-x-auto my-4 text-sm">
         {children}
       </pre>
     ),

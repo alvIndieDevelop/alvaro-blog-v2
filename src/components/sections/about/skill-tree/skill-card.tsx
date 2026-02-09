@@ -23,8 +23,8 @@ export function SkillCard({ skill, isSelected, onSelect }: SkillCardProps) {
       transition={{ duration: 0.2 }}
       onClick={onSelect}
       className={`
-        relative p-4 rounded-lg cursor-pointer
-        border-2 shadow-lg
+        relative p-4 rounded cursor-pointer
+        border-2 shadow
         ${
           isSelected
             ? "border-primary/50 bg-gradient-to-br from-primary/10 to-primary/5"
@@ -84,7 +84,7 @@ export function SkillCard({ skill, isSelected, onSelect }: SkillCardProps) {
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-2 text-sm text-primary/80 bg-primary/5 p-2 rounded-lg"
+                    className="flex items-center gap-2 text-sm text-primary/80 bg-primary/5 p-2 rounded-md"
                   >
                     <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
                     {effect}

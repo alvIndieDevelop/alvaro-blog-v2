@@ -59,7 +59,7 @@ export default function Profile() {
                 className="rounded-full"
               />
             </div>
-            <div className="mx-auto w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center shadow-lg">
+            <div className="mx-auto w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center shadow">
               <Sword className="w-8 h-8 text-primary" />
             </div>
             <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">

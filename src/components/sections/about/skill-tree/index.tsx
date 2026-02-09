@@ -20,7 +20,7 @@ export default function SkillTree() {
               animate={{ opacity: 1, y: 0 }}
               className="space-y-6"
             >
-              <h3 className="text-xl font-bold text-primary bg-primary/5 p-2 rounded-lg shadow-sm">
+              <h3 className="text-xl font-bold text-primary bg-primary/5 p-2 rounded-md shadow-xs">
                 {category.name}
               </h3>
               <div className="grid gap-4">

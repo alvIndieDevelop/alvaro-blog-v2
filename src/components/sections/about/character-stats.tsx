@@ -30,7 +30,7 @@ export default function CharacterStats({
 
   return (
     <Card className="p-6 border-2 shadow-xl">
-      <h2 className="text-2xl font-bold mb-6 text-primary bg-primary/5 p-2 rounded-lg inline-block">
+      <h2 className="text-2xl font-bold mb-6 text-primary bg-primary/5 p-2 rounded-md inline-block">
         Base Stats
       </h2>
 
@@ -43,7 +43,7 @@ export default function CharacterStats({
             transition={{ delay: index * 0.1 }}
           >
             <div className="flex items-center gap-2 mb-2">
-              <div className="p-1.5 rounded-lg bg-primary/10">
+              <div className="p-1.5 rounded-md bg-primary/10">
                 <stat.icon className="w-5 h-5 text-primary" />
               </div>
               <span className="font-medium text-primary/90">{stat.label}</span>
@@ -53,7 +53,7 @@ export default function CharacterStats({
             </div>
             <Progress
               value={stat.value}
-              className={`${stat.color} h-2.5 shadow-sm`}
+              className={`${stat.color} h-2.5 shadow-xs`}
             />
           </motion.div>
         ))}

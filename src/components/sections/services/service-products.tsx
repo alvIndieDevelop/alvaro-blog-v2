@@ -252,7 +252,7 @@ export function ServiceProducts() {
             >
               <Card className="flex flex-col h-full hover:border-primary/30 transition-all duration-200">
                 <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center mb-4">
                     <product.icon className="w-6 h-6 text-primary" />
                   </div>
                   <CardTitle className="text-xl">{product.name}</CardTitle>

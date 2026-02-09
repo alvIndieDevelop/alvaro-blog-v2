@@ -9,7 +9,7 @@ interface BlogCardProps {
 
 export default function BlogCard({ post }: BlogCardProps) {
   return (
-    <Card className="transition hover:translate-y-[-2px] hover:shadow-lg overflow-hidden">
+    <Card className="transition hover:translate-y-[-2px] hover:shadow overflow-hidden">
       <Link href={`/blog/${post.slug}`}>
         {post.cover && (
           <div className="relative h-48">
