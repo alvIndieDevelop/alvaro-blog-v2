@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Projects from "@/components/sections/projects";
 
 export const metadata: Metadata = {
-  title: "Projects",
+  title: "Quest Log | Achievements",
   description:
-    "Explore my portfolio of projects, from web applications to open-source contributions.",
+    "A chronicle of completed quests and crafted artifacts - explore my portfolio of projects and achievements.",
 };
 
 export default function ProjectsPage() {

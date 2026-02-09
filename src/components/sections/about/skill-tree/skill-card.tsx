@@ -1,8 +1,8 @@
 "use client";
-import { motion, AnimatePresence } from "framer-motion";
-import { Progress } from "../../../../components/ui/progress";
-import { Badge } from "../../../../components/ui/badge";
-import type { Skill } from "./types";
+import { motion } from "framer-motion";
+import { Skill } from "./types";
+import { cn } from "@/lib/utils";
+import { Star } from "lucide-react";
 
 interface SkillCardProps {
   skill: Skill;
@@ -10,91 +10,130 @@ interface SkillCardProps {
   onSelect: () => void;
 }
 
+// Get rarity based on skill level
+function getRarity(level: number, maxLevel: number): "common" | "uncommon" | "rare" | "epic" | "legendary" {
+  const percentage = level / maxLevel;
+  if (percentage >= 1) return "legendary";
+  if (percentage >= 0.8) return "epic";
+  if (percentage >= 0.6) return "rare";
+  if (percentage >= 0.4) return "uncommon";
+  return "common";
+}
+
+// Get rarity colors
+function getRarityColors(rarity: string) {
+  switch (rarity) {
+    case "legendary":
+      return {
+        border: "border-gold",
+        bg: "bg-gold/10",
+        text: "text-gold",
+        glow: "shadow-[0_0_15px_rgba(212,175,55,0.3)]",
+        bar: "bg-gradient-to-r from-gold to-amber-400",
+      };
+    case "epic":
+      return {
+        border: "border-purple-500",
+        bg: "bg-purple-500/10",
+        text: "text-purple-400",
+        glow: "shadow-[0_0_15px_rgba(168,85,247,0.3)]",
+        bar: "bg-gradient-to-r from-purple-500 to-pink-500",
+      };
+    case "rare":
+      return {
+        border: "border-ethereal",
+        bg: "bg-ethereal/10",
+        text: "text-ethereal",
+        glow: "shadow-[0_0_15px_rgba(100,200,255,0.3)]",
+        bar: "bg-gradient-to-r from-ethereal to-cyan-400",
+      };
+    case "uncommon":
+      return {
+        border: "border-emerald-500",
+        bg: "bg-emerald-500/10",
+        text: "text-emerald-400",
+        glow: "shadow-[0_0_10px_rgba(16,185,129,0.2)]",
+        bar: "bg-gradient-to-r from-emerald-500 to-green-400",
+      };
+    default:
+      return {
+        border: "border-muted",
+        bg: "bg-muted/10",
+        text: "text-muted-foreground",
+        glow: "",
+        bar: "bg-muted-foreground",
+      };
+  }
+}
+
 export function SkillCard({ skill, isSelected, onSelect }: SkillCardProps) {
+  const rarity = getRarity(skill.level, skill.maxLevel);
+  const colors = getRarityColors(rarity);
   const Icon = skill.icon;
-  const levelColor =
-    skill.level === skill.maxLevel ? "bg-yellow-500" : "bg-blue-500";
+  const percentage = (skill.level / skill.maxLevel) * 100;
 
   return (
     <motion.div
-      layout
       whileHover={{ scale: 1.02 }}
       whileTap={{ scale: 0.98 }}
-      transition={{ duration: 0.2 }}
       onClick={onSelect}
-      className={`
-        relative p-4 rounded cursor-pointer
-        border-2 shadow
-        ${
-          isSelected
-            ? "border-primary/50 bg-gradient-to-br from-primary/10 to-primary/5"
-            : "border-muted-foreground/20 bg-gradient-to-br from-muted/80 to-background hover:from-muted/90"
-        }
-        transition-all duration-200
-      `}
+      className={cn(
+        "relative cursor-pointer rounded-lg border p-3 transition-all duration-300",
+        "bg-void-surface hover:bg-void-elevated",
+        colors.border,
+        isSelected && colors.glow
+      )}
     >
-      <div className="flex items-center gap-3 mb-4">
-        <div className="p-2.5 rounded-xl bg-primary/20 shadow-inner">
-          <Icon className="w-6 h-6 text-primary" />
+      <div className="flex items-start gap-3">
+        {/* Icon */}
+        <div
+          className={cn(
+            "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+            colors.bg
+          )}
+        >
+          <Icon className={cn("h-5 w-5", colors.text)} />
         </div>
-        <div>
-          <h4 className="font-bold text-primary/90">{skill.name}</h4>
-          <Badge
-            variant="secondary"
-            className={`${levelColor} text-white mt-1`}
-          >
-            Level {skill.level}/{skill.maxLevel}
-          </Badge>
-        </div>
-      </div>
 
-      <div className="space-y-1 mb-3">
-        <div className="flex justify-between text-sm font-medium text-primary/80">
-          <span>Experience</span>
-          <span>
-            {skill.experience}/{skill.nextLevelExp}
-          </span>
-        </div>
-        <Progress
-          value={(skill.experience / skill.nextLevelExp) * 100}
-          className="h-2.5 bg-primary/10"
-        />
-      </div>
+        {/* Content */}
+        <div className="flex-1 min-w-0">
+          <div className="flex items-center justify-between gap-2">
+            <h4 className="font-medium text-foreground truncate">{skill.name}</h4>
+            <span className={cn("font-mono text-xs", colors.text)}>
+              Lv.{skill.level}
+            </span>
+          </div>
 
-      <AnimatePresence mode="wait">
-        {isSelected && (
-          <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: "auto" }}
-            exit={{ opacity: 0, height: 0 }}
-            transition={{ duration: 0.2 }}
-            className="space-y-3 pt-2 border-t border-primary/10"
-          >
-            <p className="text-sm text-primary/80 leading-relaxed">
+          {/* Progress bar */}
+          <div className="mt-2 h-1.5 w-full rounded-full bg-void overflow-hidden">
+            <motion.div
+              initial={{ width: 0 }}
+              animate={{ width: `${percentage}%` }}
+              transition={{ duration: 0.5, ease: "easeOut" }}
+              className={cn("h-full rounded-full", colors.bar)}
+            />
+          </div>
+
+          {/* Description (shown when selected) */}
+          {isSelected && skill.description && (
+            <motion.p
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: "auto" }}
+              exit={{ opacity: 0, height: 0 }}
+              className="mt-2 text-xs text-muted-foreground"
+            >
               {skill.description}
-            </p>
-            <div className="space-y-2">
-              <h5 className="text-sm font-semibold text-primary/90">
-                Effects:
-              </h5>
-              <ul className="grid gap-2">
-                {skill.effects.map((effect, index) => (
-                  <motion.li
-                    key={index}
-                    initial={{ opacity: 0, x: -10 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.1 }}
-                    className="flex items-center gap-2 text-sm text-primary/80 bg-primary/5 p-2 rounded-md"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
-                    {effect}
-                  </motion.li>
-                ))}
-              </ul>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            </motion.p>
+          )}
+        </div>
+      </div>
+
+      {/* Rarity indicator */}
+      {rarity === "legendary" && (
+        <div className="absolute -top-1 -right-1">
+          <Star className="h-4 w-4 text-gold fill-gold animate-pulse" />
+        </div>
+      )}
     </motion.div>
   );
 }
