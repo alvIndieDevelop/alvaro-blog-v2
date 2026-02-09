@@ -72,7 +72,7 @@ The project evolves **by layers**, not by features. Layers unlock progressively.
 
 Includes:
 
-- Home
+- Home (The Sanctum)
 - About (RPG-style character panel)
 - Projects (curated)
 - Accessible blog
@@ -134,11 +134,33 @@ Rule:
 
 ### Current Stack (Source of Truth)
 
-- Next.js (App Router)
-- TypeScript
-- Tailwind CSS + shadcn/ui
-- MDX for content
+- **Next.js 16** (App Router)
+- **React 19**
+- **TypeScript 5.9**
+- **Tailwind CSS 4** + shadcn/ui
+- **MDX** for content
+- **Framer Motion 12** for animations
 - Static-first, performance-oriented
+
+### Current Theme
+
+- **Dark Fantasy** aesthetic
+- Inspired by: Elden Ring, Zelda, Warhammer, Gundam
+- Golden accents, void backgrounds, ember particles
+- RPG-style UI elements (stat bars, skill trees, rarity badges)
+
+### Realm Architecture
+
+The site is organized into interconnected "Realms":
+
+| Realm | URL | Purpose |
+|-------|-----|---------|
+| 🏰 The Sanctum | `/` | Home, central hub |
+| ⚔️ The Forge | `/forge` | Professional work |
+| 🎮 The Workshop | `/workshop` | Creative projects |
+| 🍺 The Tavern | `/tavern` | Personal content |
+| 📚 The Library | `/library` | Technical knowledge |
+| 🗺️ The Map | `/map` | Navigation overview |
 
 ### Explicit Non-Goals
 
@@ -289,9 +311,54 @@ This project is successful if:
 
 ## Current State
 
-- Project: Active
-- Evolution: Slow and intentional
-- Priority: Clarity, identity, and enjoyment
+### Project Status
+- **Phase**: Active Development
+- **Evolution**: Slow and intentional
+- **Priority**: Clarity, identity, and enjoyment
+
+### Completed Milestones
+
+✅ **App Router Migration** (Feb 2026)
+- Migrated from Pages Router to App Router
+- Implemented root layout with providers
+- Added loading and error states
+- Created sitemap.ts and robots.ts
+
+✅ **Tailwind CSS v4 Migration** (Feb 2026)
+- Updated to Tailwind CSS 4.1.18
+- Using new @import syntax
+- Configured @theme for custom properties
+
+✅ **Visual Upgrade - Dark Fantasy** (Feb 2026)
+- Implemented dark fantasy color palette
+- Added custom fonts (Cinzel, Inter, JetBrains Mono)
+- Created realm-specific backgrounds
+- Added glow effects and animations
+- Implemented rarity system styling
+
+✅ **Realm Architecture Foundation** (Feb 2026)
+- Created realm page structure
+- Implemented realm-specific layouts
+- Added navigation between realms
+
+### Current Focus
+
+🔄 **Content Population**
+- Migrating existing content to MDX
+- Creating content for each realm
+- Adding project data
+
+🔄 **Component Enhancement**
+- Completing skill tree interactivity
+- Adding more particle effects
+- Refining UI components
+
+### Next Priorities
+
+1. Complete realm content population
+2. Add more visual effects per realm
+3. Implement cross-realm activity feed
+4. Performance optimization
 
 ---
 
@@ -303,6 +370,13 @@ This project is successful if:
 
 ## Related Documents
 
-- [`technical-guidelines.md`](technical-guidelines.md) — Code conventions, styling, and implementation patterns
+- [`PLAN.md`](PLAN.md) — Development plan and task checklist
 - [`architecture.md`](architecture.md) — System architecture overview
-- [`app-router-mdx-migration.md`](app-router-mdx-migration.md) — Migration plan details
+- [`technical-guidelines.md`](technical-guidelines.md) — Code conventions, styling, and implementation patterns
+- [`plans/visual-upgrade-dark-fantasy.md`](plans/visual-upgrade-dark-fantasy.md) — Visual design specifications
+- [`plans/realm-layers-architecture.md`](plans/realm-layers-architecture.md) — Realm system details
+
+---
+
+*Last Updated: February 2026*
+*Version: 2.0*

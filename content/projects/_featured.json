@@ -1,0 +1,14 @@
+{
+  "featured": [
+    "sailo-clone-frontend",
+    "sailo-clone-api",
+    "project-generator-nodejs",
+    "expressjs-typescript-boilerplate",
+    "flask-template"
+  ],
+  "order": [
+    "sailo-clone-frontend",
+    "sailo-clone-api",
+    "project-generator-nodejs"
+  ]
+}

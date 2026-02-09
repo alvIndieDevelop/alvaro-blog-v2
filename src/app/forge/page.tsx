@@ -3,53 +3,31 @@ import { RealmLayout, RealmHero, RealmSectionHeader } from "@/components/layouts
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { Hammer, Flame, Star, ExternalLink, Github, Briefcase, Clock, Award, Sparkles } from "lucide-react";
+import { Hammer, Flame, Star, ExternalLink, Github, Briefcase, Award, Sparkles, Code2 } from "lucide-react";
 import Link from "next/link";
+import { getForgeProjects, getRepositoryStats } from "@/lib/repositories";
+import type { Project, Difficulty } from "@/@types/repositories";
 
 export const metadata: Metadata = {
   title: "The Forge | Professional Work",
   description: "Professional projects, services, and career achievements forged through dedication and expertise.",
 };
 
-// Sample projects data - will be moved to content files later
-const forgeProjects = [
-  {
-    id: "1",
-    title: "E-Commerce Platform",
-    description: "A full-featured e-commerce solution with real-time inventory, payment processing, and admin dashboard.",
-    client: "TechCorp Inc.",
-    technologies: ["Next.js", "TypeScript", "PostgreSQL", "Stripe"],
-    difficulty: 4,
-    xpReward: 500,
-    status: "completed",
-    links: { live: "#", github: "#" },
-  },
-  {
-    id: "2",
-    title: "Healthcare Dashboard",
-    description: "Patient management system with appointment scheduling, medical records, and analytics.",
-    client: "MedHealth Solutions",
-    technologies: ["React", "Node.js", "MongoDB", "AWS"],
-    difficulty: 5,
-    xpReward: 750,
-    status: "completed",
-    links: { live: "#" },
-  },
-  {
-    id: "3",
-    title: "Real Estate Portal",
-    description: "Property listing platform with virtual tours, mortgage calculator, and agent matching.",
-    client: "HomeFind Realty",
-    technologies: ["Next.js", "Prisma", "Tailwind", "Vercel"],
-    difficulty: 3,
-    xpReward: 400,
-    status: "completed",
-    links: { live: "#", github: "#" },
-  },
-];
+// ISR: Revalidate every 6 hours
+export const revalidate = 21600;
+
+// Map difficulty to numeric level for stars
+const difficultyLevel: Record<Difficulty, number> = {
+  'Novice': 1,
+  'Apprentice': 2,
+  'Journeyman': 3,
+  'Expert': 4,
+  'Master': 5,
+};
 
 // Difficulty stars component
-function DifficultyStars({ level }: { level: number }) {
+function DifficultyStars({ difficulty }: { difficulty: Difficulty }) {
+  const level = difficultyLevel[difficulty];
   return (
     <div className="flex items-center gap-0.5">
       {[1, 2, 3, 4, 5].map((star) => (
@@ -64,9 +42,110 @@ function DifficultyStars({ level }: { level: number }) {
   );
 }
 
-export default function ForgePage() {
-  const totalXP = forgeProjects.reduce((acc, p) => acc + p.xpReward, 0);
-  const completedProjects = forgeProjects.filter(p => p.status === "completed").length;
+// Project card component
+function ForgeProjectCard({ project }: { project: Project }) {
+  const isBitbucket = project.source === 'bitbucket';
+  
+  return (
+    <Card
+      variant="default"
+      className="group relative overflow-hidden border-ember/20 hover:border-ember/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl hover:shadow-ember/10"
+    >
+      {/* XP Badge */}
+      <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 rounded-full bg-gold/10 border border-gold/30 text-xs font-mono text-gold">
+        <Sparkles className="h-3 w-3" />
+        +{project.xp} XP
+      </div>
+
+      {/* Source indicator */}
+      <div className="absolute top-4 left-4">
+        <div className={`p-1.5 rounded-md ${isBitbucket ? 'bg-blue-500/10 border border-blue-500/30' : 'bg-white/10 border border-white/20'}`}>
+          {isBitbucket ? (
+            <Code2 className="h-3 w-3 text-blue-400" />
+          ) : (
+            <Github className="h-3 w-3 text-white/70" />
+          )}
+        </div>
+      </div>
+
+      <CardHeader className="pb-3 pt-12">
+        <div className="flex items-center gap-2 mb-2">
+          <DifficultyStars difficulty={project.difficulty} />
+          <span className="text-xs text-muted-foreground">
+            {project.difficulty}
+          </span>
+        </div>
+        
+        <CardTitle className="text-xl group-hover:text-ember transition-colors flex items-start gap-3">
+          <div className="p-2 rounded-lg bg-ember/10 border border-ember/20 group-hover:bg-ember/20 transition-colors">
+            <Flame className="h-5 w-5 text-ember" />
+          </div>
+          <span className="pt-1">{project.name}</span>
+        </CardTitle>
+        
+        {project.client && (
+          <p className="text-sm text-muted-foreground flex items-center gap-2">
+            <Briefcase className="h-3 w-3" />
+            {project.client}
+          </p>
+        )}
+        
+        {project.language && (
+          <p className="text-sm text-muted-foreground flex items-center gap-2">
+            <Code2 className="h-3 w-3" />
+            {project.language}
+          </p>
+        )}
+        
+        <CardDescription className="line-clamp-2 mt-2">
+          {project.description}
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent>
+        {/* Technologies */}
+        <div className="flex flex-wrap gap-1.5 mb-4">
+          {project.technologies.slice(0, 5).map((tech) => (
+            <Badge key={tech} variant="skill" className="text-xs">
+              {tech}
+            </Badge>
+          ))}
+          {project.technologies.length > 5 && (
+            <Badge variant="outline" className="text-xs text-muted-foreground">
+              +{project.technologies.length - 5}
+            </Badge>
+          )}
+        </div>
+
+        {/* Links */}
+        <div className="flex items-center gap-2">
+          {project.homepage && (
+            <Button size="sm" variant="default" className="flex-1" asChild>
+              <a href={project.homepage} target="_blank" rel="noopener noreferrer">
+                <ExternalLink className="h-3 w-3 mr-1" />
+                Live
+              </a>
+            </Button>
+          )}
+          <Button size="sm" variant={project.homepage ? "ghost" : "default"} className={project.homepage ? "" : "flex-1"} asChild>
+            <a href={project.url} target="_blank" rel="noopener noreferrer">
+              <Github className="h-4 w-4" />
+              {!project.homepage && <span className="ml-1">View Code</span>}
+            </a>
+          </Button>
+        </div>
+      </CardContent>
+    </Card>
+  );
+}
+
+export default async function ForgePage() {
+  // Fetch projects from GitHub and Bitbucket
+  const projects = await getForgeProjects();
+  const stats = await getRepositoryStats();
+  
+  const totalXP = projects.reduce((acc, p) => acc + p.xp, 0);
+  const completedProjects = projects.length;
 
   return (
     <RealmLayout realm="forge">
@@ -94,7 +173,7 @@ export default function ForgePage() {
               <Award className="h-5 w-5 text-gold" />
             </div>
             <div className="text-left">
-              <p className="font-mono text-2xl font-bold text-gold">{totalXP}</p>
+              <p className="font-mono text-2xl font-bold text-gold">{totalXP.toLocaleString()}</p>
               <p className="text-xs text-muted-foreground">Total XP</p>
             </div>
           </div>
@@ -109,78 +188,17 @@ export default function ForgePage() {
           title="Forged Creations"
         />
 
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {forgeProjects.map((project, index) => (
-            <Card
-              key={project.id}
-              variant="default"
-              className="group relative overflow-hidden border-ember/20 hover:border-ember/40 hover:-translate-y-1 transition-all duration-300 hover:shadow-xl hover:shadow-ember/10"
-            >
-              {/* XP Badge */}
-              <div className="absolute top-4 right-4 flex items-center gap-1 px-2 py-1 rounded-full bg-gold/10 border border-gold/30 text-xs font-mono text-gold">
-                <Sparkles className="h-3 w-3" />
-                +{project.xpReward} XP
-              </div>
-
-              <CardHeader className="pb-3">
-                <div className="flex items-center gap-2 mb-2">
-                  <DifficultyStars level={project.difficulty} />
-                  <span className="text-xs text-muted-foreground">
-                    {["Novice", "Apprentice", "Journeyman", "Expert", "Master"][project.difficulty - 1]}
-                  </span>
-                </div>
-                
-                <CardTitle className="text-xl group-hover:text-ember transition-colors flex items-start gap-3">
-                  <div className="p-2 rounded-lg bg-ember/10 border border-ember/20 group-hover:bg-ember/20 transition-colors">
-                    <Flame className="h-5 w-5 text-ember" />
-                  </div>
-                  <span className="pt-1">{project.title}</span>
-                </CardTitle>
-                
-                {project.client && (
-                  <p className="text-sm text-muted-foreground flex items-center gap-2">
-                    <Briefcase className="h-3 w-3" />
-                    {project.client}
-                  </p>
-                )}
-                
-                <CardDescription className="line-clamp-2 mt-2">
-                  {project.description}
-                </CardDescription>
-              </CardHeader>
-
-              <CardContent>
-                {/* Technologies */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {project.technologies.map((tech) => (
-                    <Badge key={tech} variant="skill" className="text-xs">
-                      {tech}
-                    </Badge>
-                  ))}
-                </div>
-
-                {/* Links */}
-                <div className="flex items-center gap-2">
-                  {project.links.live && (
-                    <Button size="sm" variant="default" className="flex-1" asChild>
-                      <Link href={project.links.live}>
-                        <ExternalLink className="h-3 w-3 mr-1" />
-                        View
-                      </Link>
-                    </Button>
-                  )}
-                  {project.links.github && (
-                    <Button size="sm" variant="ghost" asChild>
-                      <Link href={project.links.github}>
-                        <Github className="h-4 w-4" />
-                      </Link>
-                    </Button>
-                  )}
-                </div>
-              </CardContent>
-            </Card>
-          ))}
-        </div>
+        {projects.length > 0 ? (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {projects.map((project) => (
+              <ForgeProjectCard key={project.id} project={project} />
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-12">
+            <p className="text-muted-foreground">Loading projects from the forge...</p>
+          </div>
+        )}
 
         {/* Services Section */}
         <div className="mt-20">
@@ -228,7 +246,7 @@ export default function ForgePage() {
           <Card variant="parchment" className="inline-block p-8 border-ember/30">
             <h3 className="font-display text-2xl text-ember mb-4">Ready to Forge Something Great?</h3>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Let's discuss your project and bring your ideas to life.
+              Let&apos;s discuss your project and bring your ideas to life.
             </p>
             <Button size="lg" className="bg-ember hover:bg-ember/90">
               <Flame className="h-4 w-4 mr-2" />

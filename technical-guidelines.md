@@ -12,10 +12,11 @@ This document provides technical guidelines for development on the Alvaro Indie 
 
 ### Current Stack
 
-- **Framework:** Next.js 15 (App Router)
-- **Language:** TypeScript
-- **Styling:** Tailwind CSS + shadcn/ui
+- **Framework:** Next.js 16 (App Router)
+- **Language:** TypeScript 5.9
+- **Styling:** Tailwind CSS 4 + shadcn/ui
 - **Content:** MDX files in `content/` directory
+- **Animations:** Framer Motion 12
 - **Deployment:** Netlify
 
 ### Directory Structure
@@ -624,6 +625,8 @@ const HeavyComponent = dynamic(() => import('./HeavyComponent'), {
 
 ## Related Documents
 
+- [`PLAN.md`](PLAN.md) — Development plan and task checklist
 - [`agent.md`](agent.md) — Project vision, decision rules, and strategic direction
 - [`architecture.md`](architecture.md) — System architecture overview
-- [`app-router-mdx-migration.md`](app-router-mdx-migration.md) — Migration plan details
+- [`plans/visual-upgrade-dark-fantasy.md`](plans/visual-upgrade-dark-fantasy.md) — Visual design specifications
+- [`plans/realm-layers-architecture.md`](plans/realm-layers-architecture.md) — Realm system details

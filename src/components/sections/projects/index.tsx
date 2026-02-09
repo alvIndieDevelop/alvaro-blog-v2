@@ -1,73 +1,19 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ProjectCard, type Difficulty, type ProjectStatus } from "./project-card";
+import { ProjectCard } from "./project-card";
 import { Trophy, Scroll, Target, Sword } from "lucide-react";
+import type { Project } from "@/@types/repositories";
 
-interface Project {
-  title: string;
-  description: string;
-  technologies: string[];
-  githubUrl: string;
-  liveUrl?: string;
-  difficulty: Difficulty;
-  status: ProjectStatus;
-  xp: number;
+interface ProjectsProps {
+  projects: Project[];
 }
 
-const projects: Project[] = [
-  {
-    title: "Flask Template",
-    description: "A battle-tested flask template for rapid web application deployment",
-    technologies: ["Python", "Flask"],
-    githubUrl: "https://github.com/alvIndieDevelop/flask_template",
-    difficulty: "Apprentice",
-    status: "completed",
-    xp: 150,
-  },
-  {
-    title: "Project Generator NodeJS",
-    description: "CLI tool that conjures project scaffolds from the command line",
-    technologies: ["NodeJS", "JavaScript", "TypeScript", "NPM"],
-    githubUrl: "https://github.com/alvIndieDevelop/project-generator-nodejs",
-    difficulty: "Journeyman",
-    status: "completed",
-    xp: 250,
-  },
-  {
-    title: "ExpressJS TypeScript Boilerplate",
-    description: "A fortified boilerplate for building robust Express applications",
-    technologies: ["NodeJS", "TypeScript", "ExpressJS"],
-    githubUrl: "https://github.com/alvIndieDevelop/expressjs-typescript-boilplate",
-    difficulty: "Journeyman",
-    status: "completed",
-    xp: 200,
-  },
-  {
-    title: "Sailo Clone API",
-    description: "Backend API for a boat rental marketplace - a full-stack quest",
-    technologies: ["Python", "Flask"],
-    githubUrl: "https://bitbucket.org/alvarosh40/sailoclone_api_sandbox/src/master/",
-    difficulty: "Expert",
-    status: "completed",
-    xp: 400,
-  },
-  {
-    title: "Sailo Clone Frontend",
-    description: "Modern frontend for boat rentals, crafted with Next.js magic",
-    technologies: ["NextJS", "JavaScript", "MaterialUI"],
-    githubUrl: "https://bitbucket.org/alvarosh40/yachtbunny_client_sandbox/src/master/",
-    difficulty: "Expert",
-    status: "completed",
-    xp: 450,
-  },
-];
+export default function Projects({ projects }: ProjectsProps) {
+  // Calculate total XP
+  const totalXP = projects.reduce((sum, p) => sum + p.xp, 0);
+  const completedQuests = projects.filter((p) => p.status === "completed").length;
 
-// Calculate total XP
-const totalXP = projects.reduce((sum, p) => sum + p.xp, 0);
-const completedQuests = projects.filter((p) => p.status === "completed").length;
-
-export default function Projects() {
   return (
     <section id="projects" className="relative py-20 bg-void">
       {/* Background pattern */}
@@ -116,13 +62,22 @@ export default function Projects() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((project, index) => (
             <motion.div
-              key={project.title}
+              key={project.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
             >
-              <ProjectCard {...project} />
+              <ProjectCard
+                title={project.name}
+                description={project.description}
+                technologies={project.technologies}
+                githubUrl={project.url}
+                liveUrl={project.homepage}
+                difficulty={project.difficulty}
+                status={project.status}
+                xp={project.xp}
+              />
             </motion.div>
           ))}
         </div>
