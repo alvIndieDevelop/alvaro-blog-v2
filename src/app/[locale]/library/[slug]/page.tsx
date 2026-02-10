@@ -1,39 +1,48 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
 import { getAllSlugs, getPostBySlug } from "@/lib/blog";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { RealmLayout } from "@/components/layouts/RealmLayout";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { NotTranslatedBanner } from "@/components/ui/not-translated-banner";
 import ShareButtons from "@/components/ShareButtons";
+import { Link } from "@/i18n/navigation";
 import { format } from "date-fns";
+import { es, enUS } from "date-fns/locale";
 import remarkGfm from "remark-gfm";
 import { ArrowLeft, Calendar, Clock, User, Scroll, BookOpen, Share2, Sparkles } from "lucide-react";
 
 interface PageProps {
-  params: Promise<{ slug: string }>;
+  params: Promise<{ slug: string; locale: string }>;
 }
 
 export async function generateStaticParams() {
   const slugs = getAllSlugs();
-  return slugs.map((slug) => ({
-    slug,
-  }));
+  const locales = ["en", "es"];
+  
+  return locales.flatMap((locale) =>
+    slugs.map((slug) => ({
+      locale,
+      slug,
+    }))
+  );
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug, locale } = await params;
+  const post = getPostBySlug(slug, locale);
+  const t = await getTranslations({ locale, namespace: "library" });
 
   if (!post) {
     return {
-      title: "Scroll Not Found",
+      title: t("noScrolls"),
     };
   }
 
   return {
-    title: `${post.title} | The Library`,
+    title: `${post.title} | ${t("title")}`,
     description: post.description,
     openGraph: {
       title: post.title,
@@ -46,12 +55,25 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function LibraryPostPage({ params }: PageProps) {
-  const { slug } = await params;
-  const post = getPostBySlug(slug);
+  const { slug, locale } = await params;
+  const post = getPostBySlug(slug, locale);
+  const t = await getTranslations({ locale, namespace: "library" });
+  const tCommon = await getTranslations({ locale, namespace: "common" });
+  
+  const dateLocale = locale === "es" ? es : enUS;
 
   if (!post) {
     notFound();
   }
+
+  const scribedByText = locale === "es" ? "Escrito por" : "Scribed by";
+  const ancientScrollText = locale === "es" ? "Pergamino Antiguo" : "Ancient Scroll";
+  const shareScrollText = locale === "es" ? "Compartir este pergamino" : "Share this scroll";
+  const knowledgeText = locale === "es" 
+    ? "✨ Que este conocimiento te sirva bien en tu viaje"
+    : "✨ May this knowledge serve you well on your journey";
+  const returnText = locale === "es" ? "Volver a la Biblioteca" : "Return to the Library";
+  const backText = locale === "es" ? "Volver a la Biblioteca" : "Back to Library";
 
   return (
     <RealmLayout realm="library">
@@ -61,10 +83,17 @@ export default async function LibraryPostPage({ params }: PageProps) {
           <Button variant="ghost" size="sm" asChild className="text-blue-500 hover:text-blue-400">
             <Link href="/library">
               <ArrowLeft className="h-4 w-4 mr-2" />
-              Back to Library
+              {backText}
             </Link>
           </Button>
         </div>
+
+        {/* Not translated banner */}
+        {!post.isTranslated && (
+          <div className="max-w-3xl mx-auto">
+            <NotTranslatedBanner originalLocale={post.locale} />
+          </div>
+        )}
 
         {/* Header */}
         <header className="max-w-3xl mx-auto mb-12">
@@ -72,7 +101,7 @@ export default async function LibraryPostPage({ params }: PageProps) {
           <div className="flex items-center gap-2 mb-4">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-blue-500/30 bg-blue-500/10">
               <Scroll className="h-4 w-4 text-blue-500" />
-              <span className="text-sm font-medium text-blue-400">Ancient Scroll</span>
+              <span className="text-sm font-medium text-blue-400">{ancientScrollText}</span>
             </div>
           </div>
 
@@ -81,7 +110,7 @@ export default async function LibraryPostPage({ params }: PageProps) {
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-void-surface border border-blue-600/20">
               <Calendar className="h-4 w-4 text-blue-500" />
               <time dateTime={post.date}>
-                {format(new Date(post.date), "MMMM d, yyyy")}
+                {format(new Date(post.date), "MMMM d, yyyy", { locale: dateLocale })}
               </time>
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-void-surface border border-gold/20">
@@ -90,7 +119,7 @@ export default async function LibraryPostPage({ params }: PageProps) {
             </div>
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-void-surface border border-border">
               <User className="h-4 w-4 text-muted-foreground" />
-              <span>Scribed by {post.author}</span>
+              <span>{scribedByText} {post.author}</span>
             </div>
           </div>
 
@@ -162,7 +191,7 @@ export default async function LibraryPostPage({ params }: PageProps) {
             <div>
               <h3 className="font-semibold mb-3 flex items-center gap-2 text-blue-400">
                 <Share2 className="h-4 w-4" />
-                Share this scroll
+                {shareScrollText}
               </h3>
               <ShareButtons
                 url={`https://alvaro-blog.netlify.app/library/${slug}`}
@@ -172,7 +201,7 @@ export default async function LibraryPostPage({ params }: PageProps) {
             
             <div className="text-right">
               <p className="text-sm text-muted-foreground italic">
-                ✨ May this knowledge serve you well on your journey
+                {knowledgeText}
               </p>
             </div>
           </div>
@@ -181,7 +210,7 @@ export default async function LibraryPostPage({ params }: PageProps) {
             <Button variant="outline" asChild className="gap-2 border-blue-600/30 text-blue-500 hover:bg-blue-600/10">
               <Link href="/library">
                 <ArrowLeft className="h-4 w-4" />
-                Return to the Library
+                {returnText}
               </Link>
             </Button>
           </div>

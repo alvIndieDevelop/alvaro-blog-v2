@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { getCurrentExperience, getPercentOfCurrentYear } from "@/utils";
 import { Card } from "./ui/card";
 import { Progress } from "./ui/progress";
@@ -22,6 +23,7 @@ import {
 import { motion } from "framer-motion";
 
 export default function Profile() {
+  const t = useTranslations("profile");
   const currAgeExp = getCurrentExperience();
   const currExp = getPercentOfCurrentYear();
 
@@ -51,7 +53,7 @@ export default function Profile() {
             {/* Title badge */}
             <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-gold/30 bg-gold/10">
               <Shield className="h-4 w-4 text-gold" />
-              <span className="font-mono text-sm text-gold">Character Sheet</span>
+              <span className="font-mono text-sm text-gold">{t("characterSheet")}</span>
             </div>
 
             {/* Portrait */}
@@ -77,10 +79,10 @@ export default function Profile() {
               Alvaro Martin Caballero
             </h1>
             <p className="text-lg text-muted-foreground mb-1">
-              Senior Software Developer
+              {t("jobTitle")}
             </p>
             <p className="text-sm text-muted-foreground/60">
-              🏢 IntechIdeas • 🎮 IndieDev Guild
+              {t("affiliations")}
             </p>
           </motion.div>
 
@@ -92,7 +94,7 @@ export default function Profile() {
             transition={{ delay: 0.1 }}
             className="max-w-md mx-auto mb-12"
           >
-            <h2 className="font-display text-xl text-gold text-center mb-6">Base Stats</h2>
+            <h2 className="font-display text-xl text-gold text-center mb-6">{t("baseStats")}</h2>
             <div className="space-y-4">
               <div className="flex items-center gap-4">
                 <div className="flex items-center gap-2 w-20">
@@ -126,7 +128,7 @@ export default function Profile() {
               viewport={{ once: true }}
               className="font-display text-2xl text-gold text-center mb-8"
             >
-              ═══ Character Lore ═══
+              {t("characterLore")}
             </motion.h2>
 
             {/* Backstory */}
@@ -140,14 +142,10 @@ export default function Profile() {
                 <div className="p-2 bg-gold/10 rounded-lg border border-gold/30">
                   <Scroll className="w-5 h-5 text-gold" />
                 </div>
-                <h3 className="font-display text-xl text-gold">Backstory</h3>
+                <h3 className="font-display text-xl text-gold">{t("backstory")}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                My journey began in 2019, when I first discovered the magic of
-                turning ideas into digital reality. Since then, I&apos;ve been on a
-                quest to master the art of software development, crafting
-                experiences that blend creativity with technical excellence.
-                Every project is a new adventure, every bug a puzzle to solve.
+                {t("backstoryText")}
               </p>
             </motion.div>
 
@@ -162,28 +160,28 @@ export default function Profile() {
                 <div className="p-2 bg-ethereal/10 rounded-lg border border-ethereal/30">
                   <Sword className="w-5 h-5 text-ethereal" />
                 </div>
-                <h3 className="font-display text-xl text-ethereal">Specializations</h3>
+                <h3 className="font-display text-xl text-ethereal">{t("specializations")}</h3>
               </div>
               <div className="grid md:grid-cols-3 gap-4 mt-4">
                 <div className="flex items-center gap-3 p-4 bg-void/50 rounded-lg border border-border">
                   <Code2 className="w-6 h-6 text-ethereal" />
                   <div>
-                    <p className="font-medium text-foreground">Web Development</p>
-                    <p className="text-sm text-muted-foreground">React, Next.js, TypeScript</p>
+                    <p className="font-medium text-foreground">{t("webDev")}</p>
+                    <p className="text-sm text-muted-foreground">{t("webDevTech")}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-void/50 rounded-lg border border-border">
                   <Gamepad2 className="w-6 h-6 text-ember" />
                   <div>
-                    <p className="font-medium text-foreground">Game Development</p>
-                    <p className="text-sm text-muted-foreground">Unity, Godot, C#</p>
+                    <p className="font-medium text-foreground">{t("gameDev")}</p>
+                    <p className="text-sm text-muted-foreground">{t("gameDevTech")}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3 p-4 bg-void/50 rounded-lg border border-border">
                   <Cloud className="w-6 h-6 text-gold" />
                   <div>
-                    <p className="font-medium text-foreground">Cloud Architecture</p>
-                    <p className="text-sm text-muted-foreground">AWS, Serverless</p>
+                    <p className="font-medium text-foreground">{t("cloudArch")}</p>
+                    <p className="text-sm text-muted-foreground">{t("cloudArchTech")}</p>
                   </div>
                 </div>
               </div>
@@ -200,14 +198,12 @@ export default function Profile() {
                 <div className="p-2 bg-ember/10 rounded-lg border border-ember/30">
                   <Target className="w-5 h-5 text-ember" />
                 </div>
-                <h3 className="font-display text-xl text-ember">Current Quest</h3>
+                <h3 className="font-display text-xl text-ember">{t("currentQuest")}</h3>
               </div>
               <p className="text-muted-foreground leading-relaxed">
-                Building innovative solutions at{" "}
-                <span className="font-semibold text-gold">IntechIdeas</span>{" "}
-                as a Senior Software Developer, while pursuing my indie game
-                development dreams on the side. The goal? Create experiences
-                that matter and tools that empower others.
+                {t.rich("currentQuestText", {
+                  company: (chunks) => <span className="font-semibold text-gold">{chunks}</span>
+                })}
               </p>
             </motion.div>
 
@@ -222,11 +218,10 @@ export default function Profile() {
                 <div className="p-2 bg-gold/10 rounded-lg border border-gold/30">
                   <Lightbulb className="w-5 h-5 text-gold" />
                 </div>
-                <h3 className="font-display text-xl text-gold">Philosophy</h3>
+                <h3 className="font-display text-xl text-gold">{t("philosophy")}</h3>
               </div>
               <blockquote className="text-lg italic text-muted-foreground">
-                &ldquo;Code is my craft, games are my passion, and every project
-                is an adventure waiting to unfold.&rdquo;
+                &ldquo;{t("philosophyQuote")}&rdquo;
               </blockquote>
             </motion.div>
           </div>

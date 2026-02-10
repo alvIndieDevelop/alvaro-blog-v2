@@ -2,10 +2,13 @@ import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
 import readingTime from "reading-time";
+import type { TavernContentType } from "./realms";
 
-const CONTENT_DIR = path.join(process.cwd(), "content/blog");
+const CONTENT_DIR = path.join(process.cwd(), "content/tavern/tales");
 
-export interface BlogPost {
+export type TavernMood = "happy" | "reflective" | "excited" | "casual";
+
+export interface TavernTale {
   slug: string;
   title: string;
   description: string;
@@ -15,11 +18,13 @@ export interface BlogPost {
   author: string;
   readingTime: string;
   content: string;
+  type: TavernContentType;
+  mood: TavernMood;
   locale: string;
   isTranslated: boolean;
 }
 
-export interface BlogPostMeta {
+export interface TavernTaleMeta {
   slug: string;
   title: string;
   description: string;
@@ -28,15 +33,17 @@ export interface BlogPostMeta {
   cover?: string;
   author: string;
   readingTime: string;
+  type: TavernContentType;
+  mood: TavernMood;
   locale: string;
   isTranslated: boolean;
 }
 
 /**
- * Get the blog directory for a specific locale
+ * Get the tales directory for a specific locale
  * Falls back to root directory if locale subdirectory doesn't exist
  */
-function getBlogDir(locale: string = "en"): string {
+function getTalesDir(locale: string = "en"): string {
   const localeDir = path.join(CONTENT_DIR, locale);
   
   // Check if locale-specific directory exists
@@ -44,47 +51,38 @@ function getBlogDir(locale: string = "en"): string {
     return localeDir;
   }
   
-  // Fall back to root content/blog directory (legacy support)
+  // Fall back to root content/tavern/tales directory (legacy support)
   return CONTENT_DIR;
 }
 
 /**
- * Check if a post exists in a specific locale
- */
-function postExistsInLocale(slug: string, locale: string): boolean {
-  const localeDir = path.join(CONTENT_DIR, locale);
-  const filePath = path.join(localeDir, `${slug}.mdx`);
-  return fs.existsSync(filePath);
-}
-
-/**
- * Get all posts for a specific locale
+ * Get all tavern tales metadata (without content) for a specific locale
  * Falls back to English content if locale content doesn't exist
  */
-export function getAllPosts(locale: string = "en"): BlogPostMeta[] {
-  const blogDir = getBlogDir(locale);
-  const fallbackDir = locale !== "en" ? getBlogDir("en") : null;
+export function getAllTales(locale: string = "en"): TavernTaleMeta[] {
+  const talesDir = getTalesDir(locale);
+  const fallbackDir = locale !== "en" ? getTalesDir("en") : null;
   
-  // Ensure the blog directory exists
-  if (!fs.existsSync(blogDir)) {
+  // Ensure the tales directory exists
+  if (!fs.existsSync(talesDir)) {
     return [];
   }
 
-  const files = fs.readdirSync(blogDir);
+  const files = fs.readdirSync(talesDir);
   const processedSlugs = new Set<string>();
 
-  const posts = files
+  const tales = files
     .filter((file) => file.endsWith(".mdx"))
     .map((file) => {
       const slug = file.replace(".mdx", "");
       processedSlugs.add(slug);
-      const filePath = path.join(blogDir, file);
+      const filePath = path.join(talesDir, file);
       const fileContent = fs.readFileSync(filePath, "utf-8");
       const { data, content } = matter(fileContent);
 
       return {
         slug,
-        title: data.title || "Untitled",
+        title: data.title || "Untitled Tale",
         description: data.description || "",
         date: data.date
           ? new Date(data.date).toISOString()
@@ -93,12 +91,14 @@ export function getAllPosts(locale: string = "en"): BlogPostMeta[] {
         cover: data.cover,
         author: data.author || "Alvaro Martin Caballero",
         readingTime: readingTime(content).text,
+        type: (data.type as TavernContentType) || "tale",
+        mood: (data.mood as TavernMood) || "casual",
         locale,
         isTranslated: true,
       };
     });
 
-  // If we're looking for a non-English locale, also include English posts that aren't translated
+  // If we're looking for a non-English locale, also include English tales that aren't translated
   if (fallbackDir && fs.existsSync(fallbackDir)) {
     const fallbackFiles = fs.readdirSync(fallbackDir);
     
@@ -107,16 +107,16 @@ export function getAllPosts(locale: string = "en"): BlogPostMeta[] {
       .forEach((file) => {
         const slug = file.replace(".mdx", "");
         
-        // Skip if we already have this post in the target locale
+        // Skip if we already have this tale in the target locale
         if (processedSlugs.has(slug)) return;
         
         const filePath = path.join(fallbackDir, file);
         const fileContent = fs.readFileSync(filePath, "utf-8");
         const { data, content } = matter(fileContent);
 
-        posts.push({
+        tales.push({
           slug,
-          title: data.title || "Untitled",
+          title: data.title || "Untitled Tale",
           description: data.description || "",
           date: data.date
             ? new Date(data.date).toISOString()
@@ -125,20 +125,22 @@ export function getAllPosts(locale: string = "en"): BlogPostMeta[] {
           cover: data.cover,
           author: data.author || "Alvaro Martin Caballero",
           readingTime: readingTime(content).text,
+          type: (data.type as TavernContentType) || "tale",
+          mood: (data.mood as TavernMood) || "casual",
           locale: "en", // Original locale
           isTranslated: false, // Not translated to target locale
         });
       });
   }
 
-  return posts.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  return tales.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 /**
- * Get a single post by slug for a specific locale
- * Falls back to English if the post doesn't exist in the target locale
+ * Get a single tale by slug (with content) for a specific locale
+ * Falls back to English if the tale doesn't exist in the target locale
  */
-export function getPostBySlug(slug: string, locale: string = "en"): BlogPost | null {
+export function getTaleBySlug(slug: string, locale: string = "en"): TavernTale | null {
   // First try the locale-specific directory
   const localeDir = path.join(CONTENT_DIR, locale);
   let filePath = path.join(localeDir, `${slug}.mdx`);
@@ -172,7 +174,7 @@ export function getPostBySlug(slug: string, locale: string = "en"): BlogPost | n
 
   return {
     slug,
-    title: data.title || "Untitled",
+    title: data.title || "Untitled Tale",
     description: data.description || "",
     date: data.date
       ? new Date(data.date).toISOString()
@@ -182,38 +184,47 @@ export function getPostBySlug(slug: string, locale: string = "en"): BlogPost | n
     author: data.author || "Alvaro Martin Caballero",
     readingTime: readingTime(content).text,
     content,
+    type: (data.type as TavernContentType) || "tale",
+    mood: (data.mood as TavernMood) || "casual",
     locale: actualLocale,
     isTranslated,
   };
 }
 
 /**
- * Get all unique tags from posts in a specific locale
+ * Get all unique tags from tavern tales for a specific locale
  */
-export function getAllTags(locale: string = "en"): string[] {
-  const posts = getAllPosts(locale);
+export function getAllTaleTags(locale: string = "en"): string[] {
+  const tales = getAllTales(locale);
   const tags = new Set<string>();
 
-  posts.forEach((post) => {
-    post.tags.forEach((tag) => tags.add(tag));
+  tales.forEach((tale) => {
+    tale.tags.forEach((tag) => tags.add(tag));
   });
 
   return Array.from(tags).sort();
 }
 
 /**
- * Get posts filtered by tag for a specific locale
+ * Get tales filtered by tag for a specific locale
  */
-export function getPostsByTag(tag: string, locale: string = "en"): BlogPostMeta[] {
-  return getAllPosts(locale).filter((post) =>
-    post.tags.map((t) => t.toLowerCase()).includes(tag.toLowerCase()),
+export function getTalesByTag(tag: string, locale: string = "en"): TavernTaleMeta[] {
+  return getAllTales(locale).filter((tale) =>
+    tale.tags.map((t) => t.toLowerCase()).includes(tag.toLowerCase())
   );
 }
 
 /**
- * Get all slugs (for static generation)
+ * Get tales filtered by mood for a specific locale
  */
-export function getAllSlugs(): string[] {
+export function getTalesByMood(mood: TavernMood, locale: string = "en"): TavernTaleMeta[] {
+  return getAllTales(locale).filter((tale) => tale.mood === mood);
+}
+
+/**
+ * Get all tale slugs (for static generation)
+ */
+export function getAllTaleSlugs(): string[] {
   const slugs = new Set<string>();
   
   // Check root directory (legacy)

@@ -1,4 +1,8 @@
 import createMDX from "@next/mdx";
+import createNextIntlPlugin from "next-intl/plugin";
+
+// Create the next-intl plugin with the request config path
+const withNextIntl = createNextIntlPlugin("./src/i18n/request.ts");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -38,5 +42,5 @@ const withMDX = createMDX({
   },
 });
 
-// Merge MDX config with Next.js config
-export default withMDX(nextConfig);
+// Chain the plugins: next-intl -> MDX -> Next.js config
+export default withNextIntl(withMDX(nextConfig));

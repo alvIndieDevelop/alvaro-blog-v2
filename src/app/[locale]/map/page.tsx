@@ -1,42 +1,13 @@
 "use client";
 
-import type { Metadata } from "next";
-import Link from "next/link";
+import { useTranslations } from "next-intl";
 import { motion } from "framer-motion";
 import { RealmLayout, RealmHero } from "@/components/layouts/RealmLayout";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { realms, type RealmId } from "@/lib/realms";
 import { cn } from "@/lib/utils";
 import { Map, ArrowRight, Compass, Castle, Hammer, Gamepad2, Beer, Library } from "lucide-react";
-
-// Realm card data with descriptions
-const realmCards: { id: RealmId; tagline: string; features: string[] }[] = [
-  {
-    id: "sanctum",
-    tagline: "The central hub of all adventures",
-    features: ["Character Overview", "Recent Activity", "Quick Navigation"],
-  },
-  {
-    id: "forge",
-    tagline: "Where professional work is crafted",
-    features: ["Client Projects", "Services", "Career Timeline"],
-  },
-  {
-    id: "workshop",
-    tagline: "Creative experiments and games",
-    features: ["Game Development", "Side Projects", "Game Jams"],
-  },
-  {
-    id: "tavern",
-    tagline: "Personal stories and hobbies",
-    features: ["Life Updates", "Hobbies", "Favorites"],
-  },
-  {
-    id: "library",
-    tagline: "Knowledge and tutorials",
-    features: ["Technical Blog", "Guides", "Ideas"],
-  },
-];
+import { Link } from "@/i18n/navigation";
 
 // Get realm-specific colors
 function getRealmColors(realmId: RealmId) {
@@ -52,18 +23,50 @@ function getRealmColors(realmId: RealmId) {
 }
 
 export default function MapPage() {
+  const t = useTranslations("map");
+  const tRealms = useTranslations("realms");
+
+  // Realm card data with translations
+  const realmCards: { id: RealmId; taglineKey: string; featuresKey: string }[] = [
+    {
+      id: "sanctum",
+      taglineKey: "sanctumTagline",
+      featuresKey: "sanctumFeatures",
+    },
+    {
+      id: "forge",
+      taglineKey: "forgeTagline",
+      featuresKey: "forgeFeatures",
+    },
+    {
+      id: "workshop",
+      taglineKey: "workshopTagline",
+      featuresKey: "workshopFeatures",
+    },
+    {
+      id: "tavern",
+      taglineKey: "tavernTagline",
+      featuresKey: "tavernFeatures",
+    },
+    {
+      id: "library",
+      taglineKey: "libraryTagline",
+      featuresKey: "libraryFeatures",
+    },
+  ];
+
   return (
     <RealmLayout realm="map">
       <RealmHero
         realm="map"
-        badge="Realm Navigator"
-        title="The"
-        titleAccent="Map"
-        description="Explore the interconnected realms of my world. Each area holds unique treasures and stories waiting to be discovered."
+        badge={t("badge")}
+        title={t("heroTitle")}
+        titleAccent={t("heroAccent")}
+        description={t("heroDescription")}
       >
         <div className="inline-flex items-center gap-4 px-6 py-3 rounded-2xl bg-void-surface/50 border border-gold/20 backdrop-blur-sm">
           <Compass className="h-5 w-5 text-gold animate-pulse" />
-          <span className="text-muted-foreground">Choose your destination</span>
+          <span className="text-muted-foreground">{t("chooseDestination")}</span>
         </div>
       </RealmHero>
 
@@ -74,6 +77,8 @@ export default function MapPage() {
             const realm = realms[card.id];
             const colors = getRealmColors(card.id);
             const Icon = realm.icon;
+            // Get features as raw value (array from JSON)
+            const features = t.raw(card.featuresKey) as string[];
 
             return (
               <motion.div
@@ -114,17 +119,17 @@ export default function MapPage() {
                         "text-2xl font-display transition-colors",
                         `group-hover:${colors.text}`
                       )}>
-                        {realm.name}
+                        {tRealms(`${card.id}.name`)}
                       </CardTitle>
 
                       {/* Tagline */}
                       <CardDescription className="text-base">
-                        {card.tagline}
+                        {t(card.taglineKey)}
                       </CardDescription>
 
                       {/* Features */}
                       <div className="mt-4 space-y-2">
-                        {card.features.map((feature) => (
+                        {features.map((feature: string) => (
                           <div
                             key={feature}
                             className="flex items-center gap-2 text-sm text-muted-foreground"
@@ -140,7 +145,7 @@ export default function MapPage() {
                         "mt-6 flex items-center gap-2 text-sm font-medium transition-colors",
                         colors.text
                       )}>
-                        <span>Enter Realm</span>
+                        <span>{t("enterRealm")}</span>
                         <ArrowRight className="h-4 w-4 group-hover:translate-x-1 transition-transform" />
                       </div>
                     </CardHeader>
@@ -155,23 +160,23 @@ export default function MapPage() {
         <div className="mt-20">
           <div className="flex items-center justify-center gap-4 mb-8">
             <div className="h-[1px] flex-1 max-w-32 bg-gradient-to-r from-transparent to-gold/30" />
-            <h3 className="font-display text-lg text-gold">Realm Legend</h3>
+            <h3 className="font-display text-lg text-gold">{t("realmLegend")}</h3>
             <div className="h-[1px] flex-1 max-w-32 bg-gradient-to-l from-transparent to-gold/30" />
           </div>
 
           <div className="flex flex-wrap justify-center gap-6">
             {[
-              { icon: Castle, label: "Sanctum", color: "text-gold" },
-              { icon: Hammer, label: "Forge", color: "text-ember" },
-              { icon: Gamepad2, label: "Workshop", color: "text-ethereal" },
-              { icon: Beer, label: "Tavern", color: "text-amber-500" },
-              { icon: Library, label: "Library", color: "text-blue-500" },
+              { icon: Castle, labelKey: "sanctum", color: "text-gold" },
+              { icon: Hammer, labelKey: "forge", color: "text-ember" },
+              { icon: Gamepad2, labelKey: "workshop", color: "text-ethereal" },
+              { icon: Beer, labelKey: "tavern", color: "text-amber-500" },
+              { icon: Library, labelKey: "library", color: "text-blue-500" },
             ].map((item) => {
               const Icon = item.icon;
               return (
-                <div key={item.label} className="flex items-center gap-2 text-sm text-muted-foreground">
+                <div key={item.labelKey} className="flex items-center gap-2 text-sm text-muted-foreground">
                   <Icon className={cn("h-4 w-4", item.color)} />
-                  <span>{item.label}</span>
+                  <span>{tRealms(`${item.labelKey}.name`)}</span>
                 </div>
               );
             })}
@@ -183,7 +188,7 @@ export default function MapPage() {
           <Card variant="parchment" className="inline-block p-8 border-gold/30">
             <Map className="h-16 w-16 text-gold/40 mx-auto mb-4" />
             <p className="text-muted-foreground/60 italic text-sm">
-              "Every journey begins with a single step..."
+              "{t("journeyQuote")}"
             </p>
           </Card>
         </div>

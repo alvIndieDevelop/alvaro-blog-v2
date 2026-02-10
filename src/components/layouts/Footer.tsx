@@ -1,19 +1,26 @@
-import Link from "next/link";
+"use client";
+
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "../ui/button";
 import { Github, Twitter, Linkedin, Sword } from "lucide-react";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
-  
+  const t = useTranslations("footer");
+
   return (
     <footer className="relative border-t border-gold/20 bg-void">
       {/* Decorative top border */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/30 to-transparent" />
-      
+
       <div className="container mx-auto px-4 py-8">
         <div className="flex flex-col items-center gap-6">
           {/* Logo/Brand */}
-          <div className="flex items-center gap-2 text-muted-foreground">
+          <Link
+            href="/"
+            className="flex items-center gap-2 text-muted-foreground hover:text-gold transition-colors"
+          >
             <div className="flex h-6 w-6 items-center justify-center rounded border border-gold/30 bg-gold/10">
               <Sword className="h-3 w-3 text-gold" />
             </div>
@@ -21,52 +28,67 @@ export default function Footer() {
               <span className="text-gold">Alvaro</span>
               <span className="text-muted-foreground">'s Sanctum</span>
             </span>
-          </div>
-          
+          </Link>
+
           {/* Social Icons */}
           <div className="flex items-center gap-1">
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-9 w-9 text-muted-foreground hover:text-gold hover:bg-gold/10" 
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 text-muted-foreground hover:text-gold hover:bg-gold/10"
               asChild
             >
-              <Link href="https://github.com/alvIndieDevelop" target="_blank" aria-label="GitHub">
+              <a
+                href="https://github.com/alvIndieDevelop"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+              >
                 <Github className="h-4 w-4" />
-              </Link>
+              </a>
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-9 w-9 text-muted-foreground hover:text-gold hover:bg-gold/10" 
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 text-muted-foreground hover:text-gold hover:bg-gold/10"
               asChild
             >
-              <Link href="https://x.com/AlvaroMartinC11" target="_blank" aria-label="Twitter/X">
+              <a
+                href="https://x.com/AlvaroMartinC11"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Twitter/X"
+              >
                 <Twitter className="h-4 w-4" />
-              </Link>
+              </a>
             </Button>
-            <Button 
-              variant="ghost" 
-              size="icon" 
-              className="h-9 w-9 text-muted-foreground hover:text-gold hover:bg-gold/10" 
+            <Button
+              variant="ghost"
+              size="icon"
+              className="h-9 w-9 text-muted-foreground hover:text-gold hover:bg-gold/10"
               asChild
             >
-              <Link href="https://www.linkedin.com/in/alvindie/" target="_blank" aria-label="LinkedIn">
+              <a
+                href="https://www.linkedin.com/in/alvindie/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+              >
                 <Linkedin className="h-4 w-4" />
-              </Link>
+              </a>
             </Button>
           </div>
-          
+
           {/* Copyright & Tagline */}
           <div className="text-center">
             <p className="text-xs text-muted-foreground">
-              © {currentYear} Alvaro Martin Caballero
+              {t("copyright", { year: currentYear })}
             </p>
             <p className="mt-1 text-xs text-muted-foreground/60 italic">
-              "Code is my craft, games are my passion"
+              "{t("tagline")}"
             </p>
           </div>
-          
+
           {/* Decorative element */}
           <div className="flex items-center gap-2 text-gold/30">
             <div className="h-[1px] w-8 bg-gradient-to-r from-transparent to-gold/30" />

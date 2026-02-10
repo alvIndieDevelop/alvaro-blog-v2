@@ -1,17 +1,26 @@
 import type { Metadata } from "next";
+import { getTranslations } from "next-intl/server";
 import { RealmLayout, RealmHero, RealmSectionHeader } from "@/components/layouts/RealmLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Hammer, Flame, Star, ExternalLink, Github, Briefcase, Award, Sparkles, Code2 } from "lucide-react";
-import Link from "next/link";
-import { getForgeProjects, getRepositoryStats } from "@/lib/repositories";
+import { getForgeProjects } from "@/lib/repositories";
 import type { Project, Difficulty } from "@/@types/repositories";
 
-export const metadata: Metadata = {
-  title: "The Forge | Professional Work",
-  description: "Professional projects, services, and career achievements forged through dedication and expertise.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "forge" });
+  
+  return {
+    title: `${t("title")} | ${t("pageTitle")}`,
+    description: t("heroDescription"),
+  };
+}
 
 // ISR: Revalidate every 6 hours
 export const revalidate = 21600;
@@ -43,7 +52,7 @@ function DifficultyStars({ difficulty }: { difficulty: Difficulty }) {
 }
 
 // Project card component
-function ForgeProjectCard({ project }: { project: Project }) {
+function ForgeProjectCard({ project, translations }: { project: Project; translations: { live: string; viewCode: string } }) {
   const isBitbucket = project.source === 'bitbucket';
   
   return (
@@ -123,14 +132,14 @@ function ForgeProjectCard({ project }: { project: Project }) {
             <Button size="sm" variant="default" className="flex-1" asChild>
               <a href={project.homepage} target="_blank" rel="noopener noreferrer">
                 <ExternalLink className="h-3 w-3 mr-1" />
-                Live
+                {translations.live}
               </a>
             </Button>
           )}
           <Button size="sm" variant={project.homepage ? "ghost" : "default"} className={project.homepage ? "" : "flex-1"} asChild>
             <a href={project.url} target="_blank" rel="noopener noreferrer">
               <Github className="h-4 w-4" />
-              {!project.homepage && <span className="ml-1">View Code</span>}
+              {!project.homepage && <span className="ml-1">{translations.viewCode}</span>}
             </a>
           </Button>
         </div>
@@ -139,22 +148,34 @@ function ForgeProjectCard({ project }: { project: Project }) {
   );
 }
 
-export default async function ForgePage() {
+export default async function ForgePage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "forge" });
+  const tCommon = await getTranslations({ locale, namespace: "common" });
+  
   // Fetch projects from GitHub and Bitbucket
   const projects = await getForgeProjects();
-  const stats = await getRepositoryStats();
   
   const totalXP = projects.reduce((acc, p) => acc + p.xp, 0);
   const completedProjects = projects.length;
+
+  const cardTranslations = {
+    live: tCommon("live"),
+    viewCode: tCommon("viewCode"),
+  };
 
   return (
     <RealmLayout realm="forge">
       <RealmHero
         realm="forge"
-        badge="Professional Portfolio"
-        title="The"
-        titleAccent="Forge"
-        description="Where ideas are hammered into reality. Professional projects crafted with precision, dedication, and expertise."
+        badge={t("badge")}
+        title={t("heroTitle")}
+        titleAccent={t("heroAccent")}
+        description={t("heroDescription")}
       >
         {/* Stats */}
         <div className="inline-flex items-center gap-6 px-8 py-4 rounded-2xl bg-void-surface/50 border border-ember/20 backdrop-blur-sm">
@@ -164,7 +185,7 @@ export default async function ForgePage() {
             </div>
             <div className="text-left">
               <p className="font-mono text-2xl font-bold text-ember">{completedProjects}</p>
-              <p className="text-xs text-muted-foreground">Projects</p>
+              <p className="text-xs text-muted-foreground">{t("projectsLabel")}</p>
             </div>
           </div>
           <div className="h-10 w-[1px] bg-border" />
@@ -174,7 +195,7 @@ export default async function ForgePage() {
             </div>
             <div className="text-left">
               <p className="font-mono text-2xl font-bold text-gold">{totalXP.toLocaleString()}</p>
-              <p className="text-xs text-muted-foreground">Total XP</p>
+              <p className="text-xs text-muted-foreground">{t("totalXpLabel")}</p>
             </div>
           </div>
         </div>
@@ -185,18 +206,18 @@ export default async function ForgePage() {
         <RealmSectionHeader
           realm="forge"
           icon={<Hammer className="h-5 w-5 text-ember" />}
-          title="Forged Creations"
+          title={t("sectionTitle")}
         />
 
         {projects.length > 0 ? (
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {projects.map((project) => (
-              <ForgeProjectCard key={project.id} project={project} />
+              <ForgeProjectCard key={project.id} project={project} translations={cardTranslations} />
             ))}
           </div>
         ) : (
           <div className="text-center py-12">
-            <p className="text-muted-foreground">Loading projects from the forge...</p>
+            <p className="text-muted-foreground">{t("loadingProjects")}</p>
           </div>
         )}
 
@@ -205,24 +226,24 @@ export default async function ForgePage() {
           <RealmSectionHeader
             realm="forge"
             icon={<Briefcase className="h-5 w-5 text-ember" />}
-            title="Services Offered"
+            title={t("servicesTitle")}
           />
 
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "Web Development",
-                description: "Full-stack web applications built with modern technologies and best practices.",
+                title: t("services.webDev.title"),
+                description: t("services.webDev.description"),
                 icon: "🌐",
               },
               {
-                title: "API Development",
-                description: "Robust and scalable APIs designed for performance and reliability.",
+                title: t("services.apiDev.title"),
+                description: t("services.apiDev.description"),
                 icon: "⚡",
               },
               {
-                title: "Technical Consulting",
-                description: "Expert guidance on architecture, technology choices, and best practices.",
+                title: t("services.consulting.title"),
+                description: t("services.consulting.description"),
                 icon: "💡",
               },
             ].map((service) => (
@@ -244,13 +265,13 @@ export default async function ForgePage() {
         {/* CTA */}
         <div className="mt-20 text-center">
           <Card variant="parchment" className="inline-block p-8 border-ember/30">
-            <h3 className="font-display text-2xl text-ember mb-4">Ready to Forge Something Great?</h3>
+            <h3 className="font-display text-2xl text-ember mb-4">{t("ctaTitle")}</h3>
             <p className="text-muted-foreground mb-6 max-w-md">
-              Let&apos;s discuss your project and bring your ideas to life.
+              {t("ctaDescription")}
             </p>
             <Button size="lg" className="bg-ember hover:bg-ember/90">
               <Flame className="h-4 w-4 mr-2" />
-              Start a Project
+              {tCommon("startProject")}
             </Button>
           </Card>
         </div>

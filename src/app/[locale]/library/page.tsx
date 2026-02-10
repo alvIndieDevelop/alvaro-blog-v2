@@ -1,29 +1,48 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import { getTranslations } from "next-intl/server";
+import { Link } from "@/i18n/navigation";
 import { getAllPosts, getAllTags } from "@/lib/blog";
 import { RealmLayout, RealmHero, RealmSectionHeader } from "@/components/layouts/RealmLayout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { format } from "date-fns";
+import { es, enUS } from "date-fns/locale";
 import { Library, Scroll, BookOpen, Clock, Calendar, Sparkles, BookText, Feather, Star, Lightbulb, GraduationCap } from "lucide-react";
 
-export const metadata: Metadata = {
-  title: "The Library | Knowledge Archive",
-  description: "A collection of wisdom, tutorials, and insights gathered throughout my journey.",
-};
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "library" });
+  
+  return {
+    title: `${t("title")} | ${t("pageTitle")}`,
+    description: t("heroDescription"),
+  };
+}
 
-export default function LibraryPage() {
-  const posts = getAllPosts();
-  const tags = getAllTags();
+export default async function LibraryPage({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}) {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "library" });
+  
+  const posts = getAllPosts(locale);
+  const tags = getAllTags(locale);
+  const dateLocale = locale === "es" ? es : enUS;
 
   return (
     <RealmLayout realm="library">
       <RealmHero
         realm="library"
-        badge="Knowledge Archive"
-        title="The"
-        titleAccent="Library"
-        description="Ancient scrolls of wisdom, tutorials, and insights gathered from countless quests through the realms of technology."
+        badge={t("badge")}
+        title={t("heroTitle")}
+        titleAccent={t("heroAccent")}
+        description={t("heroDescription")}
       >
         {/* Stats */}
         <div className="inline-flex items-center gap-6 px-8 py-4 rounded-2xl bg-void-surface/50 border border-blue-600/20 backdrop-blur-sm">
@@ -33,7 +52,7 @@ export default function LibraryPage() {
             </div>
             <div className="text-left">
               <p className="font-mono text-2xl font-bold text-blue-500">{posts.length}</p>
-              <p className="text-xs text-muted-foreground">Scrolls</p>
+              <p className="text-xs text-muted-foreground">{t("scrollsLabel")}</p>
             </div>
           </div>
           <div className="h-10 w-[1px] bg-border" />
@@ -43,7 +62,7 @@ export default function LibraryPage() {
             </div>
             <div className="text-left">
               <p className="font-mono text-2xl font-bold text-gold">{tags.length}</p>
-              <p className="text-xs text-muted-foreground">Domains</p>
+              <p className="text-xs text-muted-foreground">{t("domainsLabel")}</p>
             </div>
           </div>
         </div>
@@ -56,7 +75,7 @@ export default function LibraryPage() {
             <RealmSectionHeader
               realm="library"
               icon={<Sparkles className="h-5 w-5 text-blue-500" />}
-              title="Knowledge Domains"
+              title={t("knowledgeDomains")}
             />
             <div className="flex flex-wrap justify-center gap-3">
               {tags.map((tag) => (
@@ -82,11 +101,11 @@ export default function LibraryPage() {
               </div>
             </div>
             <p className="text-muted-foreground text-2xl mb-4 font-display">
-              The archive is empty...
+              {t("archiveEmpty")}
             </p>
             <p className="text-muted-foreground/60 italic flex items-center justify-center gap-2">
               <Feather className="h-4 w-4" />
-              New scrolls are being written. Check back soon!
+              {t("newScrollsWritten")}
             </p>
           </div>
         ) : (
@@ -94,7 +113,7 @@ export default function LibraryPage() {
             <RealmSectionHeader
               realm="library"
               icon={<BookText className="h-5 w-5 text-blue-500" />}
-              title="Recent Scrolls"
+              title={t("sectionTitle")}
             />
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -108,7 +127,7 @@ export default function LibraryPage() {
                     {index === 0 && (
                       <div className="absolute -top-3 left-6 flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-gradient-to-r from-blue-500 to-cyan-400 text-void text-xs font-bold shadow-lg shadow-blue-600/30">
                         <Star className="h-3.5 w-3.5 fill-current" />
-                        Latest Discovery
+                        {t("latestDiscovery")}
                       </div>
                     )}
                     
@@ -118,7 +137,7 @@ export default function LibraryPage() {
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-void-surface/80 border border-border">
                           <Calendar className="h-4 w-4 text-blue-500" />
                           <time dateTime={post.date}>
-                            {format(new Date(post.date), "MMMM d, yyyy")}
+                            {format(new Date(post.date), "MMMM d, yyyy", { locale: dateLocale })}
                           </time>
                         </div>
                         <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-void-surface/80 border border-border">
@@ -157,7 +176,7 @@ export default function LibraryPage() {
                       
                       {/* Read more indicator */}
                       <div className="mt-6 flex items-center gap-2 text-sm text-muted-foreground group-hover:text-blue-500 transition-colors">
-                        <span>Read the scroll</span>
+                        <span>{t("readScroll")}</span>
                         <span className="group-hover:translate-x-1 transition-transform">→</span>
                       </div>
                     </CardContent>
@@ -173,27 +192,27 @@ export default function LibraryPage() {
           <RealmSectionHeader
             realm="library"
             icon={<GraduationCap className="h-5 w-5 text-blue-500" />}
-            title="Content Types"
+            title={t("contentTypes")}
           />
 
           <div className="grid gap-6 md:grid-cols-3">
             {[
               {
-                title: "Scrolls",
-                description: "Regular blog posts and articles",
+                title: t("scrollsType"),
+                description: t("scrollsTypeDesc"),
                 icon: <Scroll className="h-8 w-8 text-blue-500" />,
                 count: posts.length,
               },
               {
-                title: "Tomes",
-                description: "In-depth guides and tutorials",
+                title: t("tomesType"),
+                description: t("tomesTypeDesc"),
                 icon: <BookOpen className="h-8 w-8 text-gold" />,
                 count: 0,
                 comingSoon: true,
               },
               {
-                title: "Ideas",
-                description: "Concepts and explorations",
+                title: t("ideasType"),
+                description: t("ideasTypeDesc"),
                 icon: <Lightbulb className="h-8 w-8 text-purple-400" />,
                 count: 0,
                 comingSoon: true,
@@ -206,7 +225,7 @@ export default function LibraryPage() {
               >
                 {type.comingSoon && (
                   <div className="absolute top-4 right-4">
-                    <Badge variant="secondary" className="text-xs">Coming Soon</Badge>
+                    <Badge variant="secondary" className="text-xs">{t("comingSoon")}</Badge>
                   </div>
                 )}
                 <CardHeader>
@@ -236,10 +255,11 @@ export default function LibraryPage() {
               
               <div className="space-y-2">
                 <p className="text-muted-foreground text-base">
-                  <span className="font-mono text-blue-500">{posts.length}</span> scroll{posts.length !== 1 ? 's' : ''} preserved in the archive
+                  <span className="font-mono text-blue-500">{posts.length}</span>{" "}
+                  {posts.length === 1 ? t("scrollsPreserved", { count: posts.length }) : t("scrollsPreservedPlural", { count: posts.length })}
                 </p>
                 <p className="text-sm text-muted-foreground/50 italic">
-                  Knowledge grows with each passing day...
+                  {t("knowledgeGrows")}
                 </p>
               </div>
             </div>

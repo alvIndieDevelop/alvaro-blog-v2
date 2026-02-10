@@ -1,0 +1,283 @@
+{
+  "common": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "blog": "Blog",
+    "services": "Services",
+    "contact": "Contact",
+    "toggleTheme": "Toggle theme",
+    "scrollDown": "Scroll",
+    "readMore": "Read more",
+    "viewAll": "View all",
+    "loading": "Loading...",
+    "error": "Something went wrong",
+    "notFound": "Not found",
+    "backToHome": "Back to home",
+    "live": "Live",
+    "viewCode": "View Code",
+    "startProject": "Start a Project"
+  },
+  "navigation": {
+    "about": "About",
+    "forge": "Forge",
+    "workshop": "Workshop",
+    "tavern": "Tavern",
+    "library": "Library",
+    "map": "Realm Map",
+    "github": "GitHub"
+  },
+  "hero": {
+    "welcome": "═══ Welcome, Traveler ═══",
+    "title": "Alvaro Martin",
+    "subtitle": "Indie Developer",
+    "level": "LVL 7",
+    "role1": "Full-Stack Mage",
+    "role2": "Game Crafter",
+    "role3": "Knowledge Scribe",
+    "description": "Crafting digital experiences at the intersection of <web>web development</web>, <games>indie games</games>, and <tech>creative technology</tech>. Currently on a quest to build tools that empower fellow developers.",
+    "viewQuests": "View Quests",
+    "characterInfo": "Character Info",
+    "readScrolls": "Read Scrolls"
+  },
+  "realms": {
+    "sanctum": {
+      "name": "The Sanctum",
+      "title": "Home",
+      "description": "The central hub - your personal castle and headquarters"
+    },
+    "forge": {
+      "name": "The Forge",
+      "title": "Professional",
+      "description": "Professional work, career, and services"
+    },
+    "workshop": {
+      "name": "The Workshop",
+      "title": "Creative",
+      "description": "Game development, creative projects, and experiments"
+    },
+    "tavern": {
+      "name": "The Tavern",
+      "title": "Personal",
+      "description": "Personal life, hobbies, and community"
+    },
+    "library": {
+      "name": "The Library",
+      "title": "Knowledge",
+      "description": "Technical blog, tutorials, and ideas"
+    },
+    "map": {
+      "name": "The Map",
+      "title": "Explore",
+      "description": "Visual overview of all realms"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} Alvaro Martin Caballero",
+    "tagline": "Code is my craft, games are my passion"
+  },
+  "projects": {
+    "title": "Quest Log",
+    "subtitle": "Featured Quests",
+    "description": "Artifacts forged in the fires of creativity",
+    "viewAll": "View All Quests",
+    "difficulty": "Difficulty",
+    "xpReward": "XP Reward",
+    "technologies": "Technologies",
+    "viewProject": "View Quest",
+    "viewCode": "View Code",
+    "noProjects": "No quests available",
+    "completedTitle": "Completed",
+    "completedAccent": "Achievements",
+    "chronicle": "A chronicle of quests conquered and artifacts crafted throughout my journey.",
+    "questsLabel": "Quests",
+    "xpLabel": "XP",
+    "moreQuests": "More quests are being undertaken..."
+  },
+  "about": {
+    "title": "About Me",
+    "pageTitle": "Character Sheet",
+    "subtitle": "The Wandering Developer",
+    "description": "Learn more about my journey, skills, and experience in software development.",
+    "stats": {
+      "level": "Level",
+      "class": "Class",
+      "experience": "Experience",
+      "health": "Health",
+      "mana": "Mana"
+    },
+    "skills": {
+      "title": "Skill Tree",
+      "frontend": "Frontend Arts",
+      "backend": "Backend Sorcery",
+      "gamedev": "Game Crafting",
+      "tools": "Arcane Tools"
+    }
+  },
+  "profile": {
+    "characterSheet": "Character Sheet",
+    "baseStats": "Base Stats",
+    "characterLore": "═══ Character Lore ═══",
+    "backstory": "Backstory",
+    "backstoryText": "My journey began in 2019, when I first discovered the magic of turning ideas into digital reality. Since then, I've been on a quest to master the art of software development, crafting experiences that blend creativity with technical excellence. Every project is a new adventure, every bug a puzzle to solve.",
+    "specializations": "Specializations",
+    "webDev": "Web Development",
+    "webDevTech": "React, Next.js, TypeScript",
+    "gameDev": "Game Development",
+    "gameDevTech": "Unity, Godot, C#",
+    "cloudArch": "Cloud Architecture",
+    "cloudArchTech": "AWS, Serverless",
+    "currentQuest": "Current Quest",
+    "currentQuestText": "Building innovative solutions at <company>IntechIdeas</company> as a Senior Software Developer, while pursuing my indie game development dreams on the side. The goal? Create experiences that matter and tools that empower others.",
+    "philosophy": "Philosophy",
+    "philosophyQuote": "Code is my craft, games are my passion, and every project is an adventure waiting to unfold.",
+    "jobTitle": "Senior Software Developer",
+    "affiliations": "🏢 IntechIdeas • 🎮 IndieDev Guild"
+  },
+  "skillTree": {
+    "badge": "Abilities",
+    "title": "Skill",
+    "titleAccent": "Tree",
+    "description": "Explore my technical skills and expertise visualized as an RPG skill tree. Each skill has been honed through countless quests and challenges."
+  },
+  "forge": {
+    "title": "The Forge",
+    "pageTitle": "Professional Work",
+    "badge": "Professional Portfolio",
+    "heroTitle": "The",
+    "heroAccent": "Forge",
+    "heroDescription": "Where ideas are hammered into reality. Professional projects crafted with precision, dedication, and expertise.",
+    "projectsLabel": "Projects",
+    "totalXpLabel": "Total XP",
+    "sectionTitle": "Forged Creations",
+    "servicesTitle": "Services Offered",
+    "loadingProjects": "Loading projects from the forge...",
+    "ctaTitle": "Ready to Forge Something Great?",
+    "ctaDescription": "Let's discuss your project and bring your ideas to life.",
+    "services": {
+      "webDev": {
+        "title": "Web Development",
+        "description": "Full-stack web applications built with modern technologies and best practices."
+      },
+      "apiDev": {
+        "title": "API Development",
+        "description": "Robust and scalable APIs designed for performance and reliability."
+      },
+      "consulting": {
+        "title": "Technical Consulting",
+        "description": "Expert guidance on architecture, technology choices, and best practices."
+      }
+    }
+  },
+  "workshop": {
+    "title": "The Workshop",
+    "pageTitle": "Creative Projects",
+    "badge": "Creative Lab",
+    "heroTitle": "The",
+    "heroAccent": "Workshop",
+    "heroDescription": "Where imagination takes form. Game development, creative experiments, and passion projects.",
+    "sectionTitle": "Current Experiments",
+    "comingSoon": "Creative projects coming soon...",
+    "gameDev": "Game Development",
+    "experiments": "Experiments",
+    "tools": "Tools"
+  },
+  "tavern": {
+    "title": "The Tavern",
+    "pageTitle": "Personal Tales",
+    "badge": "Personal Space",
+    "heroTitle": "The",
+    "heroAccent": "Tavern",
+    "heroDescription": "Pull up a chair and stay a while. Personal stories, hobbies, and life adventures.",
+    "sectionTitle": "Tales from the Road",
+    "noTales": "No tales to tell yet...",
+    "readMore": "Read Tale"
+  },
+  "library": {
+    "title": "The Library",
+    "pageTitle": "Knowledge Archive",
+    "badge": "Knowledge Archive",
+    "heroTitle": "The",
+    "heroAccent": "Library",
+    "heroDescription": "Ancient scrolls of wisdom, tutorials, and insights gathered from countless quests through the realms of technology.",
+    "sectionTitle": "Recent Scrolls",
+    "noScrolls": "No scrolls available yet...",
+    "readScroll": "Read the scroll",
+    "scrollsLabel": "Scrolls",
+    "domainsLabel": "Domains",
+    "knowledgeDomains": "Knowledge Domains",
+    "archiveEmpty": "The archive is empty...",
+    "newScrollsWritten": "New scrolls are being written. Check back soon!",
+    "contentTypes": "Content Types",
+    "scrollsType": "Scrolls",
+    "scrollsTypeDesc": "Regular blog posts and articles",
+    "tomesType": "Tomes",
+    "tomesTypeDesc": "In-depth guides and tutorials",
+    "ideasType": "Ideas",
+    "ideasTypeDesc": "Concepts and explorations",
+    "comingSoon": "Coming Soon",
+    "latestDiscovery": "Latest Discovery",
+    "scrollsPreserved": "{count} scroll preserved in the archive",
+    "scrollsPreservedPlural": "{count} scrolls preserved in the archive",
+    "knowledgeGrows": "Knowledge grows with each passing day..."
+  },
+  "map": {
+    "title": "Realm Map",
+    "pageTitle": "Explore the Realms",
+    "badge": "Realm Navigator",
+    "heroTitle": "The",
+    "heroAccent": "Map",
+    "heroDescription": "Explore the interconnected realms of my world. Each area holds unique treasures and stories waiting to be discovered.",
+    "chooseDestination": "Choose your destination",
+    "enterRealm": "Enter Realm",
+    "realmLegend": "Realm Legend",
+    "journeyQuote": "Every journey begins with a single step...",
+    "sanctumTagline": "The central hub of all adventures",
+    "forgeTagline": "Where professional work is crafted",
+    "workshopTagline": "Creative experiments and games",
+    "tavernTagline": "Personal stories and hobbies",
+    "libraryTagline": "Knowledge and tutorials",
+    "sanctumFeatures": ["Character Overview", "Recent Activity", "Quick Navigation"],
+    "forgeFeatures": ["Client Projects", "Services", "Career Timeline"],
+    "workshopFeatures": ["Game Development", "Side Projects", "Game Jams"],
+    "tavernFeatures": ["Life Updates", "Hobbies", "Favorites"],
+    "libraryFeatures": ["Technical Blog", "Guides", "Ideas"]
+  },
+  "blog": {
+    "title": "Ancient Scrolls",
+    "subtitle": "Knowledge from the Library",
+    "readingTime": "{minutes} min read",
+    "publishedOn": "Published on {date}",
+    "tags": "Tags",
+    "noPosts": "No scrolls available",
+    "notTranslated": "This content is not yet available in your language. Showing the English version."
+  },
+  "services": {
+    "title": "Services",
+    "subtitle": "How I Can Help",
+    "description": "Professional services offered at The Forge",
+    "contactCta": "Start a Quest Together"
+  },
+  "contact": {
+    "title": "Send a Raven",
+    "subtitle": "Get in Touch",
+    "name": "Your Name",
+    "email": "Your Email",
+    "message": "Your Message",
+    "send": "Send Message",
+    "sending": "Sending...",
+    "success": "Message sent successfully!",
+    "error": "Failed to send message. Please try again."
+  },
+  "metadata": {
+    "title": "Alvaro Martin Caballero - Indie Developer",
+    "titleTemplate": "{page} | Alvaro's Sanctum",
+    "description": "Welcome to the Sanctum. Explore my quests, read ancient scrolls, and discover the artifacts I've crafted on my journey as an indie developer.",
+    "keywords": "developer, portfolio, blog, nextjs, react, typescript, indie developer, game developer"
+  },
+  "language": {
+    "switchTo": "Switch to {language}",
+    "en": "English",
+    "es": "Spanish"
+  }
+}

@@ -1,28 +1,22 @@
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTheme } from "next-themes";
+import { useTranslations } from "next-intl";
+import { Link } from "@/i18n/navigation";
 import { Button } from "../ui/button";
+import { LanguageSwitcher } from "../ui/language-switcher";
 import { Menu, X, Sun, Moon, Github, Sword, Map, User } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { realms, navigationRealms, type RealmId } from "@/lib/realms";
+import { realms, type RealmId } from "@/lib/realms";
 import { cn } from "@/lib/utils";
-
-// Navigation items with realm mapping
-const navigation = [
-  { name: "About", href: "/about", icon: User, realm: null },
-  { name: "Forge", href: "/forge", icon: realms.forge.icon, realm: "forge" as RealmId },
-  { name: "Workshop", href: "/workshop", icon: realms.workshop.icon, realm: "workshop" as RealmId },
-  { name: "Tavern", href: "/tavern", icon: realms.tavern.icon, realm: "tavern" as RealmId },
-  { name: "Library", href: "/library", icon: realms.library.icon, realm: "library" as RealmId },
-];
 
 // Get realm color for nav item
 function getRealmNavColor(realm: RealmId | null, isActive: boolean) {
-  if (!realm) return isActive ? "text-gold" : "text-muted-foreground hover:text-gold";
-  
+  if (!realm)
+    return isActive ? "text-gold" : "text-muted-foreground hover:text-gold";
+
   const colors: Record<RealmId, { active: string; hover: string }> = {
     sanctum: { active: "text-gold", hover: "hover:text-gold" },
     forge: { active: "text-ember", hover: "hover:text-ember" },
@@ -32,13 +26,15 @@ function getRealmNavColor(realm: RealmId | null, isActive: boolean) {
     map: { active: "text-gold", hover: "hover:text-gold" },
   };
 
-  return isActive ? colors[realm].active : `text-muted-foreground ${colors[realm].hover}`;
+  return isActive
+    ? colors[realm].active
+    : `text-muted-foreground ${colors[realm].hover}`;
 }
 
 // Get underline color for nav item
 function getUnderlineColor(realm: RealmId | null) {
   if (!realm) return "via-gold";
-  
+
   const colors: Record<RealmId, string> = {
     sanctum: "via-gold",
     forge: "via-ember",
@@ -55,22 +51,55 @@ export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const { theme, setTheme } = useTheme();
   const pathname = usePathname();
+  const t = useTranslations("navigation");
+  const tCommon = useTranslations("common");
+
+  // Navigation items with realm mapping
+  const navigation = [
+    { name: t("about"), href: "/about", icon: User, realm: null },
+    {
+      name: t("forge"),
+      href: "/forge",
+      icon: realms.forge.icon,
+      realm: "forge" as RealmId,
+    },
+    {
+      name: t("workshop"),
+      href: "/workshop",
+      icon: realms.workshop.icon,
+      realm: "workshop" as RealmId,
+    },
+    {
+      name: t("tavern"),
+      href: "/tavern",
+      icon: realms.tavern.icon,
+      realm: "tavern" as RealmId,
+    },
+    {
+      name: t("library"),
+      href: "/library",
+      icon: realms.library.icon,
+      realm: "library" as RealmId,
+    },
+  ];
 
   // Check if current path matches a realm
   const isPathActive = (href: string) => {
-    if (href === "/") return pathname === "/";
-    return pathname.startsWith(href);
+    if (href === "/") return pathname === "/" || pathname === "/en";
+    // Remove locale prefix for comparison
+    const cleanPath = pathname.replace(/^\/(en|es)/, "") || "/";
+    return cleanPath.startsWith(href);
   };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-gold/20 bg-void/95 backdrop-blur-md supports-[backdrop-filter]:bg-void/80">
       {/* Decorative top border */}
       <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
-      
+
       <nav className="container mx-auto flex items-center justify-between px-4 py-4">
         {/* Logo */}
-        <Link 
-          href="/" 
+        <Link
+          href="/"
           className="group flex items-center gap-2 text-xl font-display font-bold text-foreground transition-colors hover:text-gold"
         >
           <motion.div
@@ -91,7 +120,7 @@ export default function Header() {
           {navigation.map((item) => {
             const Icon = item.icon;
             const isActive = isPathActive(item.href);
-            
+
             return (
               <Link
                 key={item.name}
@@ -102,10 +131,12 @@ export default function Header() {
                 )}
               >
                 <span className="relative z-10 flex items-center gap-2">
-                  <Icon className={cn(
-                    "h-4 w-4 transition-opacity",
-                    isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-                  )} />
+                  <Icon
+                    className={cn(
+                      "h-4 w-4 transition-opacity",
+                      isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                    )}
+                  />
                   {item.name}
                 </span>
                 {/* Hover/Active underline effect */}
@@ -120,48 +151,61 @@ export default function Header() {
               </Link>
             );
           })}
-          
+
           {/* Map Link */}
           <Link
             href="/map"
             className={cn(
               "group relative px-3 py-2 text-sm font-medium transition-colors",
-              isPathActive("/map") ? "text-gold" : "text-muted-foreground hover:text-gold"
+              isPathActive("/map")
+                ? "text-gold"
+                : "text-muted-foreground hover:text-gold"
             )}
+            title={t("map")}
           >
             <Map className="h-4 w-4" />
           </Link>
-          
+
           {/* Divider */}
           <div className="mx-2 h-6 w-[1px] bg-border" />
-          
+
+          {/* Language Switcher */}
+          <LanguageSwitcher variant="minimal" />
+
           {/* Theme Toggle */}
           <Button
             variant="ghost"
             size="icon"
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="relative h-9 w-9 text-muted-foreground hover:text-gold hover:bg-gold/10"
+            title={tCommon("toggleTheme")}
           >
             <Sun className="h-4 w-4 rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
             <Moon className="absolute h-4 w-4 rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
-            <span className="sr-only">Toggle theme</span>
+            <span className="sr-only">{tCommon("toggleTheme")}</span>
           </Button>
-          
+
           {/* GitHub Link */}
-          <Button 
-            variant="ghost" 
-            size="icon" 
+          <Button
+            variant="ghost"
+            size="icon"
             className="h-9 w-9 text-muted-foreground hover:text-gold hover:bg-gold/10"
             asChild
           >
-            <Link href="https://github.com/alvIndieDevelop" target="_blank" aria-label="GitHub">
+            <a
+              href="https://github.com/alvIndieDevelop"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={t("github")}
+            >
               <Github className="h-4 w-4" />
-            </Link>
+            </a>
           </Button>
         </div>
 
         {/* Mobile Navigation */}
         <div className="flex items-center gap-2 md:hidden">
+          <LanguageSwitcher variant="minimal" />
           <Button
             variant="ghost"
             size="icon"
@@ -196,7 +240,7 @@ export default function Header() {
               {navigation.map((item, index) => {
                 const Icon = item.icon;
                 const isActive = isPathActive(item.href);
-                
+
                 return (
                   <motion.div
                     key={item.name}
@@ -208,13 +252,16 @@ export default function Header() {
                       href={item.href}
                       className={cn(
                         "flex items-center gap-3 rounded-lg px-4 py-3 transition-colors",
-                        isActive 
+                        isActive
                           ? cn(
                               "bg-opacity-10",
-                              item.realm === 'forge' && "bg-ember/10 text-ember",
-                              item.realm === 'workshop' && "bg-ethereal/10 text-ethereal",
-                              item.realm === 'tavern' && "bg-amber-500/10 text-amber-500",
-                              item.realm === 'library' && "bg-blue-500/10 text-blue-500",
+                              item.realm === "forge" && "bg-ember/10 text-ember",
+                              item.realm === "workshop" &&
+                                "bg-ethereal/10 text-ethereal",
+                              item.realm === "tavern" &&
+                                "bg-amber-500/10 text-amber-500",
+                              item.realm === "library" &&
+                                "bg-blue-500/10 text-blue-500",
                               !item.realm && "bg-gold/10 text-gold"
                             )
                           : "text-muted-foreground hover:bg-gold/10 hover:text-gold"
@@ -223,16 +270,11 @@ export default function Header() {
                     >
                       <Icon className="h-5 w-5" />
                       <span className="font-medium">{item.name}</span>
-                      {item.realm && (
-                        <span className="ml-auto text-xs opacity-60">
-                          {realms[item.realm].name}
-                        </span>
-                      )}
                     </Link>
                   </motion.div>
                 );
               })}
-              
+
               {/* Map Link */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -250,28 +292,29 @@ export default function Header() {
                   onClick={() => setIsOpen(false)}
                 >
                   <Map className="h-5 w-5" />
-                  <span className="font-medium">Realm Map</span>
+                  <span className="font-medium">{t("map")}</span>
                 </Link>
               </motion.div>
-              
+
               {/* Divider */}
               <div className="my-2 h-[1px] bg-border" />
-              
+
               {/* Mobile GitHub Link */}
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: (navigation.length + 1) * 0.05 }}
               >
-                <Link
+                <a
                   href="https://github.com/alvIndieDevelop"
                   target="_blank"
+                  rel="noopener noreferrer"
                   className="flex items-center gap-3 rounded-lg px-4 py-3 text-muted-foreground transition-colors hover:bg-gold/10 hover:text-gold"
                   onClick={() => setIsOpen(false)}
                 >
                   <Github className="h-5 w-5" />
-                  <span className="font-medium">GitHub</span>
-                </Link>
+                  <span className="font-medium">{t("github")}</span>
+                </a>
               </motion.div>
             </div>
           </motion.div>
