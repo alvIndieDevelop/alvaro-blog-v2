@@ -47,7 +47,7 @@ export default function SkillTree() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-3 p-3 rounded-lg bg-muted/50"
+                className="flex items-center gap-3 p-3 rounded-md bg-muted/50"
               >
                 <skill.icon className="w-5 h-5" />
                 <span>{skill.name}</span>
@@ -66,7 +66,7 @@ export default function SkillTree() {
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="flex items-center gap-3 p-3 rounded-lg bg-muted/50"
+                className="flex items-center gap-3 p-3 rounded-md bg-muted/50"
               >
                 <skill.icon className="w-5 h-5" />
                 <span>{skill.name}</span>

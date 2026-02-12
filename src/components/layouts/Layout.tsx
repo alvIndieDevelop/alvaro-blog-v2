@@ -1,9 +1,12 @@
-"use client";
 import { useEffect, useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-export default function Layout({ children }: { children: React.ReactNode }) {
+interface LayoutProps {
+  children: React.ReactNode;
+}
+
+export default function Layout({ children }: LayoutProps) {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

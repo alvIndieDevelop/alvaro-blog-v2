@@ -140,7 +140,7 @@ export const totalSkills: number = skills.reduce(
   (total: number, curValue: SkillSet) => {
     return total + curValue.skills.length;
   },
-  0
+  0,
 );
 
 export const totalSkillPoints: number = skills.reduce(
@@ -148,9 +148,9 @@ export const totalSkillPoints: number = skills.reduce(
     total +
     curValue.skills.reduce(
       (subTotal: number, value: Skill) => subTotal + value.point,
-      0
+      0,
     ),
-  0
+  0,
 );
 
 export default skills;

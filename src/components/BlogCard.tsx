@@ -1,43 +1,36 @@
-import React from "react";
 import { BlogPost } from "../@types/schema";
 import Image from "next/image";
 import Link from "next/link";
 import { Card, CardDescription, CardHeader, CardTitle } from "./ui/card";
 
-type BlogCardProps = {
+interface BlogCardProps {
   post: BlogPost;
-};
+}
 
-const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
+export default function BlogCard({ post }: BlogCardProps) {
   return (
-    <Card className="transition hover:translate-y-[-2px] hover:shadow-lg">
+    <Card className="transition hover:translate-y-[-2px] hover:shadow overflow-hidden">
       <Link href={`/blog/${post.slug}`}>
-        <div className="relative h-48">
-          <Image
-            src={post.cover}
-            alt={post.title}
-            fill
-            className="object-cover"
-          />
-          {post.featured && (
-            <div className="absolute top-2 right-2">
-              <span className="bg-accent text-accent-foreground px-3 py-1 rounded-full text-sm font-medium">
-                Destacado
-              </span>
-            </div>
-          )}
-        </div>
+        {post.cover && (
+          <div className="relative h-48">
+            <Image
+              src={post.cover}
+              alt={post.title}
+              fill
+              className="object-cover"
+            />
+          </div>
+        )}
         <CardHeader>
           <CardTitle>{post.title}</CardTitle>
-
           <CardDescription>{post.date}</CardDescription>
           <CardDescription>
-            <div className="py-2">
-              <p className="text-muted-foreground mb-4">{post.description}</p>
-            </div>
+            <p className="text-muted-foreground mb-4 line-clamp-2">
+              {post.description}
+            </p>
           </CardDescription>
           <CardDescription>
-            <div className="flex flex-wrap gap-2 mb-3">
+            <div className="flex flex-wrap gap-2">
               {post.tags.map((tag) => (
                 <span
                   key={tag.id}
@@ -52,6 +45,4 @@ const BlogCard: React.FC<BlogCardProps> = ({ post }) => {
       </Link>
     </Card>
   );
-};
-
-export default BlogCard;
+}

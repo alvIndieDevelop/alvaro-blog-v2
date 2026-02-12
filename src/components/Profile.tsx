@@ -1,14 +1,29 @@
+"use client";
+
 import React from "react";
 import Image from "next/image";
-import { getCurrentExperience, getPercentOfCurrentYear } from "../utils";
-import { BsFillHeartPulseFill } from "react-icons/bs";
-import { GiWaterDrop } from "react-icons/gi";
+import { useTranslations } from "next-intl";
+import { getCurrentExperience, getPercentOfCurrentYear } from "@/utils";
 import { Card } from "./ui/card";
-import { Sword } from "lucide-react";
+import { Progress } from "./ui/progress";
+import {
+  Sword,
+  Scroll,
+  Target,
+  Lightbulb,
+  Code2,
+  Gamepad2,
+  Cloud,
+  Heart,
+  Droplets,
+  Zap,
+  Shield,
+  Sparkles,
+} from "lucide-react";
 import { motion } from "framer-motion";
-import { SkillTreeBackground } from "./sections/about/skill-tree/background";
 
 export default function Profile() {
+  const t = useTranslations("profile");
   const currAgeExp = getCurrentExperience();
   const currExp = getPercentOfCurrentYear();
 
@@ -18,126 +33,197 @@ export default function Profile() {
     exp: currExp,
   };
 
-  const statsArray = [
-    {
-      type: "hp",
-      value: stats.health,
-      icon: <BsFillHeartPulseFill fontSize={26} />,
-      color: "text-red-500",
-    },
-    {
-      type: "mana",
-      value: stats.mana,
-      icon: <GiWaterDrop fontSize={26} />,
-      color: "text-blue-500",
-    },
-    {
-      type: "exp",
-      value: stats.exp,
-      icon: "EXP",
-      color: "text-yellow-500",
-    },
-  ];
   return (
-    <section className="py-8 bg-muted/30">
+    <section className="py-12 bg-void">
       <div className="container px-4 mx-auto">
-        <Card className="relative p-6 border-2 shadow-xl">
-          <SkillTreeBackground />
+        <Card variant="parchment" className="relative p-8 border-2 border-gold/30">
+          {/* Decorative corners */}
+          <div className="absolute top-4 left-4 h-12 w-12 border-l-2 border-t-2 border-gold/40" />
+          <div className="absolute top-4 right-4 h-12 w-12 border-r-2 border-t-2 border-gold/40" />
+          <div className="absolute bottom-4 left-4 h-12 w-12 border-l-2 border-b-2 border-gold/40" />
+          <div className="absolute bottom-4 right-4 h-12 w-12 border-r-2 border-b-2 border-gold/40" />
+
+          {/* Header Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
+            className="text-center mb-10 flex flex-col items-center"
           >
-            <h2 className="text-3xl font-bold mb-4">Alvaro Martin Caballero</h2>
-            <div className="mb-8 flex justify-center">
+            {/* Title badge */}
+            <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full border border-gold/30 bg-gold/10">
+              <Shield className="h-4 w-4 text-gold" />
+              <span className="font-mono text-sm text-gold">{t("characterSheet")}</span>
+            </div>
+
+            {/* Portrait */}
+            <div className="relative mb-6">
+              <div className="absolute -inset-3 rounded-full border border-gold/20" />
+              <div className="absolute -inset-1 rounded-full border-2 border-gold/40" />
               <Image
-                src={"/media/Photo01.jpg"}
-                alt={"Photo Alvaro Martin Caballero"}
-                width={300}
-                height={300}
-                className="rounded-full"
+                src="/media/Photo01.jpg"
+                alt="Alvaro Martin Caballero"
+                width={180}
+                height={180}
+                className="rounded-full border-4 border-gold/50 shadow-xl shadow-gold/10"
               />
+              {/* Level badge */}
+              <div className="absolute -bottom-2 left-1/2 -translate-x-1/2 flex items-center gap-1 rounded-full border-2 border-gold bg-void px-3 py-1">
+                <Sparkles className="h-3 w-3 text-gold" />
+                <span className="font-mono text-xs font-bold text-gold">LVL {currAgeExp}</span>
+              </div>
             </div>
-            <div className="mx-auto w-16 h-16 bg-primary/20 rounded-full flex items-center justify-center shadow-lg">
-              <Sword className="w-8 h-8 text-primary" />
-            </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent">
-              Character Sheet
+
+            {/* Name and Title */}
+            <h1 className="font-display text-4xl font-bold text-gradient-gold mb-2">
+              Alvaro Martin Caballero
             </h1>
-            <p className="text-primary/80 font-medium text-lg max-w-2xl mx-auto">
-              Level {currAgeExp} Software Developer | IndieDev Guild Member
+            <p className="text-lg text-muted-foreground mb-1">
+              {t("jobTitle")}
+            </p>
+            <p className="text-sm text-muted-foreground/60">
+              {t("affiliations")}
             </p>
           </motion.div>
-          <div className="">
-            <div className="flex justify-between my-6 max-w-2xl mx-auto">
-              {statsArray.map((stat) => (
-                <div className="flex flex-col items-center">
-                  <span className="font-medium text-primary/90">
-                    {stat.type}
-                  </span>
-                  <div
-                    key={stat.type}
-                    className={`radial-progress ${stat.color}`}
-                    style={
-                      {
-                        "--value": stat.value,
-                      } as React.CSSProperties
-                    }
-                  >
-                    {stat.icon}
+
+          {/* Stats Section */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="max-w-md mx-auto mb-12"
+          >
+            <h2 className="font-display text-xl text-gold text-center mb-6">{t("baseStats")}</h2>
+            <div className="space-y-4">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 w-20">
+                  <Heart className="h-5 w-5 text-[hsl(var(--health))]" />
+                  <span className="text-sm font-medium text-muted-foreground">HP</span>
+                </div>
+                <Progress variant="health" value={stats.health} max={100} showValue className="flex-1" />
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 w-20">
+                  <Droplets className="h-5 w-5 text-[hsl(var(--mana))]" />
+                  <span className="text-sm font-medium text-muted-foreground">MP</span>
+                </div>
+                <Progress variant="mana" value={stats.mana} max={100} showValue className="flex-1" />
+              </div>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-2 w-20">
+                  <Zap className="h-5 w-5 text-gold" />
+                  <span className="text-sm font-medium text-muted-foreground">EXP</span>
+                </div>
+                <Progress variant="default" value={stats.exp} max={100} showValue className="flex-1" />
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Character Lore Section */}
+          <div className="max-w-4xl mx-auto space-y-6">
+            <motion.h2
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="font-display text-2xl text-gold text-center mb-8"
+            >
+              {t("characterLore")}
+            </motion.h2>
+
+            {/* Backstory */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-void-surface/50 p-6 rounded-lg border-l-4 border-gold"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-gold/10 rounded-lg border border-gold/30">
+                  <Scroll className="w-5 h-5 text-gold" />
+                </div>
+                <h3 className="font-display text-xl text-gold">{t("backstory")}</h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                {t("backstoryText")}
+              </p>
+            </motion.div>
+
+            {/* Specializations */}
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-void-surface/50 p-6 rounded-lg border-r-4 border-ethereal"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-ethereal/10 rounded-lg border border-ethereal/30">
+                  <Sword className="w-5 h-5 text-ethereal" />
+                </div>
+                <h3 className="font-display text-xl text-ethereal">{t("specializations")}</h3>
+              </div>
+              <div className="grid md:grid-cols-3 gap-4 mt-4">
+                <div className="flex items-center gap-3 p-4 bg-void/50 rounded-lg border border-border">
+                  <Code2 className="w-6 h-6 text-ethereal" />
+                  <div>
+                    <p className="font-medium text-foreground">{t("webDev")}</p>
+                    <p className="text-sm text-muted-foreground">{t("webDevTech")}</p>
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-          <div className="lg:max-w-3xl max-w-xs mx-auto">
-            <h2 className="text-3xl font-bold mt-8">About Me</h2>
-            <div className="text-xl text-white my-8">
-              <div className="flex flex-col lg:flex-row gap-2 justify-center items-center">
-                <p>
-                  As a passionate software developer, I have dedicated a
-                  significant part of my life to technology and its constant
-                  evolution. My area of expertise includes game development and
-                  web development, where I have over four years of experience
-                  working independently.
-                </p>
+                <div className="flex items-center gap-3 p-4 bg-void/50 rounded-lg border border-border">
+                  <Gamepad2 className="w-6 h-6 text-ember" />
+                  <div>
+                    <p className="font-medium text-foreground">{t("gameDev")}</p>
+                    <p className="text-sm text-muted-foreground">{t("gameDevTech")}</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-3 p-4 bg-void/50 rounded-lg border border-border">
+                  <Cloud className="w-6 h-6 text-gold" />
+                  <div>
+                    <p className="font-medium text-foreground">{t("cloudArch")}</p>
+                    <p className="text-sm text-muted-foreground">{t("cloudArchTech")}</p>
+                  </div>
+                </div>
               </div>
+            </motion.div>
 
-              <br />
-              <p>
-                My passion for programming and my thirst for knowledge have
-                always driven me to research and learn about new technologies
-                and tools, applying them to my projects to ensure innovative and
-                efficient solutions for my clients. Additionally, I am a
-                dedicated, responsible, and committed person, which allows me to
-                provide high-quality service and meet deadlines.
+            {/* Current Quest */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              className="bg-void-surface/50 p-6 rounded-lg border-l-4 border-ember"
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <div className="p-2 bg-ember/10 rounded-lg border border-ember/30">
+                  <Target className="w-5 h-5 text-ember" />
+                </div>
+                <h3 className="font-display text-xl text-ember">{t("currentQuest")}</h3>
+              </div>
+              <p className="text-muted-foreground leading-relaxed">
+                {t.rich("currentQuestText", {
+                  company: (chunks) => <span className="font-semibold text-gold">{chunks}</span>
+                })}
               </p>
-              <br />
-              <p>
-                In game development, I have participated in the design and
-                implementation of various games, from simple ones to complex
-                games with graphics and special effects. I also make sure to use
-                the latest technologies and market trends to offer an engaging
-                and enriching gaming experience for players.
-              </p>
-              <br />
-              <p>
-                In web development, I have worked on a wide variety of projects,
-                from small websites to complex web applications. I focus on
-                using modern technologies and tools to ensure an attractive and
-                efficient user experience while following web development
-                standards to guarantee accessibility and performance.
-              </p>
-              <br />
-              <p>
-                In summary, my goal is to apply my skills and knowledge in an
-                organization, company, or individual looking to innovate and
-                take their projects to the next level. I am willing to work hard
-                and continuously learn to achieve my goals and provide excellent
-                service to my clients.
-              </p>
-            </div>
+            </motion.div>
+
+            {/* Philosophy */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              className="bg-void-surface/50 p-6 rounded-lg border-b-4 border-gold text-center"
+            >
+              <div className="flex items-center justify-center gap-3 mb-3">
+                <div className="p-2 bg-gold/10 rounded-lg border border-gold/30">
+                  <Lightbulb className="w-5 h-5 text-gold" />
+                </div>
+                <h3 className="font-display text-xl text-gold">{t("philosophy")}</h3>
+              </div>
+              <blockquote className="text-lg italic text-muted-foreground">
+                &ldquo;{t("philosophyQuote")}&rdquo;
+              </blockquote>
+            </motion.div>
           </div>
         </Card>
       </div>

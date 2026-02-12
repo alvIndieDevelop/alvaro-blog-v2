@@ -18,14 +18,7 @@ import {
   DialogTitle,
   DialogDescription,
 } from "../../ui/dialog";
-import { Check, Code2, Database, Globe, Server } from "lucide-react";
-// import { loadStripe } from "@stripe/stripe-js";
-// import { useToast } from "@/hooks/use-toast";
-
-// // Only initialize Stripe if the key is available
-// const stripePromise = process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY
-//   ? loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY)
-//   : null;
+import { Check, Database, Globe, Server } from "lucide-react";
 
 const products = [
   {
@@ -182,28 +175,6 @@ interface TierDialogProps {
 }
 
 function TierDialog({ product, isOpen, onClose }: TierDialogProps) {
-  //   const handlePurchase = async (tier: (typeof product.tiers)[0]) => {
-  //     try {
-  //       const response = await fetch("/api/create-checkout-session", {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           productId: product.id,
-  //           tierName: tier.name,
-  //           price: tier.price,
-  //         }),
-  //       });
-
-  //       const { sessionId } = await response.json();
-  //       const stripe = await stripePromise;
-  //       await stripe?.redirectToCheckout({ sessionId });
-  //     } catch (error) {
-  //       console.error("Error:", error);
-  //     }
-  //   };
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -241,11 +212,7 @@ function TierDialog({ product, isOpen, onClose }: TierDialogProps) {
                   ))}
                 </ul>
               </CardContent>
-              <CardFooter>
-                {/* <Button className="w-full" onClick={() => handlePurchase(tier)}>
-                  Purchase
-                </Button> */}
-              </CardFooter>
+              <CardFooter></CardFooter>
             </Card>
           ))}
         </div>
@@ -285,7 +252,7 @@ export function ServiceProducts() {
             >
               <Card className="flex flex-col h-full hover:border-primary/30 transition-all duration-200">
                 <CardHeader>
-                  <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
+                  <div className="w-12 h-12 rounded-md bg-primary/10 flex items-center justify-center mb-4">
                     <product.icon className="w-6 h-6 text-primary" />
                   </div>
                   <CardTitle className="text-xl">{product.name}</CardTitle>

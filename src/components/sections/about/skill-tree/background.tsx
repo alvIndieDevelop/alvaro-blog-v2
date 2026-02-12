@@ -1,5 +1,5 @@
 "use client";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 export function SkillTreeBackground() {
   return (
@@ -10,7 +10,8 @@ export function SkillTreeBackground() {
         animate={{ opacity: 1 }}
         className="absolute inset-0"
         style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(var(--primary-rgb), 0.03) 0%, transparent 70%)',
+          background:
+            "radial-gradient(circle at 50% 50%, rgba(var(--primary-rgb), 0.03) 0%, transparent 70%)",
         }}
       />
     </div>

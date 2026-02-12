@@ -1,0 +1,111 @@
+---
+title: Comenzando con Next.js 15
+description: Una guía completa para construir aplicaciones web modernas con Next.js 15, cubriendo el App Router, Server Components y mejores prácticas.
+date: 2024-01-20
+tags: [nextjs, react, tutorial, desarrollo-web]
+author: Alvaro Martin Caballero
+---
+
+# Comenzando con Next.js 15
+
+Next.js 15 trae nuevas características y mejoras emocionantes. En esta guía, te guiaré a través de los elementos esenciales para construir aplicaciones web modernas.
+
+## ¿Por qué Next.js?
+
+Next.js es un framework de React que proporciona:
+
+- **Renderizado del Lado del Servidor (SSR)** - Mejor SEO y rendimiento de carga inicial
+- **Generación de Sitios Estáticos (SSG)** - Páginas pre-renderizadas para máxima velocidad
+- **App Router** - Enrutamiento basado en archivos con layouts y estados de carga
+- **Server Components** - JavaScript reducido en el cliente
+
+## Configurando Tu Proyecto
+
+Crea un nuevo proyecto de Next.js con:
+
+```bash
+npx create-next-app@latest mi-app
+cd mi-app
+npm run dev
+```
+
+## Estructura del Proyecto
+
+El App Router usa un sistema de enrutamiento basado en archivos:
+
+```
+app/
+├── layout.tsx      # Layout raíz
+├── page.tsx        # Página de inicio (/)
+├── about/
+│   └── page.tsx    # Página Acerca de (/about)
+└── blog/
+    ├── page.tsx    # Listado del blog (/blog)
+    └── [slug]/
+        └── page.tsx # Post dinámico del blog (/blog/mi-post)
+```
+
+## Server Components
+
+Por defecto, todos los componentes en el App Router son Server Components:
+
+```tsx
+// Esto se ejecuta en el servidor
+export default async function Page() {
+  const data = await fetch('https://api.example.com/data');
+  const posts = await data.json();
+  
+  return (
+    <ul>
+      {posts.map(post => (
+        <li key={post.id}>{post.title}</li>
+      ))}
+    </ul>
+  );
+}
+```
+
+## Client Components
+
+Para interactividad, usa la directiva `'use client'`:
+
+```tsx
+'use client';
+
+import { useState } from 'react';
+
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Contador: {count}
+    </button>
+  );
+}
+```
+
+## Metadata y SEO
+
+Next.js 15 hace el SEO fácil con la API de Metadata:
+
+```tsx
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Título de Mi Página',
+  description: 'Descripción de mi página',
+  openGraph: {
+    title: 'Título de Mi Página',
+    description: 'Descripción de mi página',
+  },
+};
+```
+
+## Conclusión
+
+Next.js 15 es un framework poderoso para construir aplicaciones web modernas. ¡Comienza a experimentar con estas características y ve cómo pueden mejorar tu flujo de trabajo de desarrollo!
+
+---
+
+*¿Tienes preguntas? ¡No dudes en contactarme!*

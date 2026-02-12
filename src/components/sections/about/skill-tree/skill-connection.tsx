@@ -1,6 +1,6 @@
 "use client";
-import { motion } from 'framer-motion';
-import type { Position } from './types';
+import { motion } from "framer-motion";
+import type { Position } from "./types";
 
 interface SkillConnectionProps {
   start: Position;
@@ -8,10 +8,14 @@ interface SkillConnectionProps {
   isUnlocked: boolean;
 }
 
-export function SkillConnection({ start, end, isUnlocked }: SkillConnectionProps) {
+export function SkillConnection({
+  start,
+  end,
+  isUnlocked,
+}: SkillConnectionProps) {
   const dx = end.x - start.x;
   const dy = end.y - start.y;
-  const angle = Math.atan2(dy, dx) * 180 / Math.PI;
+  const angle = (Math.atan2(dy, dx) * 180) / Math.PI;
   const length = Math.sqrt(dx * dx + dy * dy);
 
   return (
@@ -23,20 +27,20 @@ export function SkillConnection({ start, end, isUnlocked }: SkillConnectionProps
         left: `${start.x}%`,
         top: `${start.y}%`,
         width: `${length}%`,
-        height: '4px',
+        height: "4px",
         background: `linear-gradient(90deg, 
-          ${isUnlocked ? 'var(--primary)' : 'var(--muted)'} 0%, 
-          ${isUnlocked ? 'var(--primary)' : 'var(--muted)'} 100%)`,
+          ${isUnlocked ? "var(--primary)" : "var(--muted)"} 0%, 
+          ${isUnlocked ? "var(--primary)" : "var(--muted)"} 100%)`,
         opacity: isUnlocked ? 0.7 : 0.2,
         transform: `rotate(${angle}deg)`,
-        transformOrigin: '0 0',
+        transformOrigin: "0 0",
         zIndex: 0,
-        boxShadow: isUnlocked ? '0 0 8px var(--primary)' : 'none',
+        boxShadow: isUnlocked ? "0 0 8px var(--primary)" : "none",
       }}
     >
-      <div 
+      <div
         className={`absolute right-0 top-1/2 w-2 h-2 rounded-full transform translate-x-1/2 -translate-y-1/2
-          ${isUnlocked ? 'bg-primary' : 'bg-muted'}`}
+          ${isUnlocked ? "bg-primary" : "bg-muted"}`}
       />
     </motion.div>
   );

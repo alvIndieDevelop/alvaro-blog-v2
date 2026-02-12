@@ -14,10 +14,39 @@ export type BlogPost = {
   tags: Tag[];
   description: string;
   date: string;
-  featured: boolean;
 };
 
 export type PostPage = {
   post: BlogPost;
   markdown: string | MdStringObject;
 };
+
+// Notion API types for better type safety
+export interface NotionPage {
+  id: string;
+  cover: {
+    type: "file" | "external";
+    file?: { url: string };
+    external?: { url: string };
+  } | null;
+  properties: {
+    Name: {
+      title: Array<{ plain_text: string }>;
+    };
+    Tags: {
+      multi_select: Tag[];
+    };
+    Description: {
+      rich_text: Array<{ plain_text: string }>;
+    };
+    Updated: {
+      last_edited_time: string;
+    };
+    Slug: {
+      formula: { string: string };
+    };
+    Published: {
+      checkbox: boolean;
+    };
+  };
+}

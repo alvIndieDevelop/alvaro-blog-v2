@@ -7,7 +7,7 @@ const ToolsView = ({ tools }: { tools: ToolSet[] }) => {
   return (
     <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
       {tools.map(({ set, tools }) => (
-        <div key={set} className="bg-neutral rounded-lg shadow-md p-6 ">
+        <div key={set} className="bg-neutral rounded-md shadow p-6 ">
           <h2 className="text-2xl font-bold mb-4 border-b border-white">
             {set}
           </h2>
@@ -15,7 +15,7 @@ const ToolsView = ({ tools }: { tools: ToolSet[] }) => {
             {tools.map((tool) => (
               <div
                 key={tool.name}
-                className="border-2 rounded-lg p-4 text-center hover:animate-pulse hover:border-yellow-500 bg-slate-600"
+                className="border-2 rounded-md p-4 text-center hover:animate-pulse hover:border-yellow-500 bg-slate-600"
               >
                 <div className="flex items-center justify-center">
                   <Image

@@ -1,0 +1,283 @@
+{
+  "common": {
+    "home": "Inicio",
+    "about": "Sobre Mí",
+    "projects": "Proyectos",
+    "blog": "Blog",
+    "services": "Servicios",
+    "contact": "Contacto",
+    "toggleTheme": "Cambiar tema",
+    "scrollDown": "Desplazar",
+    "readMore": "Leer más",
+    "viewAll": "Ver todo",
+    "loading": "Cargando...",
+    "error": "Algo salió mal",
+    "notFound": "No encontrado",
+    "backToHome": "Volver al inicio",
+    "live": "En Vivo",
+    "viewCode": "Ver Código",
+    "startProject": "Iniciar Proyecto"
+  },
+  "navigation": {
+    "about": "Sobre Mí",
+    "forge": "La Forja",
+    "workshop": "El Taller",
+    "tavern": "La Taberna",
+    "library": "La Biblioteca",
+    "map": "Mapa del Reino",
+    "github": "GitHub"
+  },
+  "hero": {
+    "welcome": "═══ Bienvenido, Viajero ═══",
+    "title": "Alvaro Martin",
+    "subtitle": "Desarrollador Indie",
+    "level": "NVL 7",
+    "role1": "Mago Full-Stack",
+    "role2": "Artesano de Juegos",
+    "role3": "Escriba del Conocimiento",
+    "description": "Creando experiencias digitales en la intersección de <web>desarrollo web</web>, <games>juegos indie</games> y <tech>tecnología creativa</tech>. Actualmente en una misión para construir herramientas que empoderen a otros desarrolladores.",
+    "viewQuests": "Ver Misiones",
+    "characterInfo": "Info del Personaje",
+    "readScrolls": "Leer Pergaminos"
+  },
+  "realms": {
+    "sanctum": {
+      "name": "El Santuario",
+      "title": "Inicio",
+      "description": "El centro principal - tu castillo personal y cuartel general"
+    },
+    "forge": {
+      "name": "La Forja",
+      "title": "Profesional",
+      "description": "Trabajo profesional, carrera y servicios"
+    },
+    "workshop": {
+      "name": "El Taller",
+      "title": "Creativo",
+      "description": "Desarrollo de juegos, proyectos creativos y experimentos"
+    },
+    "tavern": {
+      "name": "La Taberna",
+      "title": "Personal",
+      "description": "Vida personal, hobbies y comunidad"
+    },
+    "library": {
+      "name": "La Biblioteca",
+      "title": "Conocimiento",
+      "description": "Blog técnico, tutoriales e ideas"
+    },
+    "map": {
+      "name": "El Mapa",
+      "title": "Explorar",
+      "description": "Vista general de todos los reinos"
+    }
+  },
+  "footer": {
+    "copyright": "© {year} Alvaro Martin Caballero",
+    "tagline": "El código es mi oficio, los juegos mi pasión"
+  },
+  "projects": {
+    "title": "Registro de Misiones",
+    "subtitle": "Misiones Destacadas",
+    "description": "Artefactos forjados en los fuegos de la creatividad",
+    "viewAll": "Ver Todas las Misiones",
+    "difficulty": "Dificultad",
+    "xpReward": "Recompensa XP",
+    "technologies": "Tecnologías",
+    "viewProject": "Ver Misión",
+    "viewCode": "Ver Código",
+    "noProjects": "No hay misiones disponibles",
+    "completedTitle": "Logros",
+    "completedAccent": "Completados",
+    "chronicle": "Una crónica de misiones conquistadas y artefactos creados a lo largo de mi viaje.",
+    "questsLabel": "Misiones",
+    "xpLabel": "XP",
+    "moreQuests": "Más misiones están siendo emprendidas..."
+  },
+  "about": {
+    "title": "Sobre Mí",
+    "pageTitle": "Hoja de Personaje",
+    "subtitle": "El Desarrollador Errante",
+    "description": "Conoce más sobre mi viaje, habilidades y experiencia en desarrollo de software.",
+    "stats": {
+      "level": "Nivel",
+      "class": "Clase",
+      "experience": "Experiencia",
+      "health": "Salud",
+      "mana": "Maná"
+    },
+    "skills": {
+      "title": "Árbol de Habilidades",
+      "frontend": "Artes Frontend",
+      "backend": "Hechicería Backend",
+      "gamedev": "Artesanía de Juegos",
+      "tools": "Herramientas Arcanas"
+    }
+  },
+  "profile": {
+    "characterSheet": "Hoja de Personaje",
+    "baseStats": "Estadísticas Base",
+    "characterLore": "═══ Historia del Personaje ═══",
+    "backstory": "Historia",
+    "backstoryText": "Mi viaje comenzó en 2019, cuando descubrí por primera vez la magia de convertir ideas en realidad digital. Desde entonces, he estado en una misión para dominar el arte del desarrollo de software, creando experiencias que combinan creatividad con excelencia técnica. Cada proyecto es una nueva aventura, cada bug un rompecabezas por resolver.",
+    "specializations": "Especializaciones",
+    "webDev": "Desarrollo Web",
+    "webDevTech": "React, Next.js, TypeScript",
+    "gameDev": "Desarrollo de Juegos",
+    "gameDevTech": "Unity, Godot, C#",
+    "cloudArch": "Arquitectura Cloud",
+    "cloudArchTech": "AWS, Serverless",
+    "currentQuest": "Misión Actual",
+    "currentQuestText": "Construyendo soluciones innovadoras en <company>IntechIdeas</company> como Desarrollador de Software Senior, mientras persigo mis sueños de desarrollo de juegos indie. ¿El objetivo? Crear experiencias que importen y herramientas que empoderen a otros.",
+    "philosophy": "Filosofía",
+    "philosophyQuote": "El código es mi oficio, los juegos mi pasión, y cada proyecto es una aventura esperando desplegarse.",
+    "jobTitle": "Desarrollador de Software Senior",
+    "affiliations": "🏢 IntechIdeas • 🎮 Gremio IndieDev"
+  },
+  "skillTree": {
+    "badge": "Habilidades",
+    "title": "Árbol de",
+    "titleAccent": "Habilidades",
+    "description": "Explora mis habilidades técnicas y experiencia visualizadas como un árbol de habilidades RPG. Cada habilidad ha sido perfeccionada a través de incontables misiones y desafíos."
+  },
+  "forge": {
+    "title": "La Forja",
+    "pageTitle": "Trabajo Profesional",
+    "badge": "Portafolio Profesional",
+    "heroTitle": "La",
+    "heroAccent": "Forja",
+    "heroDescription": "Donde las ideas se forjan en realidad. Proyectos profesionales creados con precisión, dedicación y experiencia.",
+    "projectsLabel": "Proyectos",
+    "totalXpLabel": "XP Total",
+    "sectionTitle": "Creaciones Forjadas",
+    "servicesTitle": "Servicios Ofrecidos",
+    "loadingProjects": "Cargando proyectos de la forja...",
+    "ctaTitle": "¿Listo para Forjar Algo Grandioso?",
+    "ctaDescription": "Hablemos de tu proyecto y hagamos realidad tus ideas.",
+    "services": {
+      "webDev": {
+        "title": "Desarrollo Web",
+        "description": "Aplicaciones web full-stack construidas con tecnologías modernas y mejores prácticas."
+      },
+      "apiDev": {
+        "title": "Desarrollo de APIs",
+        "description": "APIs robustas y escalables diseñadas para rendimiento y confiabilidad."
+      },
+      "consulting": {
+        "title": "Consultoría Técnica",
+        "description": "Orientación experta en arquitectura, elección de tecnologías y mejores prácticas."
+      }
+    }
+  },
+  "workshop": {
+    "title": "El Taller",
+    "pageTitle": "Proyectos Creativos",
+    "badge": "Laboratorio Creativo",
+    "heroTitle": "El",
+    "heroAccent": "Taller",
+    "heroDescription": "Donde la imaginación toma forma. Desarrollo de juegos, experimentos creativos y proyectos de pasión.",
+    "sectionTitle": "Experimentos Actuales",
+    "comingSoon": "Proyectos creativos próximamente...",
+    "gameDev": "Desarrollo de Juegos",
+    "experiments": "Experimentos",
+    "tools": "Herramientas"
+  },
+  "tavern": {
+    "title": "La Taberna",
+    "pageTitle": "Historias Personales",
+    "badge": "Espacio Personal",
+    "heroTitle": "La",
+    "heroAccent": "Taberna",
+    "heroDescription": "Toma asiento y quédate un rato. Historias personales, hobbies y aventuras de vida.",
+    "sectionTitle": "Historias del Camino",
+    "noTales": "Aún no hay historias que contar...",
+    "readMore": "Leer Historia"
+  },
+  "library": {
+    "title": "La Biblioteca",
+    "pageTitle": "Archivo de Conocimiento",
+    "badge": "Archivo de Conocimiento",
+    "heroTitle": "La",
+    "heroAccent": "Biblioteca",
+    "heroDescription": "Pergaminos antiguos de sabiduría, tutoriales y conocimientos reunidos de incontables misiones a través de los reinos de la tecnología.",
+    "sectionTitle": "Pergaminos Recientes",
+    "noScrolls": "Aún no hay pergaminos disponibles...",
+    "readScroll": "Leer el pergamino",
+    "scrollsLabel": "Pergaminos",
+    "domainsLabel": "Dominios",
+    "knowledgeDomains": "Dominios del Conocimiento",
+    "archiveEmpty": "El archivo está vacío...",
+    "newScrollsWritten": "Se están escribiendo nuevos pergaminos. ¡Vuelve pronto!",
+    "contentTypes": "Tipos de Contenido",
+    "scrollsType": "Pergaminos",
+    "scrollsTypeDesc": "Publicaciones y artículos regulares",
+    "tomesType": "Tomos",
+    "tomesTypeDesc": "Guías y tutoriales en profundidad",
+    "ideasType": "Ideas",
+    "ideasTypeDesc": "Conceptos y exploraciones",
+    "comingSoon": "Próximamente",
+    "latestDiscovery": "Último Descubrimiento",
+    "scrollsPreserved": "{count} pergamino preservado en el archivo",
+    "scrollsPreservedPlural": "{count} pergaminos preservados en el archivo",
+    "knowledgeGrows": "El conocimiento crece con cada día que pasa..."
+  },
+  "map": {
+    "title": "Mapa del Reino",
+    "pageTitle": "Explora los Reinos",
+    "badge": "Navegador de Reinos",
+    "heroTitle": "El",
+    "heroAccent": "Mapa",
+    "heroDescription": "Explora los reinos interconectados de mi mundo. Cada área guarda tesoros únicos e historias esperando ser descubiertas.",
+    "chooseDestination": "Elige tu destino",
+    "enterRealm": "Entrar al Reino",
+    "realmLegend": "Leyenda de Reinos",
+    "journeyQuote": "Todo viaje comienza con un solo paso...",
+    "sanctumTagline": "El centro de todas las aventuras",
+    "forgeTagline": "Donde se forja el trabajo profesional",
+    "workshopTagline": "Experimentos creativos y juegos",
+    "tavernTagline": "Historias personales y hobbies",
+    "libraryTagline": "Conocimiento y tutoriales",
+    "sanctumFeatures": ["Vista del Personaje", "Actividad Reciente", "Navegación Rápida"],
+    "forgeFeatures": ["Proyectos de Clientes", "Servicios", "Línea de Carrera"],
+    "workshopFeatures": ["Desarrollo de Juegos", "Proyectos Secundarios", "Game Jams"],
+    "tavernFeatures": ["Actualizaciones de Vida", "Hobbies", "Favoritos"],
+    "libraryFeatures": ["Blog Técnico", "Guías", "Ideas"]
+  },
+  "blog": {
+    "title": "Pergaminos Antiguos",
+    "subtitle": "Conocimiento de la Biblioteca",
+    "readingTime": "{minutes} min de lectura",
+    "publishedOn": "Publicado el {date}",
+    "tags": "Etiquetas",
+    "noPosts": "No hay pergaminos disponibles",
+    "notTranslated": "Este contenido aún no está disponible en tu idioma. Mostrando la versión en inglés."
+  },
+  "services": {
+    "title": "Servicios",
+    "subtitle": "Cómo Puedo Ayudar",
+    "description": "Servicios profesionales ofrecidos en La Forja",
+    "contactCta": "Iniciar una Misión Juntos"
+  },
+  "contact": {
+    "title": "Enviar un Cuervo",
+    "subtitle": "Ponte en Contacto",
+    "name": "Tu Nombre",
+    "email": "Tu Email",
+    "message": "Tu Mensaje",
+    "send": "Enviar Mensaje",
+    "sending": "Enviando...",
+    "success": "¡Mensaje enviado exitosamente!",
+    "error": "Error al enviar el mensaje. Por favor, inténtalo de nuevo."
+  },
+  "metadata": {
+    "title": "Alvaro Martin Caballero - Desarrollador Indie",
+    "titleTemplate": "{page} | El Santuario de Alvaro",
+    "description": "Bienvenido al Santuario. Explora mis misiones, lee pergaminos antiguos y descubre los artefactos que he creado en mi viaje como desarrollador indie.",
+    "keywords": "desarrollador, portafolio, blog, nextjs, react, typescript, desarrollador indie, desarrollador de juegos"
+  },
+  "language": {
+    "switchTo": "Cambiar a {language}",
+    "en": "Inglés",
+    "es": "Español"
+  }
+}
