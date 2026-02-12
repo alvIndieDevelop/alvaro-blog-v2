@@ -1,8 +1,5 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
-@plugin "daisyui" {
-  themes: dark;
-}
 
 /* ============================================
    DARK FANTASY THEME - Alvaro Blog V2
@@ -15,11 +12,14 @@
   --radius-lg: 0.5rem;
   --radius-md: calc(0.5rem - 2px);
   --radius-sm: calc(0.5rem - 4px);
-  
+
   /* Custom gradients */
   --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
-  --background-image-gradient-conic: conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops));
-  
+  --background-image-gradient-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+
   /* Custom colors using CSS variables */
   --color-background: hsl(var(--background));
   --color-foreground: hsl(var(--foreground));
@@ -40,7 +40,7 @@
   --color-border: hsl(var(--border));
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
-  
+
   /* Dark Fantasy Custom Colors */
   --color-gold: hsl(var(--gold));
   --color-gold-light: hsl(var(--gold-light));
@@ -56,77 +56,77 @@
    ============================================ */
 :root {
   /* Base Colors - Deep Void */
-  --background: 240 10% 4%;      /* #0a0a0f - Deep void black */
-  --foreground: 40 10% 90%;      /* #e8e6e3 - Parchment white */
-  
+  --background: 240 10% 4%; /* #0a0a0f - Deep void black */
+  --foreground: 40 10% 90%; /* #e8e6e3 - Parchment white */
+
   /* Card/Surface Colors */
-  --card: 240 10% 8%;            /* #12121a - Dark surface */
+  --card: 240 10% 8%; /* #12121a - Dark surface */
   --card-foreground: 40 10% 90%;
-  --popover: 240 10% 10%;        /* #1a1a24 - Elevated surface */
+  --popover: 240 10% 10%; /* #1a1a24 - Elevated surface */
   --popover-foreground: 40 10% 90%;
-  
+
   /* Primary - Golden Accents (Elden Ring inspired) */
-  --primary: 45 80% 47%;         /* #c9a227 - Primary gold */
+  --primary: 45 80% 47%; /* #c9a227 - Primary gold */
   --primary-foreground: 240 10% 4%;
-  
+
   /* Secondary - Dark Surface */
-  --secondary: 240 10% 12%;      /* #1e1e28 */
+  --secondary: 240 10% 12%; /* #1e1e28 */
   --secondary-foreground: 40 10% 90%;
-  
+
   /* Muted - Subdued elements */
-  --muted: 240 10% 15%;          /* #242430 */
+  --muted: 240 10% 15%; /* #242430 */
   --muted-foreground: 240 5% 55%;
-  
+
   /* Accent - Ethereal Blue (Zelda inspired) */
-  --accent: 210 100% 65%;        /* #4a9eff - Magic blue */
+  --accent: 210 100% 65%; /* #4a9eff - Magic blue */
   --accent-foreground: 240 10% 4%;
-  
+
   /* Destructive - Blood Red (Warhammer inspired) */
-  --destructive: 0 100% 27%;     /* #8b0000 - Deep crimson */
+  --destructive: 0 100% 27%; /* #8b0000 - Deep crimson */
   --destructive-foreground: 40 10% 90%;
-  
+
   /* Border & Input */
-  --border: 45 30% 20%;          /* Golden-tinted border */
+  --border: 45 30% 20%; /* Golden-tinted border */
   --input: 240 10% 15%;
-  --ring: 45 80% 47%;            /* Gold ring */
-  
+  --ring: 45 80% 47%; /* Gold ring */
+
   /* Radius */
   --radius: 0.5rem;
-  
+
   /* ========== Dark Fantasy Palette ========== */
-  
+
   /* Golden Accents */
-  --gold: 45 80% 47%;            /* #c9a227 - Primary gold */
-  --gold-light: 45 80% 59%;      /* #e8c547 - Light gold (hover) */
-  --gold-dark: 45 60% 33%;       /* #8b7019 - Dark gold (pressed) */
+  --gold: 45 80% 47%; /* #c9a227 - Primary gold */
+  --gold-light: 45 80% 59%; /* #e8c547 - Light gold (hover) */
+  --gold-dark: 45 60% 33%; /* #8b7019 - Dark gold (pressed) */
   --gold-glow: 45 80% 47% / 0.3; /* Gold glow effect */
-  
+
   /* Blood/Fire Accents */
-  --crimson: 0 100% 27%;         /* #8b0000 - Deep crimson */
-  --ember: 16 100% 50%;          /* #ff4500 - Ember orange */
+  --crimson: 0 100% 27%; /* #8b0000 - Deep crimson */
+  --ember: 16 100% 50%; /* #ff4500 - Ember orange */
   --blood-glow: 0 100% 27% / 0.3;
-  
+
   /* Ethereal Blues */
-  --ethereal: 210 100% 65%;      /* #4a9eff - Magic blue */
-  --ice: 197 71% 73%;            /* #87ceeb - Ice/frost */
+  --ethereal: 210 100% 65%; /* #4a9eff - Magic blue */
+  --ice: 197 71% 73%; /* #87ceeb - Ice/frost */
   --blue-glow: 210 100% 65% / 0.3;
-  
+
   /* Void Colors */
-  --void: 240 10% 4%;            /* #0a0a0f - Deepest black */
-  --void-surface: 240 10% 8%;    /* #12121a */
-  --void-elevated: 240 10% 12%;  /* #1e1e28 */
-  
+  --void: 240 10% 4%; /* #0a0a0f - Deepest black */
+  --void-surface: 240 10% 8%; /* #12121a */
+  --void-elevated: 240 10% 12%; /* #1e1e28 */
+
   /* Status Colors */
-  --health: 348 83% 47%;         /* #c41e3a - HP bar */
-  --mana: 207 100% 43%;          /* #0070dd - Mana bar */
-  --exp: 45 80% 47%;             /* #c9a227 - XP bar */
-  --stamina: 145 63% 49%;        /* #2ecc71 - Stamina/success */
-  
+  --health: 348 83% 47%; /* #c41e3a - HP bar */
+  --mana: 207 100% 43%; /* #0070dd - Mana bar */
+  --exp: 45 80% 47%; /* #c9a227 - XP bar */
+  --stamina: 145 63% 49%; /* #2ecc71 - Stamina/success */
+
   /* Rarity Colors */
-  --rarity-common: 0 0% 60%;     /* Gray */
+  --rarity-common: 0 0% 60%; /* Gray */
   --rarity-uncommon: 120 40% 45%; /* Green */
-  --rarity-rare: 210 100% 50%;   /* Blue */
-  --rarity-epic: 280 60% 50%;    /* Purple */
+  --rarity-rare: 210 100% 50%; /* Blue */
+  --rarity-epic: 280 60% 50%; /* Purple */
   --rarity-legendary: 45 80% 47%; /* Gold */
 }
 
@@ -135,40 +135,40 @@
    ============================================ */
 .light {
   /* Base Colors - Parchment */
-  --background: 40 30% 96%;      /* #f5f0e6 - Aged parchment */
-  --foreground: 240 10% 10%;     /* #1a1a1a - Dark ink */
-  
+  --background: 40 30% 96%; /* #f5f0e6 - Aged parchment */
+  --foreground: 240 10% 10%; /* #1a1a1a - Dark ink */
+
   /* Card/Surface Colors */
-  --card: 40 40% 97%;            /* #fff9ed - Light parchment */
+  --card: 40 40% 97%; /* #fff9ed - Light parchment */
   --card-foreground: 240 10% 10%;
-  --popover: 0 0% 100%;          /* White */
+  --popover: 0 0% 100%; /* White */
   --popover-foreground: 240 10% 10%;
-  
+
   /* Primary - Darker Gold for contrast */
-  --primary: 45 60% 33%;         /* #8b7019 - Dark gold */
+  --primary: 45 60% 33%; /* #8b7019 - Dark gold */
   --primary-foreground: 40 30% 96%;
-  
+
   /* Secondary */
-  --secondary: 40 20% 90%;       /* #ebe5d9 */
+  --secondary: 40 20% 90%; /* #ebe5d9 */
   --secondary-foreground: 240 10% 10%;
-  
+
   /* Muted */
   --muted: 40 20% 85%;
   --muted-foreground: 240 5% 35%;
-  
+
   /* Accent */
   --accent: 210 80% 45%;
   --accent-foreground: 0 0% 100%;
-  
+
   /* Destructive */
   --destructive: 0 70% 45%;
   --destructive-foreground: 0 0% 100%;
-  
+
   /* Border & Input */
   --border: 40 20% 80%;
   --input: 40 20% 90%;
   --ring: 45 60% 33%;
-  
+
   /* Dark Fantasy Palette - Light Mode Variants */
   --gold: 45 60% 33%;
   --gold-light: 45 70% 45%;
@@ -189,7 +189,9 @@
 body {
   background-color: hsl(var(--background));
   color: hsl(var(--foreground));
-  font-feature-settings: "rlig" 1, "calt" 1;
+  font-feature-settings:
+    "rlig" 1,
+    "calt" 1;
 }
 
 /* Selection styling */
@@ -223,14 +225,14 @@ body {
 
 /* Fantasy Display Font - for headings */
 .font-display {
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   font-weight: 600;
   letter-spacing: 0.02em;
 }
 
 /* Monospace - for code/stats */
 .font-mono {
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
 }
 
 /* ============================================
@@ -249,7 +251,7 @@ body {
 .prose h2,
 .prose h3,
 .prose h4 {
-  font-family: 'Cinzel', serif;
+  font-family: "Cinzel", serif;
   color: hsl(var(--gold));
   font-weight: 600;
 }
@@ -270,7 +272,7 @@ body {
   padding: 0.125rem 0.375rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
-  font-family: 'JetBrains Mono', monospace;
+  font-family: "JetBrains Mono", monospace;
   color: hsl(var(--ethereal));
 }
 
@@ -301,9 +303,10 @@ body {
 
 /* Golden Glow Effect */
 .glow-gold {
-  box-shadow: 0 0 20px hsl(var(--gold-glow)),
-              0 0 40px hsl(var(--gold-glow)),
-              inset 0 0 20px hsl(var(--gold-glow));
+  box-shadow:
+    0 0 20px hsl(var(--gold-glow)),
+    0 0 40px hsl(var(--gold-glow)),
+    inset 0 0 20px hsl(var(--gold-glow));
 }
 
 .glow-gold-subtle {
@@ -312,14 +315,16 @@ body {
 
 /* Ethereal Glow Effect */
 .glow-ethereal {
-  box-shadow: 0 0 20px hsl(var(--blue-glow)),
-              0 0 40px hsl(var(--blue-glow));
+  box-shadow:
+    0 0 20px hsl(var(--blue-glow)),
+    0 0 40px hsl(var(--blue-glow));
 }
 
 /* Blood Glow Effect */
 .glow-blood {
-  box-shadow: 0 0 20px hsl(var(--blood-glow)),
-              0 0 40px hsl(var(--blood-glow));
+  box-shadow:
+    0 0 20px hsl(var(--blood-glow)),
+    0 0 40px hsl(var(--blood-glow));
 }
 
 /* Ornate Border */
@@ -330,7 +335,7 @@ body {
 
 .border-ornate::before,
 .border-ornate::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 20px;
   height: 20px;
@@ -373,7 +378,7 @@ body {
 
 /* Grid Pattern Background */
 .bg-grid-pattern {
-  background-image: 
+  background-image:
     linear-gradient(to right, hsl(var(--gold) / 0.03) 1px, transparent 1px),
     linear-gradient(to bottom, hsl(var(--gold) / 0.03) 1px, transparent 1px);
   background-size: 24px 24px;
@@ -408,7 +413,8 @@ body {
 }
 
 @keyframes legendary-pulse {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 25px hsl(var(--rarity-legendary) / 0.4);
   }
   50% {
@@ -470,7 +476,8 @@ body {
 
 /* Glow pulse */
 @keyframes glow-pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 0.5;
   }
   50% {
@@ -484,7 +491,8 @@ body {
 
 /* Float */
 @keyframes float {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -585,7 +593,12 @@ body {
 
 /* Gradient text */
 .text-gradient-gold {
-  background: linear-gradient(135deg, hsl(var(--gold-light)), hsl(var(--gold)), hsl(var(--gold-dark)));
+  background: linear-gradient(
+    135deg,
+    hsl(var(--gold-light)),
+    hsl(var(--gold)),
+    hsl(var(--gold-dark))
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -599,7 +612,12 @@ body {
 }
 
 .text-gradient-fire {
-  background: linear-gradient(135deg, hsl(var(--gold)), hsl(var(--ember)), hsl(var(--crimson)));
+  background: linear-gradient(
+    135deg,
+    hsl(var(--gold)),
+    hsl(var(--ember)),
+    hsl(var(--crimson))
+  );
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -637,11 +655,14 @@ body {
     ),
     /* Subtle heat shimmer dots */
     radial-gradient(
-      circle at 50% 50%,
-      hsl(var(--ember) / 0.05) 1px,
-      transparent 1px
-    );
-  background-size: 100% 100%, 100% 100%, 30px 30px;
+        circle at 50% 50%,
+        hsl(var(--ember) / 0.05) 1px,
+        transparent 1px
+      );
+  background-size:
+    100% 100%,
+    100% 100%,
+    30px 30px;
 }
 
 /* The Workshop - Blueprint/Technical Pattern */
@@ -650,11 +671,23 @@ body {
   background-image:
     /* Main grid */
     linear-gradient(to right, hsl(var(--ethereal) / 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, hsl(var(--ethereal) / 0.05) 1px, transparent 1px),
+    linear-gradient(
+      to bottom,
+      hsl(var(--ethereal) / 0.05) 1px,
+      transparent 1px
+    ),
     /* Larger grid overlay */
     linear-gradient(to right, hsl(var(--ethereal) / 0.08) 1px, transparent 1px),
-    linear-gradient(to bottom, hsl(var(--ethereal) / 0.08) 1px, transparent 1px);
-  background-size: 20px 20px, 20px 20px, 100px 100px, 100px 100px;
+    linear-gradient(
+      to bottom,
+      hsl(var(--ethereal) / 0.08) 1px,
+      transparent 1px
+    );
+  background-size:
+    20px 20px,
+    20px 20px,
+    100px 100px,
+    100px 100px;
 }
 
 /* The Tavern - Wood Grain/Cozy Pattern */
@@ -671,10 +704,10 @@ body {
     ),
     /* Subtle knots */
     radial-gradient(
-      ellipse 60px 30px at 20% 30%,
-      hsl(30 40% 15% / 0.3) 0%,
-      transparent 50%
-    ),
+        ellipse 60px 30px at 20% 30%,
+        hsl(30 40% 15% / 0.3) 0%,
+        transparent 50%
+      ),
     radial-gradient(
       ellipse 40px 20px at 70% 60%,
       hsl(30 40% 15% / 0.2) 0%,
@@ -685,7 +718,11 @@ body {
       hsl(30 40% 15% / 0.25) 0%,
       transparent 50%
     );
-  background-size: 100% 8px, 100% 100%, 100% 100%, 100% 100%;
+  background-size:
+    100% 8px,
+    100% 100%,
+    100% 100%,
+    100% 100%;
 }
 
 /* The Library - Parchment/Ancient Paper Pattern */
@@ -696,21 +733,24 @@ body {
     url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"),
     /* Horizontal ruled lines like old books */
     repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 30px,
-      hsl(210 50% 40% / 0.03) 30px,
-      hsl(210 50% 40% / 0.03) 31px
-    ),
+        0deg,
+        transparent,
+        transparent 30px,
+        hsl(210 50% 40% / 0.03) 30px,
+        hsl(210 50% 40% / 0.03) 31px
+      ),
     /* Vertical margin line */
     linear-gradient(
-      90deg,
-      transparent 60px,
-      hsl(var(--gold) / 0.05) 60px,
-      hsl(var(--gold) / 0.05) 61px,
-      transparent 61px
-    );
-  background-size: 200px 200px, 100% 100%, 100% 100%;
+        90deg,
+        transparent 60px,
+        hsl(var(--gold) / 0.05) 60px,
+        hsl(var(--gold) / 0.05) 61px,
+        transparent 61px
+      );
+  background-size:
+    200px 200px,
+    100% 100%,
+    100% 100%;
 }
 
 /* The Map - Cartography/Adventure Pattern */
@@ -725,12 +765,12 @@ body {
     ),
     /* Topographic-like contour lines */
     repeating-radial-gradient(
-      circle at 30% 70%,
-      transparent 0px,
-      transparent 40px,
-      hsl(var(--gold) / 0.02) 40px,
-      hsl(var(--gold) / 0.02) 41px
-    ),
+        circle at 30% 70%,
+        transparent 0px,
+        transparent 40px,
+        hsl(var(--gold) / 0.02) 40px,
+        hsl(var(--gold) / 0.02) 41px
+      ),
     repeating-radial-gradient(
       circle at 70% 30%,
       transparent 0px,
@@ -741,7 +781,12 @@ body {
     /* Grid overlay */
     linear-gradient(to right, hsl(var(--gold) / 0.02) 1px, transparent 1px),
     linear-gradient(to bottom, hsl(var(--gold) / 0.02) 1px, transparent 1px);
-  background-size: 100% 100%, 100% 100%, 100% 100%, 50px 50px, 50px 50px;
+  background-size:
+    100% 100%,
+    100% 100%,
+    100% 100%,
+    50px 50px,
+    50px 50px;
 }
 
 /* The Sanctum - Royal/Mystical Pattern */
@@ -759,8 +804,18 @@ body {
     linear-gradient(-45deg, hsl(var(--gold) / 0.02) 25%, transparent 25%),
     linear-gradient(45deg, transparent 75%, hsl(var(--gold) / 0.02) 75%),
     linear-gradient(-45deg, transparent 75%, hsl(var(--gold) / 0.02) 75%);
-  background-size: 100% 100%, 60px 60px, 60px 60px, 60px 60px, 60px 60px;
-  background-position: 0 0, 0 0, 30px 0, 30px -30px, 0 30px;
+  background-size:
+    100% 100%,
+    60px 60px,
+    60px 60px,
+    60px 60px,
+    60px 60px;
+  background-position:
+    0 0,
+    0 0,
+    30px 0,
+    30px -30px,
+    0 30px;
 }
 
 /* ============================================
@@ -795,23 +850,27 @@ body {
    ============================================ */
 
 .glow-forge {
-  box-shadow: 0 0 30px hsl(var(--ember) / 0.2),
-              0 0 60px hsl(var(--ember) / 0.1);
+  box-shadow:
+    0 0 30px hsl(var(--ember) / 0.2),
+    0 0 60px hsl(var(--ember) / 0.1);
 }
 
 .glow-workshop {
-  box-shadow: 0 0 30px hsl(var(--ethereal) / 0.2),
-              0 0 60px hsl(var(--ethereal) / 0.1);
+  box-shadow:
+    0 0 30px hsl(var(--ethereal) / 0.2),
+    0 0 60px hsl(var(--ethereal) / 0.1);
 }
 
 .glow-tavern {
-  box-shadow: 0 0 30px hsl(30 60% 50% / 0.2),
-              0 0 60px hsl(30 60% 50% / 0.1);
+  box-shadow:
+    0 0 30px hsl(30 60% 50% / 0.2),
+    0 0 60px hsl(30 60% 50% / 0.1);
 }
 
 .glow-library {
-  box-shadow: 0 0 30px hsl(210 80% 50% / 0.2),
-              0 0 60px hsl(210 80% 50% / 0.1);
+  box-shadow:
+    0 0 30px hsl(210 80% 50% / 0.2),
+    0 0 60px hsl(210 80% 50% / 0.1);
 }
 
 /* ============================================
